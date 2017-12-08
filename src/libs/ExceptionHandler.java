@@ -1,4 +1,4 @@
-package com.example.admin.kamathotelapp.Utils;
+package libs;
 
 import android.app.Activity;
 import android.app.Notification;
@@ -13,10 +13,9 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
-import android.support.v7.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat;
 
-
-import com.example.admin.kamathotelapp.R;
+import com.prod.sudesi.lotusherbalsnew.R;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -117,7 +116,7 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
 
     public void createNotification(Context context, String log) {
 
-        String applicationName = "KHIL";
+        String applicationName = "Lotus";
 
         CharSequence tickerText = applicationName + " error";
         long when = System.currentTimeMillis();
@@ -128,9 +127,9 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
         Intent sendIntent = new Intent(Intent.ACTION_SEND);
 
         String[] strEmails = new String[]{
-                "tushar@adstringo.in","mahesh@sudesi.in"
+                "tushar@adstringo.in","mahesh@sudesi.in",
         };
-        Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.logo1);
+        Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(), R.drawable.logo);
 
         sendIntent.putExtra(Intent.EXTRA_EMAIL, strEmails);
         sendIntent.putExtra(Intent.EXTRA_TEXT, body);
@@ -146,7 +145,7 @@ public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
         b.setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setWhen(when)
-                .setSmallIcon(R.drawable.logo1)
+                .setSmallIcon(R.drawable.logo)
                 .setTicker(tickerText)
                 .setContentTitle(tickerText + " report. Click to review and send.")
                 .setContentText("from " + applicationName + " Service")
