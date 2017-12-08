@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.prod.sudesi.lotusherbalsnew"
+    android:versionCode="20"
+    android:versionName="2.6" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="17" />
+
+    <supports-screens android:xlargeScreens="true" />
+    <supports-screens android:resizeable="true" />
+    <supports-screens android:largeScreens="true" />
+    <supports-screens android:anyDensity="true" />
+    <supports-screens
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application
+        android:name="com.prod.sudesi.lotusherbalsnew.TestApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.prod.sudesi.lotusherbalsnew.LotusMainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service android:name="com.littlefluffytoys.littlefluffylocationlibrary.LocationBroadcastService" />
+
+        <receiver
+            android:name="com.littlefluffytoys.littlefluffylocationlibrary.StartupBroadcastReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.littlefluffytoys.littlefluffylocationlibrary.PassiveLocationChangedReceiver"
+            android:exported="true" />
+        <receiver android:name="com.prod.sudesi.lotusherbalsnew.TestBroadcastReceiver" >
+            <intent-filter>
+                <action
+                    android:name="com.android.lotusherbal.littlefluffylocationlibrary.LOCATION_CHANGED"
+                    android:exported="false" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.prod.sudesi.lotusherbalsnew.LoginActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!--
+        <activity android:name=".DashboardActivity" >
+        </activity>
+        -->
+        <!--
+        <activity
+            android:name=".AttendanceActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        -->
+        <activity
+            android:name="com.prod.sudesi.lotusherbalsnew.DashboardNewActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.prod.sudesi.lotusherbalsnew.ReportsForUser"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.prod.sudesi.lotusherbalsnew.TesterFragment"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.prod.sudesi.lotusherbalsnew.StockFragment"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.prod.sudesi.lotusherbalsnew.VisibilityFragment"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.prod.sudesi.lotusherbalsnew.VisibilityImageFragment"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.prod.sudesi.lotusherbalsnew.AttendanceFragment"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.prod.sudesi.lotusherbalsnew.SyncMaster"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.prod.sudesi.lotusherbalsnew.NotificationFragment"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.prod.sudesi.lotusherbalsnew.BAYearWiseReport"
+            android:label="@string/title_activity_bayear_wise_report"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.prod.sudesi.lotusherbalsnew.BAMonthWiseReport"
+            android:label="@string/title_activity_bamonth_wise_report"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.prod.sudesi.lotusherbalsnew.BAMonthReportPage"
+            android:label="@string/title_activity_bamonth_report_page"
+            android:screenOrientation="landscape" >
+        </activity>
+
+        <receiver android:name="libs.AlarmManagerBroadcastReceiver" >
+        </receiver>
+
+        <activity
+            android:name="com.prod.sudesi.lotusherbalsnew.ChangePassword"
+            android:label="@string/title_activity_change_password"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!--
+        <activity
+            android:name=".StockActivity"
+            android:label="@string/title_activity_stock"
+            android:screenOrientation="portrait" >
+        </activity>
+        -->
+        <!--
+        <activity
+            android:name=".SaleActivity"
+            android:label="@string/title_activity_sale"
+            android:screenOrientation="portrait" >
+        </activity>
+        -->
+        <activity
+            android:name="com.prod.sudesi.lotusherbalsnew.SaleCalculation"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.prod.sudesi.lotusherbalsnew.StockAllActivity"
+            android:label="@string/title_activity_stock_all"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.prod.sudesi.lotusherbalsnew.BocDashBoardActivity"
+            android:label="@string/title_activity_boc_dash_board"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.prod.sudesi.lotusherbalsnew.BocGridViewActivity"
+            android:label="@string/title_activity_boc_grid_view"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.sudesi.tester.TesterSubmitActivity"
+            android:label="@string/title_activity_tester_submit"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!--
+        <activity
+            android:name=".ReportNewActivity"
+            android:label="@string/title_activity_report_new" >
+        </activity>
+        -->
+        <activity android:name="com.prod.sudesi.lotusherbalsnew.SupervisorAttendance" >
+        </activity>
+        <activity android:name="com.prod.sudesi.lotusherbalsnew.BocDashboardGridViewActivity" >
+        </activity>
+        <!--
+        <activity
+            android:name=".StockEntry"
+            android:label="@string/title_activity_stock_entry" >
+        </activity>
+        -->
+        <activity
+            android:name="com.prod.sudesi.lotusherbalsnew.BocCumulativeDashboardActivity"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity android:name="com.prod.sudesi.lotusherbalsnew.StockNewActivity" />
+        <activity android:name="com.prod.sudesi.lotusherbalsnew.SaleNewActivity" />
+
+        <receiver android:name="com.prod.sudesi.lotusherbalsnew.UploadDataBrodcastReceiver" />
+
+        <service android:name="com.prod.sudesi.lotusherbalsnew.BackgroundService" />
+    </application>
+
+</manifest>

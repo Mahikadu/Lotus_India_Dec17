@@ -1,0 +1,293 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:2:1-199:12
+	package
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:3:5-46
+	android:versionName
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:5:5-30
+		INJECTED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml
+		INJECTED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml
+	android:versionCode
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:4:5-29
+		INJECTED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml
+		INJECTED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:2:11-69
+uses-sdk
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:7:5-9:41
+	android:targetSdkVersion
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:9:9-38
+	android:minSdkVersion
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:8:9-34
+supports-screens
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:11:5-54
+	android:xlargeScreens
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:11:23-51
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:20:5-79
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:20:22-76
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:21:5-81
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:21:22-78
+uses-permission#android.permission.INTERNET
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:22:5-67
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:22:22-64
+uses-permission#android.permission.CAMERA
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:23:5-65
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:23:22-62
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:24:5-81
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:24:22-78
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:25:5-80
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:25:22-77
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:27:5-79
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:27:22-76
+uses-permission#android.permission.WAKE_LOCK
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:28:5-68
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:28:22-65
+uses-permission#com.android.alarm.permission.SET_ALARM
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:29:5-78
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:29:22-75
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:30:5-75
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:30:22-72
+application
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:32:5-197:19
+	android:label
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:36:9-41
+	android:allowBackup
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:34:9-35
+	android:icon
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:35:9-45
+	android:largeHeap
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:37:9-33
+	android:theme
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:38:9-40
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:33:9-40
+activity#com.prod.sudesi.lotusherbalsnew.LotusMainActivity
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:39:9-47:20
+	android:label
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:41:13-45
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:40:13-46
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:42:13-46:29
+action#android.intent.action.MAIN
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:43:17-69
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:43:25-66
+category#android.intent.category.LAUNCHER
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:45:17-77
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:45:27-74
+service#com.littlefluffytoys.littlefluffylocationlibrary.LocationBroadcastService
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:49:9-109
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:49:18-106
+receiver#com.littlefluffytoys.littlefluffylocationlibrary.StartupBroadcastReceiver
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:51:9-57:20
+	android:exported
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:53:13-36
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:52:13-101
+intent-filter#android.intent.action.BOOT_COMPLETED
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:54:13-56:29
+action#android.intent.action.BOOT_COMPLETED
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:55:17-79
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:55:25-76
+receiver#com.littlefluffytoys.littlefluffylocationlibrary.PassiveLocationChangedReceiver
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:58:9-60:39
+	android:exported
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:60:13-36
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:59:13-107
+receiver#com.prod.sudesi.lotusherbalsnew.TestBroadcastReceiver
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:61:9-67:20
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:61:19-56
+intent-filter#com.android.lotusherbal.littlefluffylocationlibrary.LOCATION_CHANGED
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:62:13-66:29
+action#com.android.lotusherbal.littlefluffylocationlibrary.LOCATION_CHANGED
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:63:17-65:48
+	android:exported
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:65:21-45
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:64:21-104
+activity#com.prod.sudesi.lotusherbalsnew.LoginActivity
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:69:9-72:20
+	android:screenOrientation
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:71:13-49
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:70:13-42
+activity#com.prod.sudesi.lotusherbalsnew.DashboardNewActivity
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:79:9-82:20
+	android:screenOrientation
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:81:13-49
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:80:13-49
+activity#com.prod.sudesi.lotusherbalsnew.ReportsForUser
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:83:9-86:20
+	android:screenOrientation
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:85:13-50
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:84:13-43
+activity#com.prod.sudesi.lotusherbalsnew.TesterFragment
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:87:9-90:20
+	android:screenOrientation
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:89:13-49
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:88:13-43
+activity#com.prod.sudesi.lotusherbalsnew.StockFragment
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:91:9-94:20
+	android:screenOrientation
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:93:13-49
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:92:13-42
+activity#com.prod.sudesi.lotusherbalsnew.VisibilityFragment
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:95:9-98:20
+	android:screenOrientation
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:97:13-49
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:96:13-47
+activity#com.prod.sudesi.lotusherbalsnew.VisibilityImageFragment
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:99:9-102:20
+	android:screenOrientation
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:101:13-49
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:100:13-52
+activity#com.prod.sudesi.lotusherbalsnew.AttendanceFragment
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:103:9-105:52
+	android:screenOrientation
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:105:13-49
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:104:13-47
+activity#com.prod.sudesi.lotusherbalsnew.SyncMaster
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:106:9-109:20
+	android:screenOrientation
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:108:13-49
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:107:13-39
+activity#com.prod.sudesi.lotusherbalsnew.NotificationFragment
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:110:9-113:20
+	android:screenOrientation
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:112:13-49
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:111:13-49
+activity#com.prod.sudesi.lotusherbalsnew.BAYearWiseReport
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:114:9-118:20
+	android:screenOrientation
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:117:13-50
+	android:label
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:116:13-70
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:115:13-45
+activity#com.prod.sudesi.lotusherbalsnew.BAMonthWiseReport
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:119:9-123:20
+	android:screenOrientation
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:122:13-49
+	android:label
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:121:13-71
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:120:13-46
+activity#com.prod.sudesi.lotusherbalsnew.BAMonthReportPage
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:124:9-128:20
+	android:screenOrientation
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:127:13-50
+	android:label
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:126:13-71
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:125:13-46
+receiver#libs.AlarmManagerBroadcastReceiver
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:130:9-131:20
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:130:19-68
+activity#com.prod.sudesi.lotusherbalsnew.ChangePassword
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:133:9-137:20
+	android:screenOrientation
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:136:13-49
+	android:label
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:135:13-67
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:134:13-43
+activity#com.prod.sudesi.lotusherbalsnew.SaleCalculation
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:148:9-151:20
+	android:screenOrientation
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:150:13-49
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:149:13-44
+activity#com.prod.sudesi.lotusherbalsnew.StockAllActivity
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:152:9-156:20
+	android:screenOrientation
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:155:13-49
+	android:label
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:154:13-61
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:153:13-45
+activity#com.prod.sudesi.lotusherbalsnew.BocDashBoardActivity
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:157:9-161:20
+	android:screenOrientation
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:160:13-49
+	android:label
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:159:13-66
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:158:13-49
+activity#com.prod.sudesi.lotusherbalsnew.BocGridViewActivity
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:162:9-166:20
+	android:screenOrientation
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:165:13-49
+	android:label
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:164:13-65
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:163:13-48
+activity#com.sudesi.tester.TesterSubmitActivity
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:167:9-171:20
+	android:screenOrientation
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:170:13-49
+	android:label
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:169:13-65
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:168:13-66
+activity#com.prod.sudesi.lotusherbalsnew.SupervisorAttendance
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:176:9-177:20
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:176:19-55
+activity#com.prod.sudesi.lotusherbalsnew.BocDashboardGridViewActivity
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:178:9-179:20
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:178:19-63
+activity#com.prod.sudesi.lotusherbalsnew.BocCumulativeDashboardActivity
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:184:9-187:20
+	android:screenOrientation
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:186:13-50
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:185:13-58
+activity#com.prod.sudesi.lotusherbalsnew.StockNewActivity
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:188:9-62
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:188:19-50
+activity#com.prod.sudesi.lotusherbalsnew.SaleNewActivity
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:189:9-61
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:189:19-49
+receiver#com.prod.sudesi.lotusherbalsnew.UploadDataBrodcastReceiver
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:193:9-63
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:193:19-61
+service#com.prod.sudesi.lotusherbalsnew.BackgroundService
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:194:9-62
+	android:name
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:194:18-51

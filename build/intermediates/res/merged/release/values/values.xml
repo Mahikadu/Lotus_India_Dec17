@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="arr">
+        <item>Stock recived</item>
+        <item>Return From Customer</item>
+        <item>Return to Compony</item>
+    </string-array>
+    <string-array name="choices">
+        <item>125</item>
+        <item>145</item>
+        <item>160</item>
+    </string-array>
+    <string-array name="menu_items">
+        <item>Home</item>
+        <item>Attendance</item>
+        <item>Visibility</item>
+        <item>Stock </item>
+        <item>Tester</item>
+        <item>Notification</item>
+        <!-- <item>Promotion</item> -->
+        <item>Reports</item>
+        <item>Data-Sync</item>
+        <item>Logout</item>
+    </string-array>
+    <string-array name="spinnerItems">
+        <item>asdfg</item>
+        <item>dfdf</item>
+        <item>rf</item>
+        <item>item4</item>
+    </string-array>
+    <color name="black">#000000</color>
+    <color name="blue">#0000FF</color>
+    <color name="dark">#000015</color>
+    <color name="darkorrange">#cc2303</color>
+    <color name="gray">#808080</color>
+    <color name="journal_entry_listitem_text_color">#003366</color>
+    <color name="lightgray">#e7e7e7</color>
+    <color name="lightgray02">#bfbfbf</color>
+    <color name="lightgreen">#336666</color>
+    <color name="navy">#6699FF</color>
+    <color name="note_text_disabled">#333333</color>
+    <color name="orrange">#e33d1b</color>
+    <color name="pink">#fa97cd</color>
+    <color name="reaction_color_selected">#003366</color>
+    <color name="sky">#0099CC</color>
+    <color name="static_text_color">#003366</color>
+    <color name="symptom_color_selected">#003366</color>
+    <color name="white">#FFFFFF</color>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <string name="action_settings">Settings</string>
+    <string name="app_name">Lotus_PRO_v2.6</string>
+    <string name="casualleave">Casual Leave</string>
+    <string name="color_baloons">Color Baloons</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="lightning">Natural Lightning</string>
+    <string name="menu_settings">Settings</string>
+    <string name="natural_wall">Natural Wall</string>
+    <string name="select_category">Select Category</string>
+    <string name="select_mode">Select Mode</string>
+    <string name="select_product">Select Product</string>
+    <string name="select_type">Select type</string>
+    <string name="sickleave">Seek Leave</string>
+    <string name="titile_activity_visibility">VActivity</string>
+    <string name="title_activity_bamonth_report_page">BAMonthReportPage</string>
+    <string name="title_activity_bamonth_wise_report">BAMonthWiseReport</string>
+    <string name="title_activity_bayear_wise_report">BAYearWiseReport</string>
+    <string name="title_activity_boc_dash_board">BocDashBoardActivity</string>
+    <string name="title_activity_boc_grid_view">BocGridViewActivity</string>
+    <string name="title_activity_change_password">ChangePassword</string>
+    <string name="title_activity_new_dashboard">NewDashboardActivity</string>
+    <string name="title_activity_new_dashboard_activity2">NewDashboardActivity2</string>
+    <string name="title_activity_report_new">ReportNewActivity</string>
+    <string name="title_activity_sale">SaleActivity</string>
+    <string name="title_activity_stock">StockActivity</string>
+    <string name="title_activity_stock_activity_new">StockActivityNew</string>
+    <string name="title_activity_stock_all">StockAll</string>
+    <string name="title_activity_stock_entry">StockEntry</string>
+    <string name="title_activity_tester_submit">TesterSubmitActivity</string>
+    <string name="title_activity_user_manual">UserManualActivity</string>
+    <string name="title_activity_v">VActivity</string>
+    <string name="weeklyoff">Weekly off</string>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    <style name="ButtonContainer">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:background">#99000000</item>
+        <item name="android:gravity">center</item>        
+    </style>
+    <style name="ImageTitle">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:background">#99000000</item>
+        <item name="android:gravity">center</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:typeface">sans</item>
+    </style>
+    <style name="italictext_product_list">
+        <item name="android:textStyle">italic</item>  
+        <item name="android:textColor">#AA0078</item>    
+    </style>
+    <style name="label_text" parent="@android:style/TextAppearance.Medium">
+         
+         <item name="android:textColor">#FFFFFF</item>
+          <item name="android:textSize">17sp</item>
+           <item name="android:textStyle">italic</item>
+          <item name="android:typeface">serif</item>
+         
+         
+     </style>
+    <style name="list_heading">
+        <item name="android:textStyle">bold</item>  
+           
+    </style>
+    <style name="report_textview">
+         
+        <item name="android:textColor">#000000</item>
+       <!-- <item name="android:textColor">#CA226B</item> -->
+        
+        <item name="android:textSize">16sp</item>
+        
+         
+     </style>
+    <style name="report_textview_heading">
+         
+        
+       <item name="android:textColor">#FFEBCD</item>
+        
+        <item name="android:textSize">17sp</item>
+        
+         
+     </style>
+</resources>

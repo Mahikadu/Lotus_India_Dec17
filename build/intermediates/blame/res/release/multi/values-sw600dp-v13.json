@@ -1,0 +1,133 @@
+[
+    {
+        "outputFile": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endLine": 6,
+                    "endColumn": 12,
+                    "endOffset": 269
+                },
+                "from": {
+                    "file": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\res\\values-sw600dp\\style.xml",
+                    "position": {
+                        "startLine": 35,
+                        "startColumn": 5,
+                        "startOffset": 996,
+                        "endLine": 39,
+                        "endColumn": 12,
+                        "endOffset": 1215
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 274,
+                    "endLine": 15,
+                    "endColumn": 13,
+                    "endOffset": 604
+                },
+                "from": {
+                    "file": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\res\\values-sw600dp\\style.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 5,
+                        "startOffset": 468,
+                        "endLine": 27,
+                        "endColumn": 13,
+                        "endOffset": 809
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 609,
+                    "endLine": 20,
+                    "endColumn": 12,
+                    "endOffset": 714
+                },
+                "from": {
+                    "file": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\res\\values-sw600dp\\style.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 122,
+                        "endLine": 7,
+                        "endColumn": 12,
+                        "endOffset": 231
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 21,
+                    "startColumn": 4,
+                    "startOffset": 719,
+                    "endLine": 25,
+                    "endColumn": 12,
+                    "endOffset": 874
+                },
+                "from": {
+                    "file": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\res\\values-sw600dp\\style.xml",
+                    "position": {
+                        "startLine": 29,
+                        "startColumn": 5,
+                        "startOffset": 823,
+                        "endLine": 33,
+                        "endColumn": 12,
+                        "endOffset": 983
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 879,
+                    "endLine": 34,
+                    "endColumn": 13,
+                    "endOffset": 1127
+                },
+                "from": {
+                    "file": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\res\\values-sw600dp\\style.xml",
+                    "position": {
+                        "startLine": 41,
+                        "startColumn": 5,
+                        "startOffset": 1228,
+                        "endLine": 49,
+                        "endColumn": 13,
+                        "endOffset": 1484
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 35,
+                    "startColumn": 4,
+                    "startOffset": 1132,
+                    "endLine": 43,
+                    "endColumn": 13,
+                    "endOffset": 1334
+                },
+                "from": {
+                    "file": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\res\\values-sw600dp\\style.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 5,
+                        "startOffset": 244,
+                        "endLine": 17,
+                        "endColumn": 13,
+                        "endOffset": 454
+                    }
+                }
+            }
+        ]
+    }
+]
