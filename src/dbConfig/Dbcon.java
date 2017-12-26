@@ -1001,6 +1001,19 @@ public class Dbcon {
         return c;
     }
 
+    public Cursor getuniquedata2(String d_id) {
+        // TODO Auto-generated method stub
+
+        String sql = null;
+        try {
+            sql = "select * from stock where " + " db_id =" + "'" + d_id + "'";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return database.rawQuery(sql, null);
+    }
+
     public Cursor getuniquedata_tester(String categoryid, String eancode, String d_id) {
         // TODO Auto-generated method stub
         Log.v("", "check id available or not frm stock");
@@ -1660,6 +1673,42 @@ public class Dbcon {
                 ",stock_received = " + "'" + fresh_stock1 + "'" + ",sold_stock = " + "'" + sold_stk + "'" + ",total_gross_amount = " + "'" + ttl_amount + "'" +
                 ",total_net_amount = " + "'" + ttnamt + "'" + ",discount = " + "'" + disc + "'" + ",opening_stock = " + "'" + p_balance + "'" +
                 ",last_modified_date = " + "'" + update_timestamp + "'" + ", savedServer='1' where db_id = " + "'" + db_id1 + "'" + "";
+        Log.v("", "update stock sql==" + sql);
+        database.execSQL(sql);
+
+    }
+
+    public void UpdateStockSync1(//String product_id,
+                                String product_category,
+                                String product_type1,
+                                String product_name,
+                                String emp_id,
+                                String op_stk,
+                                 String stk_hand,
+                                String cl_stk,
+                                String fresh_stock1,
+                                String ttl_amount,
+                                String sold_stk,
+                                String price,
+                                String size,
+                                String db_id1,
+                                String update_timestamp,
+                                String disc,
+                                String ttnamt,
+                                String new_retn,
+                                String new_rtn_n_sold) {
+
+        // TODO Auto-generated method stub
+
+
+        Log.e("", "inside update stock");
+
+        String sql = "update stock set close_bal = " + "'" + cl_stk + "'" + " ,opening_stock = " + "'" + op_stk + "'" + ", stock_in_hand = " + "'" + stk_hand + "'" +
+                " ,return_saleable = " + "'" + new_retn + "'" + " ,return_non_saleable = " + "'" + new_rtn_n_sold + "'" +
+                ",stock_received = " + "'" + fresh_stock1 + "'" + ",sold_stock = " + "'" + sold_stk + "'" + ",total_gross_amount = " + "'" + ttl_amount + "'" +
+                ",total_net_amount = " + "'" + ttnamt + "'" + ",discount = " + "'" + disc + "'" +
+                ",last_modified_date = " + "'" + update_timestamp + "'" +
+                ", savedServer='1' where db_id = " + "'" + db_id1 + "'" + "";
         Log.v("", "update stock sql==" + sql);
         database.execSQL(sql);
 
@@ -3236,19 +3285,26 @@ public class Dbcon {
 
         //String sql = "select db_id from product_master where ProductName like '%"+productName+"%' and MRP = '"+mrp+"'";
 
-        String sql = "select db_id from product_master where ProductName like '%" + productName + "%' and MRP = '" + mrp + "' and ProductCategory ='" + type + "'";
+        String result = null;
+        try {
+            Cursor c = null;
+            String sql = "select db_id from product_master where ProductName like '%" + productName + "%' and MRP = '" + mrp + "' and ProductCategory ='" + type + "'";
 
-        Log.e("sql", sql);
+            Log.e("sql", sql);
 
-        String result = "";
+            //result = "";
+            database = dbHelper.getReadableDatabase();
+            c = database.rawQuery(sql, null);
+            if (c != null && !c.isClosed()) {
+                c.moveToFirst();
 
-        Cursor c = database.rawQuery(sql, null);
-        if (c != null && c.getCount() > 0) {
-            c.moveToFirst();
+                result = c.getString(0);
 
-            result = c.getString(0);
-
-
+                c.moveToNext();
+            }
+            c.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return result;

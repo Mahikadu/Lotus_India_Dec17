@@ -1,5 +1,6 @@
 package com.prod.sudesi.lotusherbalsnew;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -21,11 +22,17 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 import dbConfig.Dbcon;
 import libs.ExceptionHandler;
+
 
 public class StockNewActivity extends Activity implements OnClickListener {
 
@@ -47,6 +54,7 @@ public class StockNewActivity extends Activity implements OnClickListener {
     ArrayList<String> productcategory = new ArrayList<String>();
     ArrayList<String> producttypeArray = new ArrayList<String>();
     ArrayList<HashMap<String, String[]>> productDetailsArray = new ArrayList<HashMap<String, String[]>>();
+
     ArrayList<String> arr_selectedDBids = new ArrayList<String>();
 
     public static String selected_product_category, selected_product_type,
@@ -59,6 +67,9 @@ public class StockNewActivity extends Activity implements OnClickListener {
 
     String username;
 
+    String sclo = "";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
@@ -68,7 +79,7 @@ public class StockNewActivity extends Activity implements OnClickListener {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_new_stock);
         //////////Crash Report
-        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
+       Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
 
         sp_product_category = (Spinner) findViewById(R.id.sp_product_category);
         sp_product_type = (Spinner) findViewById(R.id.sp_product_type);
@@ -314,8 +325,11 @@ public class StockNewActivity extends Activity implements OnClickListener {
                                         TableRow tr = (TableRow) tl_productList.getChildAt(i);
                                         CheckBox cb = (CheckBox) tr.getChildAt(0);
                                         Spinner spin = (Spinner) tr.getChildAt(1);
+                                        /*String stramt = spin.getSelectedItem().toString();
+                                        String mrpArray[] = stramt.split(" ");
+                                        String finalMRP = mrpArray[0];*/
                                         if (cb.isChecked()) {
-                                            arr_selectedDBids.add(db.fetchStockDbID(cb.getText().toString(), spin.getSelectedItem().toString(),sp_product_category
+                                            arr_selectedDBids.add(db.fetchStockDbID(cb.getText().toString(), spin.getSelectedItem().toString(), sp_product_category
                                                     .getSelectedItem().toString()));
                                         }
                                     }
@@ -409,6 +423,7 @@ public class StockNewActivity extends Activity implements OnClickListener {
         Cursor cursor = db.fetchAllproductslistforstock(selected_category,
                 selected_type, flag);
         if (cursor != null && cursor.getCount() > 0) {
+
             cursor.moveToFirst();
 
             do {
@@ -419,11 +434,16 @@ public class StockNewActivity extends Activity implements OnClickListener {
                         new String[]{cursor.getString(cursor
                                 .getColumnIndex("ProductName")), selected_category, selected_type}, null);
 
-                String comma_ids[] = new String[c.getCount()], comma_dbids[] = new String[c
-                        .getCount()], comma_mrps[] = new String[c.getCount()], comma_size[] = new String[c
-                        .getCount()], comma_catid[] = new String[c.getCount()], comma_eancode[] = new String[c
-                        .getCount()], comma_product[] = new String[c.getCount()], comma_shade[] = new String[c
-                        .getCount()];
+                String comma_ids[] = new String[c.getCount()],
+                        comma_dbids[] = new String[c.getCount()],
+                        comma_mrps[] = new String[c.getCount()],
+                        comma_size[] = new String[c.getCount()],
+                        comma_catid[] = new String[c.getCount()],
+                        comma_eancode[] = new String[c.getCount()],
+                        comma_product[] = new String[c.getCount()],
+                        comma_shade[] = new String[c.getCount()];
+                        //changes
+                        //stropening[] = new String[c.getCount()];
 
                 if (c != null && c.getCount() > 0) {
                     c.moveToFirst();
@@ -437,13 +457,15 @@ public class StockNewActivity extends Activity implements OnClickListener {
                         comma_eancode[i] = c.getString(c.getColumnIndex("EANCode"));
                         comma_product[i] = c.getString(c.getColumnIndex("ProductName"));
                         comma_shade[i] = c.getString(c.getColumnIndex("ShadeNo"));
+                        // New changes
+//                        String opening = getopening(String.valueOf(comma_dbids[i]),String.valueOf(comma_mrps[i]));
+//                        stropening[i] = opening;
 
                         c.moveToNext();
 
                     }
 
                 }
-
                 map.put("IDS", comma_ids);
                 map.put("SIZE", comma_size);
                 map.put("MRPS", comma_mrps);
@@ -452,14 +474,17 @@ public class StockNewActivity extends Activity implements OnClickListener {
                 map.put("EANCODE", comma_eancode);
                 map.put("PRODUCT", comma_product);
                 map.put("SHADENO", comma_shade);
+                // New changes
+                //map.put("OPENING", stropening);
 
                 productDetailsArray.add(map);
 
 
             } while (cursor.moveToNext());
 
-
             for (int i = 0; i < productDetailsArray.size(); i++) {
+                List<String> prodMrpOpeningList = new ArrayList<String>();
+
                 View tr = (TableRow) View.inflate(StockNewActivity.this, R.layout.inflate_stocksale_row, null);
 
                 CheckBox cb = (CheckBox) tr.findViewById(R.id.chck_product);
@@ -469,7 +494,14 @@ public class StockNewActivity extends Activity implements OnClickListener {
                 cb.setText(productDetailsArray.get(i).get("PRODUCT")[0]);
 
                 String mrps[] = productDetailsArray.get(i).get("MRPS");
+                // New changes
+                /*String openingvalue[] = productDetailsArray.get(i).get("OPENING");
+                List<String> prodMrpList = new ArrayList<String>(Arrays.asList(mrps));
 
+                for (int j=0, k = 0; j < prodMrpList.size(); j++, k++){
+                    prodMrpOpeningList.add(mrps[j]+" "+openingvalue[k]);
+                }*/
+                //prodMrpOpeningList.toArray(new String[prodMrpOpeningList.size()])
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(StockNewActivity.this, android.R.layout.simple_spinner_item, mrps);
 
                 spin.setAdapter(adapter);
@@ -488,6 +520,43 @@ public class StockNewActivity extends Activity implements OnClickListener {
             tl_productList.addView(tr1);
         }
 
+    }
+
+    // New Changes
+    @SuppressLint("SimpleDateFormat")
+    public String getopening(String dbid,String PRICE) {
+
+        String closebal = "", retn = "";
+        Cursor mCursor;
+        db.open();
+        mCursor = db.getuniquedata2(dbid);
+
+        int count = mCursor.getCount();
+
+        if (mCursor != null) {
+
+            if (mCursor.moveToFirst()) {
+
+                do {
+
+                    closebal = mCursor.getString(mCursor
+                            .getColumnIndex("close_bal"));
+
+                } while (mCursor.moveToNext());
+
+                sclo = "" + closebal;
+//
+            } else {
+
+                sclo = "0";
+
+            }
+
+        }
+        mCursor.close();
+        db.close();
+
+        return closebal;
     }
 
 }

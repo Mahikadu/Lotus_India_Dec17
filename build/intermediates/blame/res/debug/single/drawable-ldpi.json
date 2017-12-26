@@ -32,12 +32,12 @@
         "source": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\res\\drawable-ldpi\\reports_dd.png"
     },
     {
-        "merged": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi\\ba_report_dd.png",
-        "source": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\res\\drawable-ldpi\\ba_report_dd.png"
-    },
-    {
         "merged": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi\\user_manual.png",
         "source": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\res\\drawable-ldpi\\user_manual.png"
+    },
+    {
+        "merged": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi\\ba_report_dd.png",
+        "source": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\res\\drawable-ldpi\\ba_report_dd.png"
     },
     {
         "merged": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi\\master_dd.png",

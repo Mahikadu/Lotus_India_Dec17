@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:2:1-199:12
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:2:1-206:12
 	package
 		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:3:5-46
 	android:versionName
@@ -64,7 +64,7 @@ ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India
 	android:name
 		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:30:22-72
 application
-ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:32:5-197:19
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:32:5-204:19
 	android:label
 		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:36:9-41
 	android:allowBackup
@@ -288,6 +288,6 @@ ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India
 	android:name
 		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:193:19-61
 service#com.prod.sudesi.lotusherbalsnew.BackgroundService
-ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:194:9-62
+ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:200:9-62
 	android:name
-		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:194:18-51
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:200:18-51

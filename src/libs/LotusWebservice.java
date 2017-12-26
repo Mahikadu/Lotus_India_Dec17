@@ -15,8 +15,8 @@ public class LotusWebservice {
 
 	// -----------------Mahi
 
-	String url = "http://lotusws.lotussmartforce.com/Service1.svc";//07.10.2015 new production new lotus server
-	//String url = "http://sandboxws.lotussmartforce.com/Service1.svc"; //New UAT Link 15-10-2016 lotus server
+	String url = "http://lotusws.lotussmartforce.com/Service1.svc";// production lotus server
+	//String url = "http://sandboxws.lotussmartforce.com/Service1.svc"; // UAT Link Lotus server
 
 	//.................
 
@@ -1488,5 +1488,71 @@ public class LotusWebservice {
 		return result;
 	
 	}
+
+	//-----------------------New Sp for data download----------------------
+
+	public SoapObject DataDownload(String empid, String lastsync_date) {
+		SoapObject result = null;
+		try {
+			Log.v("", "sync stock service called");
+			SoapObject request = new SoapObject("http://tempuri.org/",
+					"DataDownload");
+			// /// send link
+			Log.v("", "empid==" + empid);
+			request.addProperty("EmpId", empid);
+			request.addProperty("Date", lastsync_date);
+			Log.d("Date server sync result",""+lastsync_date+"-"+empid);
+			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+					SoapEnvelope.VER11);// soap envelop with version
+			envelope.setOutputSoapObject(request); // set request object
+			envelope.dotNet = true;
+
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,6000);// http
+			// transport
+			// call
+			androidHttpTransport.call(
+					"http://tempuri.org/IService1/DataDownload", envelope);
+
+			result = (SoapObject) envelope.getResponse();
+			Log.e("DataDownload=", result.toString());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public SoapObject DataDownloadForSale(String empid, String lastsync_date) {
+		SoapObject result = null;
+		try {
+			Log.v("", "sync stock service called");
+			SoapObject request = new SoapObject("http://tempuri.org/",
+					"DataDownloadForSale");
+			// /// send link
+			Log.v("", "empid==" + empid);
+			request.addProperty("EmpId", empid);
+			request.addProperty("Date", lastsync_date);
+			Log.d("Date server sync result",""+lastsync_date+"-"+empid);
+			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+					SoapEnvelope.VER11);// soap envelop with version
+			envelope.setOutputSoapObject(request); // set request object
+			envelope.dotNet = true;
+
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,6000);// http
+			// transport
+			// call
+			androidHttpTransport.call(
+					"http://tempuri.org/IService1/DataDownloadForSale", envelope);
+
+			result = (SoapObject) envelope.getResponse();
+			Log.e("DataDownloadForSale=", result.toString());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	//------------------------------END--------------------------------------
 	
 }

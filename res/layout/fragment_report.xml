@@ -266,7 +266,7 @@
             <ListView
                 android:id="@+id/stock_list"
                 android:layout_width="1760dp"
-                android:layout_height="160dp"
+                android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:divider="@color/gray"
                 android:dividerHeight="1dp"></ListView>

@@ -111,8 +111,8 @@ public class LoginActivity extends Activity {
     public static final String downloadConfigFile = "http://lotussmartforce.com/apk/config.txt";//production
 
     //UAT
-    /*public static final String  downloadURL = "http://lotussmartforce.com/apk/Lotus_Pro.apk"; //production
-    public static final String downloadConfigFile = "http://lotussmartforce.com/apk/config.txt";//production*/
+    /*public static final String  downloadURL = "http://lotussmartforce.com/apk/Lotus_Pro.apk"; //UAT
+    public static final String downloadConfigFile = "http://lotussmartforce.com/apk/config.txt";//UAT*/
 
 
     @Override
@@ -167,6 +167,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
+                //LoginUser();
                 try {
                     if (cd.isConnectingToInternet()) {
 
@@ -224,8 +225,40 @@ public class LoginActivity extends Activity {
 
     }
 
-    private void exportDB() {
+    @SuppressLint("WrongConstant")
+   /* private void Boc26AlaramReceiver() {
 
+        try {
+
+            *//*spe.putBoolean("BOC26", false);
+            spe.commit();*//*
+
+            //Create pending intent & register it to your alarm notifier class
+            Intent intent = new Intent(this, BocBroadcastReceiver.class);
+            //intent.putExtra("Boc", true);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            Log.v("jflksdjfk","started");
+            //set timer you want alarm to work (here I have set it to 24.00)
+            Calendar calendar = Calendar.getInstance();
+            Calendar setcalendar = Calendar.getInstance();
+            setcalendar.setTimeInMillis(System.currentTimeMillis());
+            setcalendar.set(Calendar.HOUR_OF_DAY, 8);
+            setcalendar.set(Calendar.MINUTE, 55);
+            setcalendar.set(Calendar.SECOND, 0);
+            setcalendar.set(Calendar.DAY_OF_MONTH, 26);
+
+            //Create alarm manager
+            AlarmManager mAlarmManger = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            //set that timer as a RTC Wakeup to alarm manager object
+            mAlarmManger.setRepeating(AlarmManager.RTC_WAKEUP, setcalendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }*/
+
+
+    private void exportDB() {
 
 //        File sd = new File(Environment.getExternalStorageDirectory(),"/Android");
         File sd = Environment.getExternalStorageDirectory();
@@ -976,7 +1009,12 @@ public class LoginActivity extends Activity {
             } else {
 
             }
+           /* if (sp.getBoolean("BOC26", true) == true) {
 
+            }else{
+                Boc26AlaramReceiver();
+            }*/
+            //Boc26AlaramReceiver();
             Intent i = new Intent(getApplicationContext(), AttendanceFragment.class);
             i.putExtra("FromLoginpage", "L");
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -987,7 +1025,12 @@ public class LoginActivity extends Activity {
 
 
             result = true;
+            /*if (sp.getBoolean("BOC26", true) == true) {
 
+            }else{
+                Boc26AlaramReceiver();
+            }*/
+            //Boc26AlaramReceiver();
             Intent i = new Intent(getApplicationContext(),
                     DashboardNewActivity.class);
 
@@ -1889,10 +1932,13 @@ public class LoginActivity extends Activity {
 
     public void LoginUser() {
 
+        //spe.clear();
         if (sp.getBoolean("Upload_data_flag", true) == true) {
             Log.e("Upload Data Receivert", String.valueOf(sp.getBoolean("Upload_data_flag_true", true)));
+
         } else {
             DataUploadAlaramReceiver();
+
         }
 
         if (edt_username.getText().toString().equalsIgnoreCase("")) {
@@ -1933,7 +1979,12 @@ public class LoginActivity extends Activity {
                 if (a.equalsIgnoreCase("P")) {
 
                     // SetClosingISOpeningOnlyOnce();
+                    /*if (sp.getBoolean("BOC26", true) == true) {
 
+                    }else{
+                        Boc26AlaramReceiver();
+                    }*/
+                    //Boc26AlaramReceiver();
                     Intent i = new Intent(getApplicationContext(),
                             DashboardNewActivity.class);
 

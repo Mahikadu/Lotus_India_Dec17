@@ -458,6 +458,7 @@ public class ReportsForUser extends Activity {
 			// TODO Auto-generated method stub
 			listview.setVisibility(View.VISIBLE);
 			adapter = new ReportAdapter(getApplicationContext(), reportlist);
+			adapter.notifyDataSetChanged();
 			listview.setAdapter(adapter);
 			db.close();
 

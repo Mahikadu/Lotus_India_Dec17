@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.prod.sudesi.lotusherbalsnew"
     android:versionCode="20"
-    android:versionName="2.6" >
+    android:versionName="2.7" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -201,8 +201,17 @@
         <activity android:name="com.prod.sudesi.lotusherbalsnew.SaleNewActivity" />
 
         <receiver android:name="com.prod.sudesi.lotusherbalsnew.UploadDataBrodcastReceiver" />
-
+        <!--
+        <receiver android:name=".MyScheduledReceiver">
+        <intent-filter>
+            <action android:name="android.intent.action.BOOT_COMPLETED" />
+        </intent-filter>
+        </receiver>
+        -->
+        <!-- <receiver android:name=".BocBroadcastReceiver"/> -->
         <service android:name="com.prod.sudesi.lotusherbalsnew.BackgroundService" />
+        <!-- <service android:name=".BackgroundServiceBOC"></service> -->
+
     </application>
 
 </manifest>
