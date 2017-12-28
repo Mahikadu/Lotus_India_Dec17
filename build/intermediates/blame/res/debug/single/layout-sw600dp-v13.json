@@ -4,12 +4,12 @@
         "source": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\res\\layout-sw600dp\\activity_sale.xml"
     },
     {
-        "merged": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\build\\intermediates\\res\\merged\\debug\\layout-sw600dp-v13\\popup_attendance.xml",
-        "source": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\res\\layout-sw600dp\\popup_attendance.xml"
-    },
-    {
         "merged": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\build\\intermediates\\res\\merged\\debug\\layout-sw600dp-v13\\activity_dashboard_cumulative.xml",
         "source": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\res\\layout-sw600dp\\activity_dashboard_cumulative.xml"
+    },
+    {
+        "merged": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\build\\intermediates\\res\\merged\\debug\\layout-sw600dp-v13\\popup_attendance.xml",
+        "source": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\res\\layout-sw600dp\\popup_attendance.xml"
     },
     {
         "merged": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\build\\intermediates\\res\\merged\\debug\\layout-sw600dp-v13\\fragment_stock_save_to_server.xml",

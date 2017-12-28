@@ -6,6 +6,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -105,6 +106,7 @@ public class LoginActivity extends Activity {
 
     String deviceId = "";
     String loginstaus = "";
+    String LogoutStatus = "";
 
     //Production
     public static final String  downloadURL = "http://lotussmartforce.com/apk/Lotus_Pro.apk"; //production
@@ -151,6 +153,16 @@ public class LoginActivity extends Activity {
 
         month = String.valueOf(month1 + 1);
         year = String.valueOf(year1);
+
+       /* Intent intent = getIntent();
+        if (intent != null) {
+            if (intent.getStringExtra("LogoutFlag") != null) {
+                LogoutStatus = intent.getStringExtra("LogoutFlag");
+                if(LogoutStatus.equals("LOGOUTSERVICE")){
+                    disableBroadcastReceiver();
+                }
+            }
+        }*/
 
 
         // we = new WriteErroLogs(getApplicationContext());
@@ -226,12 +238,9 @@ public class LoginActivity extends Activity {
     }
 
     @SuppressLint("WrongConstant")
-   /* private void Boc26AlaramReceiver() {
+    private void Boc26AlaramReceiver() {
 
         try {
-
-            *//*spe.putBoolean("BOC26", false);
-            spe.commit();*//*
 
             //Create pending intent & register it to your alarm notifier class
             Intent intent = new Intent(this, BocBroadcastReceiver.class);
@@ -243,19 +252,42 @@ public class LoginActivity extends Activity {
             Calendar calendar = Calendar.getInstance();
             Calendar setcalendar = Calendar.getInstance();
             setcalendar.setTimeInMillis(System.currentTimeMillis());
-            setcalendar.set(Calendar.HOUR_OF_DAY, 8);
-            setcalendar.set(Calendar.MINUTE, 55);
+            setcalendar.set(Calendar.HOUR_OF_DAY, 6);
+            setcalendar.set(Calendar.MINUTE, 0);
             setcalendar.set(Calendar.SECOND, 0);
             setcalendar.set(Calendar.DAY_OF_MONTH, 26);
 
-            //Create alarm manager
+            SimpleDateFormat dateFormat = new SimpleDateFormat(
+                    "MM/dd/yyyy HH:mm:ss");
+            // get current date time with Date()
+             String currentDate = dateFormat.format(calendar.getTime()).split(" ")[0];
+             db.open();
+             String syncDate = db.getLastSyncDate("stock").split(" ")[0];
+             db.close();
+             if(syncDate==null)
+             {
+                syncDate="";
+             }
+
+
+            if(calendar.get(Calendar.DAY_OF_MONTH) == 26 && (sp.getBoolean("BOC26",false) || !currentDate.equals(syncDate)) )
+            {
+                boolean boc26 = true;
+
+                spe.putBoolean("BOC26", boc26);
+                spe.commit();
+            }
+
             AlarmManager mAlarmManger = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
             //set that timer as a RTC Wakeup to alarm manager object
             mAlarmManger.setRepeating(AlarmManager.RTC_WAKEUP, setcalendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+            //Create alarm manager
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
 
     private void exportDB() {
@@ -1009,12 +1041,7 @@ public class LoginActivity extends Activity {
             } else {
 
             }
-           /* if (sp.getBoolean("BOC26", true) == true) {
-
-            }else{
-                Boc26AlaramReceiver();
-            }*/
-            //Boc26AlaramReceiver();
+            Boc26AlaramReceiver();
             Intent i = new Intent(getApplicationContext(), AttendanceFragment.class);
             i.putExtra("FromLoginpage", "L");
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -1025,17 +1052,13 @@ public class LoginActivity extends Activity {
 
 
             result = true;
-            /*if (sp.getBoolean("BOC26", true) == true) {
 
-            }else{
-                Boc26AlaramReceiver();
-            }*/
-            //Boc26AlaramReceiver();
+            Boc26AlaramReceiver();
             Intent i = new Intent(getApplicationContext(),
                     DashboardNewActivity.class);
 
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
+            i.putExtra("FROM", "LOGIN");
             startActivity(i);
 
         }
@@ -1084,6 +1107,7 @@ public class LoginActivity extends Activity {
             } else {
                 Intent i = new Intent(getApplicationContext(), DashboardNewActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                i.putExtra("FROM", "LOGIN");
                 startActivity(i);
             }
 
@@ -1979,17 +2003,13 @@ public class LoginActivity extends Activity {
                 if (a.equalsIgnoreCase("P")) {
 
                     // SetClosingISOpeningOnlyOnce();
-                    /*if (sp.getBoolean("BOC26", true) == true) {
-
-                    }else{
-                        Boc26AlaramReceiver();
-                    }*/
-                    //Boc26AlaramReceiver();
+                    Boc26AlaramReceiver();
                     Intent i = new Intent(getApplicationContext(),
                             DashboardNewActivity.class);
 
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
+                    i.putExtra("FROM", "LOGIN");
+                    //i.putExtra("LoginFlag", LogoutStatus);
                     startActivity(i);
 
                 }
@@ -2135,6 +2155,20 @@ public class LoginActivity extends Activity {
             return false;
         }
         return null;
+    }
+
+    /**
+     * This method disables the Broadcast receiver registered in the AndroidManifest file.
+     *
+     */
+    public void disableBroadcastReceiver(){
+        ComponentName receiver = new ComponentName(this, MyScheduledReceiver.class);
+        PackageManager pm = this.getPackageManager();
+
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                PackageManager.DONT_KILL_APP);
+        Toast.makeText(this, "Disabled broadcst receiver", Toast.LENGTH_SHORT).show();
     }
 
 

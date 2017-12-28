@@ -15,41 +15,9 @@ public class LotusWebservice {
 
 	// -----------------Mahi
 
-	String url = "http://lotusws.lotussmartforce.com/Service1.svc";// production lotus server
-	//String url = "http://sandboxws.lotussmartforce.com/Service1.svc"; // UAT Link Lotus server
+	//String url = "http://lotusws.lotussmartforce.com/Service1.svc";// production lotus server
+	String url = "http://sandboxws.lotussmartforce.com/Service1.svc"; // UAT Link Lotus server
 
-	//.................
-
-	//String url = "http://192.169.153.156/Lotusws/Service1.svc"; //New Production Link 12-10-2016 lotus server
-	//String url = "http://sandboxws.lotussmartforce.com/Service1.svc"; //New UAT Link 15-10-2016 lotus server
-	//String url = "http://192.169.153.156/Lotusws/Service1.svc"; // New Production Link 05-10-2016 lotus server
-
-
-
-	//String url = "http://192.168.0.136/LotusWCF/Service1.svc"; // local babita pc 05.03.2015;
-	          
-		//String url = "http://sandboxws.smartforcecrm.com/service1.svc"; // uat
-																	// 01.02.2015//04.05.2015//      ---
-		
-	//	String url = "http://sandboxws.lotussmartforce.com/Service1.svc"; //UAT 27-11-2015
-
-	// String url = "http://lotusws.smartforcecrm.com/service1.svc"; // prod // 01.02.2015 //04.05.2015//15.05.2015//09.07.2015.. not using
-
-	// -------------------------
-
-	// String url="http://lotusws.sudesi.in/Service1.svc";
-
-//	 String url= "http://lotusws.smartforcecrm.com/Service1.svc"; //--live
-	// production
-
-	// String url = "http://sandboxws.lotussmartforce.com/Service1.svc";// working
-	// now -17.11.2014 .......... last use 15.01.2015
-//	String url="http://sandboxws.lotussmartforce.com/Service1.svc";// Current UAT 15/04/2016
-//	 String url = "http://lotusws.smartforcecrm.com/Service1.svc";// start
-	// 15.01.2015
-
-	// String url = "http://lotussandboxws.sudesi.in/Service1.svc";//not working
-	// -17.11.2014
 
 	public LotusWebservice(Context con) {
 		context = con;

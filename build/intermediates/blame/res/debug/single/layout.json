@@ -16,12 +16,12 @@
         "source": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\res\\layout\\screen_gridcell.xml"
     },
     {
-        "merged": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\build\\intermediates\\res\\merged\\debug\\layout\\report_layout.xml",
-        "source": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\res\\layout\\report_layout.xml"
-    },
-    {
         "merged": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\build\\intermediates\\res\\merged\\debug\\layout\\activity_boc_grid_view.xml",
         "source": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\res\\layout\\activity_boc_grid_view.xml"
+    },
+    {
+        "merged": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\build\\intermediates\\res\\merged\\debug\\layout\\report_layout.xml",
+        "source": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\res\\layout\\report_layout.xml"
     },
     {
         "merged": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_stock_save_to_server.xml",

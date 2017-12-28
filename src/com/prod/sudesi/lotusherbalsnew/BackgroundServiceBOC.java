@@ -23,6 +23,7 @@ public class BackgroundServiceBOC extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
+
         return null;
     }
 
@@ -54,8 +55,10 @@ public class BackgroundServiceBOC extends Service {
                 spe.clear();
 
                 Intent logoutIntent = new Intent(context, LoginActivity.class);
-                logoutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                logoutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                logoutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                logoutIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                logoutIntent.putExtra("LogoutFlag", "SERVICE");
+
                 context.startActivity(logoutIntent);
 
             } catch (Exception e) {

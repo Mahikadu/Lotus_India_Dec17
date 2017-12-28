@@ -19,11 +19,13 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -96,9 +98,13 @@ public class DashboardNewActivity extends Activity {
     TextView tv_h_username;
     Button btn_home, btn_logout;
 
+    String LogoutFlag = "";
+
     Boolean boc26 = null;
     Boolean boolRecd = null;
-    ProgressDialog mProgress;
+    public static ProgressDialog mProgress;
+    public static AlertDialog.Builder alertDialogBuilder = null;
+    public static AlertDialog.Builder alertDialogBuilder1 = null;
 
 
     private AlarmManagerBroadcastReceiver alarm;
@@ -123,57 +129,63 @@ public class DashboardNewActivity extends Activity {
 
 
         cd = new ConnectionDetector(mContext);
-        service = new LotusWebservice(mContext);
-        mProgress = new ProgressDialog(mContext);
-
-
-        /*Intent intent = getIntent();
-        boolRecd = intent.getBooleanExtra("Boc26", false);*/
-
+        mProgress = new ProgressDialog(DashboardNewActivity.this);
+        service = new LotusWebservice(DashboardNewActivity.this);
 
         sp = mContext.getSharedPreferences("Lotus", Context.MODE_PRIVATE);
         spe = sp.edit();
 
-        //boc26 = sp.getBoolean("BOC26", false);
+        //AutologoutBroadcast();
+        //enableBroadcastReceiver();
 
-        /*if (boolRecd) {
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                    DashboardNewActivity.this);
+        Intent intent = getIntent();
+        if (intent != null) {
+            if (intent.getStringExtra("FROM") != null) {
+                String from26 = intent.getStringExtra("FROM");
+                if (from26.equals("RECEIVER")) {
+                    boc26 = sp.getBoolean("BOC26", false);
 
-            // set title
-            alertDialogBuilder.setTitle("SYNC DATA ALERT");
+                    if (boc26) {
+                        try {
+                            alertDialogBuilder = new AlertDialog.Builder(mContext);
+                            // set title
+                            alertDialogBuilder.setTitle("SYNC DATA ALERT");
+                            // set dialog message
+                            alertDialogBuilder
+                                    .setMessage(
+                                            "Welcome to New Boc Kindly do a Data Download!!")
+                                    .setCancelable(false)
+                                    .setPositiveButton("OK",
+                                            new DialogInterface.OnClickListener() {
+                                                public void onClick(
+                                                        DialogInterface dialog, int id) {
+                                                    // if this button is clicked, close
+                                                    // current activity
+                                                    spe.putBoolean("BOC26", false);
+                                                    spe.commit();
+                                                    boolRecd = false;
 
-            // set dialog message
-            alertDialogBuilder
-                    .setMessage(
-                            "Welcome to New Boc Kindly do a Data Download!!")
-                    .setCancelable(false)
-                    .setPositiveButton("OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(
-                                        DialogInterface dialog, int id) {
-                                    // if this button is clicked, close
-                                    // current activity
-                                    //new InsertFirstTimeMaster().execute();
-                                    *//*spe.putBoolean("BOC26", false);
-                                    spe.commit();*//*
-                                    boolRecd = false;
-                                    Intent i = new Intent(DashboardNewActivity.this, SyncMaster.class);
-                                    startActivity(i);
-                                }
-                            });
+                                                    new InsertFirstTimeMaster().execute();
 
-            // create alert dialog
-            AlertDialog alertDialog = alertDialogBuilder.create();
+                                                }
+                                            });
 
-            // show it
-            alertDialog.show();
-        }*/
-        /*else {
-            boolRecd = false;
-            spe.putBoolean("BOC26", false);
-            spe.commit();
-        }*/
+                            // create alert dialog
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.getWindow().setType(WindowManager.LayoutParams.
+                                    TYPE_SYSTEM_ALERT);
+                            // show it
+                            alertDialog.show();
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+            }
+
+        }
 
         btn_attendance = (Button) findViewById(R.id.btn_atten);
         btn_visibility = (Button) findViewById(R.id.btn_visibility);
@@ -201,14 +213,11 @@ public class DashboardNewActivity extends Activity {
 
         if (db.checkStockUploaded()) {
 
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                    DashboardNewActivity.this);
-
+            alertDialogBuilder1 = new AlertDialog.Builder(mContext);
             // set title
-            alertDialogBuilder.setTitle("SYNC DATA ALERT");
-
+            alertDialogBuilder1.setTitle("SYNC DATA ALERT");
             // set dialog message
-            alertDialogBuilder
+            alertDialogBuilder1
                     .setMessage(
                             "Kindly do a Data Upload")
                     .setCancelable(false)
@@ -223,8 +232,9 @@ public class DashboardNewActivity extends Activity {
                             });
 
             // create alert dialog
-            AlertDialog alertDialog = alertDialogBuilder.create();
-
+            AlertDialog alertDialog = alertDialogBuilder1.create();
+            alertDialog.getWindow().setType(WindowManager.LayoutParams.
+                    TYPE_SYSTEM_ALERT);
             // show it
             alertDialog.show();
 
@@ -237,27 +247,7 @@ public class DashboardNewActivity extends Activity {
             btn_stock.setEnabled(false);
             btn_sale.setEnabled(false);
 
-            /*try {
 
-                //Create pending intent & register it to your alarm notifier class
-                Intent inten = new Intent(this, MyScheduledReceiver.class);
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, inten, PendingIntent.FLAG_UPDATE_CURRENT);
-
-                //set timer you want alarm to work (here I have set it to 24.00)
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(System.currentTimeMillis());
-                calendar.set(Calendar.HOUR_OF_DAY, 22);
-                calendar.set(Calendar.MINUTE, 25);
-                calendar.set(Calendar.SECOND, 0);
-
-                //Create alarm manager
-                AlarmManager mAlarmManger = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                //set that timer as a RTC Wakeup to alarm manager object
-                mAlarmManger.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pendingIntent);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-*/
 
         }
 
@@ -280,25 +270,8 @@ public class DashboardNewActivity extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                // startActivity(new Intent(getApplicationContext(),
-                // TesterFragment.class));
-
-               // if (boc26 == false) {
-                    startActivity(new Intent(getApplicationContext(),
-                            TesterSubmitActivity.class));
-               /* } else {
-                    AlertDialog alertDialog = new AlertDialog.Builder(DashboardNewActivity.this).create();
-                    alertDialog.setTitle("SYNC DATA ALERT");
-                    alertDialog.setMessage("Welcome to new Boc Kindly do a Data Download!!");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.show();
-                }*/
-
+                startActivity(new Intent(getApplicationContext(),
+                        TesterSubmitActivity.class));
             }
         });
 
@@ -308,21 +281,8 @@ public class DashboardNewActivity extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                //if (boc26 == false) {
-                    startActivity(new Intent(getApplicationContext(),
-                            StockNewActivity.class));
-               /* } else {
-                    AlertDialog alertDialog = new AlertDialog.Builder(DashboardNewActivity.this).create();
-                    alertDialog.setTitle("SYNC DATA ALERT");
-                    alertDialog.setMessage("Welcome to new Boc Kindly do a Data Download!!");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.show();
-                }*/
+                startActivity(new Intent(getApplicationContext(),
+                        StockNewActivity.class));
 
             }
         });
@@ -333,21 +293,8 @@ public class DashboardNewActivity extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                //if (boc26 == false) {
-                    startActivity(new Intent(getApplicationContext(),
-                            ReportsForUser.class));
-                /*} else {
-                    AlertDialog alertDialog = new AlertDialog.Builder(DashboardNewActivity.this).create();
-                    alertDialog.setTitle("SYNC DATA ALERT");
-                    alertDialog.setMessage("Welcome to new Boc Kindly do a Data Download!!");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.show();
-                }*/
+                startActivity(new Intent(getApplicationContext(),
+                        ReportsForUser.class));
 
             }
         });
@@ -357,21 +304,8 @@ public class DashboardNewActivity extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-               // if (boc26 == false) {
-                    startActivity(new Intent(getApplicationContext(),
-                            NotificationFragment.class));
-               /* } else {
-                    AlertDialog alertDialog = new AlertDialog.Builder(DashboardNewActivity.this).create();
-                    alertDialog.setTitle("SYNC DATA ALERT");
-                    alertDialog.setMessage("Welcome to new Boc Kindly do a Data Download!!");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.show();
-                }*/
+                startActivity(new Intent(getApplicationContext(),
+                        NotificationFragment.class));
 
             }
         });
@@ -382,21 +316,8 @@ public class DashboardNewActivity extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                //if (boc26 == false) {
-                    startActivity(new Intent(getApplicationContext(),
-                            VisibilityFragment.class));
-               /* } else {
-                    AlertDialog alertDialog = new AlertDialog.Builder(DashboardNewActivity.this).create();
-                    alertDialog.setTitle("SYNC DATA ALERT");
-                    alertDialog.setMessage("Welcome to new Boc Kindly do a Data Download!!");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.show();
-                }*/
+                startActivity(new Intent(getApplicationContext(),
+                        VisibilityFragment.class));
 
             }
         });
@@ -407,22 +328,8 @@ public class DashboardNewActivity extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-               // if (boc26 == false) {
-                    startActivity(new Intent(getApplicationContext(),
-                            SyncMaster.class));
-               /* } else {
-                    String boc = "boc9";
-                    AlertDialog alertDialog = new AlertDialog.Builder(DashboardNewActivity.this).create();
-                    alertDialog.setTitle("Alert");
-                    alertDialog.setMessage("Welcome to " + boc);
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.show();
-                }*/
+                startActivity(new Intent(getApplicationContext(),
+                        SyncMaster.class));
 
             }
         });
@@ -431,26 +338,11 @@ public class DashboardNewActivity extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                //if (boc26 == false) {
-                    Intent i = new Intent(getApplicationContext(),
-                            AttendanceFragment.class);
-                    i.putExtra("FromLoginpage", "");
-                    startActivity(i);
-                /*} else {
-                    AlertDialog alertDialog = new AlertDialog.Builder(DashboardNewActivity.this).create();
-                    alertDialog.setTitle("SYNC DATA ALERT");
-                    alertDialog.setMessage("Welcome to new Boc Kindly do a Data Download!!");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.show();
-                }*/
 
-                // startActivity(new Intent(getApplicationContext(),
-                // AttendanceFragment.class));
+                Intent i = new Intent(getApplicationContext(),
+                        AttendanceFragment.class);
+                i.putExtra("FromLoginpage", "");
+                startActivity(i);
 
             }
         });
@@ -460,25 +352,9 @@ public class DashboardNewActivity extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-               // if (boc26 == false) {
-                    Intent i = new Intent(getApplicationContext(),
-                            BAYearWiseReport.class);
-                    startActivity(i);
-               /* } else {
-                    AlertDialog alertDialog = new AlertDialog.Builder(DashboardNewActivity.this).create();
-                    alertDialog.setTitle("SYNC DATA ALERT");
-                    alertDialog.setMessage("Welcome to new Boc Kindly do a Data Download!!");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.show();
-                }*/
-
-                // startActivity(new Intent(getApplicationContext(),
-                // AttendanceFragment.class));
+                Intent i = new Intent(getApplicationContext(),
+                        BAYearWiseReport.class);
+                startActivity(i);
 
             }
         });
@@ -488,25 +364,9 @@ public class DashboardNewActivity extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                //if (boc26 == false) {
-                    Intent i = new Intent(getApplicationContext(),
-                            BAMonthWiseReport.class);
-                    startActivity(i);
-                /*} else {
-                    AlertDialog alertDialog = new AlertDialog.Builder(DashboardNewActivity.this).create();
-                    alertDialog.setTitle("SYNC DATA ALERT");
-                    alertDialog.setMessage("Welcome to new Boc Kindly do a Data Download!!");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.show();
-                }*/
-
-                // startActivity(new Intent(getApplicationContext(),
-                // AttendanceFragment.class));
+                Intent i = new Intent(getApplicationContext(),
+                        BAMonthWiseReport.class);
+                startActivity(i);
 
             }
         });
@@ -517,21 +377,8 @@ public class DashboardNewActivity extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                //if (boc26 == false) {
-                    startActivity(new Intent(getApplicationContext(),
-                            SaleNewActivity.class));
-                /*} else {
-                    AlertDialog alertDialog = new AlertDialog.Builder(DashboardNewActivity.this).create();
-                    alertDialog.setTitle("SYNC DATA ALERT");
-                    alertDialog.setMessage("Welcome to new Boc Kindly do a Data Download!!");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.show();
-                }*/
+                startActivity(new Intent(getApplicationContext(),
+                        SaleNewActivity.class));
 
             }
         });
@@ -542,21 +389,8 @@ public class DashboardNewActivity extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-               // if (boc26 == false) {
-                    startActivity(new Intent(getApplicationContext(),
-                            BocDashBoardActivity.class));
-               /* } else {
-                    AlertDialog alertDialog = new AlertDialog.Builder(DashboardNewActivity.this).create();
-                    alertDialog.setTitle("SYNC DATA ALERT");
-                    alertDialog.setMessage("Welcome to new Boc Kindly do a Data Download!!");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.show();
-                }*/
+                startActivity(new Intent(getApplicationContext(),
+                        BocDashBoardActivity.class));
 
             }
         });
@@ -567,21 +401,9 @@ public class DashboardNewActivity extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-               // if (boc26 == false) {
-                    startActivity(new Intent(getApplicationContext(),
-                            SupervisorAttendance.class));
-                /*} else {
-                    AlertDialog alertDialog = new AlertDialog.Builder(DashboardNewActivity.this).create();
-                    alertDialog.setTitle("SYNC DATA ALERT");
-                    alertDialog.setMessage("Welcome to new Boc Kindly do a Data Download!!");
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                }
-                            });
-                    alertDialog.show();
-                }*/
+                startActivity(new Intent(getApplicationContext(),
+                        SupervisorAttendance.class));
+
             }
         });
 
@@ -704,7 +526,7 @@ public class DashboardNewActivity extends Activity {
         // cancel any notification we may have received from
         // TestBroadcastReceiver
 
-        //Boc26AlaramReceiver();
+        AutologoutBroadcast();
 
         startRepeatingTimer();// ------------------------------------
 
@@ -733,37 +555,6 @@ public class DashboardNewActivity extends Activity {
         }
     };
 
-    public void showdialog(){
-
-        try {
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                    DashboardNewActivity.this);
-
-            // set title
-            alertDialogBuilder.setTitle("SYNC DATA ALERT");
-
-            // set dialog message
-            alertDialogBuilder.setMessage("Welcome to New Boc Kindly do a Data Download!!")
-                    .setCancelable(false)
-                    .setPositiveButton("OK",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(
-                                        DialogInterface dialog, int id) {
-                                    //new InsertFirstTimeMaster().execute();
-                                    Intent i = new Intent(DashboardNewActivity.this, SyncMaster.class);
-                                    startActivity(i);
-                                }
-                            });
-
-            // create alert dialog
-            AlertDialog alertDialog = alertDialogBuilder.create();
-
-            // show it
-            alertDialog.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void onBackPressed() {
@@ -850,8 +641,7 @@ public class DashboardNewActivity extends Activity {
 
     }
 
-    /*public class InsertFirstTimeMaster extends
-            AsyncTask<Void, Void, SoapObject> {
+    public class InsertFirstTimeMaster extends AsyncTask<Void, Void, SoapObject> {
 
         private SoapObject soap_result = null;
 
@@ -887,6 +677,17 @@ public class DashboardNewActivity extends Activity {
         String EmpId = sp.getString("username", "");
         String Erro_function = "";
         String ErroFlag = "";
+
+        @Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+            super.onPreExecute();
+
+            mProgress.setMessage("Receiving.....");
+            mProgress.setCancelable(false);
+            mProgress.show();
+
+        }
 
         @Override
         protected SoapObject doInBackground(Void... params) {
@@ -1030,8 +831,8 @@ public class DashboardNewActivity extends Activity {
 
                                             );
 
-									*//*
-									 * soap_result_stock = service.SaveStock(
+									/*
+                                     * soap_result_stock = service.SaveStock(
 									 * stock_array.getString(2),
 									 * stock_array.getString(1), eancode_string,
 									 * username, stock_array.getString(4),
@@ -1053,7 +854,7 @@ public class DashboardNewActivity extends Activity {
 									 *
 									 *
 									 * );
-									 *//*
+									 */
 
                                     if (soap_result_stock != null) {
                                         String result_stock = soap_result_stock
@@ -1132,7 +933,7 @@ public class DashboardNewActivity extends Activity {
                         } else if (stock_array == null) {
 
                         } else {
-                            Log.e("Stock data for upload",
+                            Log.e("NoStock dataupload",
                                     String.valueOf(stock_array.getCount()));
                         }
 
@@ -1163,8 +964,8 @@ public class DashboardNewActivity extends Activity {
                     db.open();
                     String lastdatesync = db.getLastSyncDate("stock");
 
-					*//*if(lastdatesync != null && lastdatesync.length()>0) {
-						String[] dateParts = lastdatesync.split(" ");
+					/*if(lastdatesync != null && lastdatesync.length()>0) {
+                        String[] dateParts = lastdatesync.split(" ");
 						String date1 = dateParts[0];
 						SimpleDateFormat sdf = new SimpleDateFormat(
 								"MM/dd/yyyy", Locale.ENGLISH);//Using UAT server
@@ -1180,7 +981,7 @@ public class DashboardNewActivity extends Activity {
 						lastdate = sdf.format(curntdte);
 					}else{
 						lastdate = "";
-					}*//*
+					}*/
 
                     db.close();
 
@@ -2010,7 +1811,7 @@ public class DashboardNewActivity extends Activity {
                                     db.open();
                                     db.UpdateStockSync1(ProductCategory,
                                             ProductType, ProductName, EmpId,
-                                            Opening_Stock,Stock_inhand, ClosingBal,
+                                            Opening_Stock, Stock_inhand, ClosingBal,
                                             FreshStock, GrossAmount, SoldStock,
                                             Price, Size, db_Id, LMD, Discount,
                                             NetAmount,
@@ -2128,8 +1929,8 @@ public class DashboardNewActivity extends Activity {
 
                     }
 
-					*//*soap_result = service.SyncStockData(
-							sp.getString("username", ""), lastdatesync);
+					/*soap_result = service.SyncStockData(
+                            sp.getString("username", ""), lastdatesync);
 					// soap_result =
 					// service.SyncStockData(sp.getString("username",
 					// ""),"05/01/2014 12:38:40");
@@ -2551,8 +2352,8 @@ public class DashboardNewActivity extends Activity {
 								}
 
 								// }
-								*//**//*
-								 * } catch (Exception e) { // TODO: handle
+								*//*
+                                 * } catch (Exception e) { // TODO: handle
 								 * exception e.printStackTrace(); String Error =
 								 * e.toString(); Log.v("","se2 error"); final
 								 * Calendar calendar = Calendar .getInstance();
@@ -2568,7 +2369,7 @@ public class DashboardNewActivity extends Activity {
 								 * ,Createddate,Createddate,sp.getString
 								 * ("username", ""),"SyncStockData()","Fail");
 								 * db.close(); }
-								 *//**//*
+								 *//*
 
 							} else if (soap_result1.getProperty("status")
 									.toString().equalsIgnoreCase("E")) {
@@ -2580,14 +2381,14 @@ public class DashboardNewActivity extends Activity {
 								soap_update_stock_row = service
 										.UpdateTableData(db_stock_id_array,
 												"S", EmpId);
-								*//**//*
-								 * Log.e("",
+								*//*
+                                 * Log.e("",
 								 * "soap_update_stock_row= "+soap_update_stock_row
 								 * .toString());
 								 *
 								 * Log.e("", "string ids== "+db_stock_id_array);
-								 *//**//*
-								SimpleDateFormat dateFormat = new SimpleDateFormat(
+								 *//*
+                                SimpleDateFormat dateFormat = new SimpleDateFormat(
 										"MM/dd/yyyy HH:mm:ss");
 								// get current date time with Date()
 								Calendar cal = Calendar.getInstance();
@@ -2662,7 +2463,7 @@ public class DashboardNewActivity extends Activity {
 								sp.getString("username", ""), "Data Download",
 								"Fail");
 
-					}*//*
+					}*/
 
                     // -----------------Tester-------------//
 
@@ -2689,9 +2490,6 @@ public class DashboardNewActivity extends Activity {
                             if (soap_result_tester1.getProperty("status")
                                     .toString().equalsIgnoreCase("C")) {
 
-                                // try {
-                                // Log.v("", "soapresul--------" +
-                                // soap_result1.toString());
 
                                 String db_tester_id = soap_result_tester1
                                         .getProperty("Id").toString();
@@ -2849,13 +2647,8 @@ public class DashboardNewActivity extends Activity {
                                     DelieveredDate = " ";
                                 }
 
-                                // if (flag.equalsIgnoreCase("e")) {
-
                                 Log.e("pm", "pm5--");
                                 db.open();
-                                // Cursor c = db.getuniquedata_stock(CatCodeId,
-                                // EANCode, db_Id);
-                                // db_tester_id_array = db_tester_id;
 
                                 Cursor c1 = db.CheckDataExist("tester", db_Id,
                                         ProductCategory, ProductType,
@@ -2895,27 +2688,6 @@ public class DashboardNewActivity extends Activity {
                                             + "," + db_tester_id;// 10.10.2015
 
                                 }
-
-                                // }
-								*//*
-								 * } catch (Exception e) { // TODO: handle
-								 * exception e.printStackTrace(); String Error =
-								 * e.toString(); Log.v("","se2 error"); final
-								 * Calendar calendar = Calendar .getInstance();
-								 * SimpleDateFormat formatter = new
-								 * SimpleDateFormat( "MM/dd/yyyy HH:mm:ss");
-								 * String Createddate =
-								 * formatter.format(calendar .getTime()); Flag =
-								 * "4"; int n =
-								 * Thread.currentThread().getStackTrace
-								 * ()[2].getLineNumber(); db.open();
-								 * db.insertSyncLog(Error,String.valueOf(n),
-								 * "SyncGetTesterData()"
-								 * ,Createddate,Createddate,
-								 * sp.getString("username",
-								 * ""),"SyncGetTesterData()","Fail");
-								 * db.close(); }
-								 *//*
 
                             } else if (soap_result_tester1
                                     .getProperty("status").toString()
@@ -3193,12 +2965,6 @@ public class DashboardNewActivity extends Activity {
                             String LMD = soap_result_boc_day1
                                     .getProperty("LMD").toString();
 
-							*//*
-							 * if(LMD == null){ LMD="";
-							 *
-							 * }
-							 *//*
-                            // ---
                             if (LMD == null) {
                                 LMD = "";
 
@@ -3264,9 +3030,6 @@ public class DashboardNewActivity extends Activity {
                                 BOC = "";
 
                             }
-
-                            // String lmd =
-                            // soap_result1.getProperty("LMD").toString();
 
                             if (db_Id.equalsIgnoreCase("anyType{}")) {
                                 Log.e("", "anytype for db_Id");
@@ -3368,16 +3131,9 @@ public class DashboardNewActivity extends Activity {
                                 BOC = " ";
                             }
 
-                            // if (flag.equalsIgnoreCase("e")) {
-
                             Log.e("pm", "pm5--");
                             db.open();
-                            // Cursor c = db.getuniquedata_stock(CatCodeId,
-                            // EANCode, db_Id);
 
-                            // Cursor c1 =
-                            // db.CheckDataExist("boc_wise_stock",db_Id,ProductCategory,ProductType,ProductName);
-                            // db_bocmonthstock_id_array = db_stock_id;
                             Cursor c1 = db.CheckDataExistInBOCDayWise(
                                     "boc_wise_stock", db_Id, Date);
 
@@ -3427,23 +3183,6 @@ public class DashboardNewActivity extends Activity {
                                 }
 
                             }
-                            // }
-							*//*
-							 * } catch (Exception e) { // TODO: handle exception
-							 * e.printStackTrace(); String Error = e.toString();
-							 * Log.v("","se2 error"); final Calendar calendar =
-							 * Calendar .getInstance(); SimpleDateFormat
-							 * formatter = new SimpleDateFormat(
-							 * "MM/dd/yyyy HH:mm:ss"); String Createddate =
-							 * formatter.format(calendar .getTime()); Flag =
-							 * "4"; int n =
-							 * Thread.currentThread().getStackTrace(
-							 * )[2].getLineNumber(); db.open();
-							 * db.insertSyncLog(Error,String.valueOf(n),
-							 * "SyncStockNetvalue()"
-							 * ,Createddate,Createddate,sp.getString("username",
-							 * ""),"SyncStockNetvalue()","Fail"); db.close(); }
-							 *//*
 
                         } else if (soap_result_boc_day1.getProperty("status")
                                 .toString().equalsIgnoreCase("E")) {
@@ -3551,9 +3290,6 @@ public class DashboardNewActivity extends Activity {
                         if (soap_result_monthwise1.getProperty("status")
                                 .toString().equalsIgnoreCase("C")) {
 
-                            // try {
-                            // Log.v("", "soapresul--------" +
-                            // soap_result1.toString());
 
                             String db_stock_id = soap_result_monthwise1
                                     .getProperty("Id").toString();
@@ -3712,11 +3448,6 @@ public class DashboardNewActivity extends Activity {
                             String LMD = soap_result_monthwise1.getProperty(
                                     "LMD").toString();
 
-							*//*
-							 * if(LMD == null){ LMD="";
-							 *
-							 * }
-							 *//*
 
                             if (LMD == null) {
                                 LMD = "";
@@ -3752,12 +3483,6 @@ public class DashboardNewActivity extends Activity {
                                     .getProperty("AndroidCreatedDate")
                                     .toString();
 
-							*//*
-							 * if(AndroidCreatedDate == null){
-							 * AndroidCreatedDate="";
-							 *
-							 * }
-							 *//*
 
                             String MONTH = "", YEAR = "";
                             if (AndroidCreatedDate == null) {
@@ -3786,22 +3511,12 @@ public class DashboardNewActivity extends Activity {
 
                                     // String month = addd2[1];
                                     YEAR = addd2[0];
-                                    //
-                                    // SimpleDateFormat monthParse = new
-                                    // SimpleDateFormat("MM");
-                                    // SimpleDateFormat monthDisplay = new
-                                    // SimpleDateFormat("MMMM");
-                                    // MONTH =
-                                    // monthDisplay.format(monthParse.parse(month));
-                                    //
 
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
                             }
 
-                            // String lmd =
-                            // soap_result1.getProperty("LMD").toString();
 
                             if (db_Id.equalsIgnoreCase("anyType{}")) {
                                 Log.e("", "anytype for db_Id");
@@ -3987,9 +3702,7 @@ public class DashboardNewActivity extends Activity {
                 } else {
 
                     Log.v("", "Soap result is null");
-                    // Toast.makeText(context,
-                    // "Data Not Available or Check Connectivity",
-                    // Toast.LENGTH_SHORT).show();
+
                     syncbocmonthwise = 0;
                     final Calendar calendar = Calendar.getInstance();
                     SimpleDateFormat formatter = new SimpleDateFormat(
@@ -4053,81 +3766,52 @@ public class DashboardNewActivity extends Activity {
 
                 DisplayDialogMessage("Check Your Internet Connection!!!");
 
-				*//*Toast.makeText(SyncMaster.this,
-						"Check Your Internet Connection!!!", Toast.LENGTH_LONG)
-						.show();*//*
             } else
-                // if(result != null){
 
                 if (Flag.equalsIgnoreCase("1")) {
-
 
                     boolean boc26 = false;
                     spe.putBoolean("BOC26", boc26);
                     spe.commit();
+                    //final boolean boolRecd = false;
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(DashboardNewActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                     builder.setMessage("Data Download Completed Successfully!!")
                             .setCancelable(false)
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     //do things
                                     dialog.dismiss();
-                                    startActivity(new Intent(DashboardNewActivity.this,
-                                            DashboardNewActivity.class));
+                                    Intent i = new Intent(DashboardNewActivity.this, DashboardNewActivity.class);
+                                    //i.putExtra("Boc26",boolRecd);
+                                    startActivity(i);
                                 }
                             });
                     AlertDialog alert = builder.create();
+                    alert.getWindow().setType(WindowManager.LayoutParams.
+                            TYPE_SYSTEM_ALERT);
                     alert.show();
-*//*
-				Toast.makeText(context,
-						"Data Download Completed Successfully!!",
-						Toast.LENGTH_SHORT).show();*//*
-                    // db.open();
-                    // db.updateflag_disable_button();
-                    // db.close();
 
-				*//*	startActivity(new Intent(SyncMaster.this,
-							DashboardNewActivity.class));*//*
 
                 } else if (Flag.equalsIgnoreCase("2")) {
 
                     DisplayDialogMessage("Data Download Incomplete!!");
 
-				*//*Toast.makeText(context, "Data Download Incomplete!!",
-						Toast.LENGTH_SHORT).show();
-*//*
-                } *//*
-			 * else if (Flag.equalsIgnoreCase("3")) {
-			 *
-			 *
-			 * Toast.makeText(context, "Sync Successfully!!",
-			 * Toast.LENGTH_SHORT).show(); startActivity(new
-			 * Intent(SyncMaster.this, DashboardNewActivity.class));
-			 *
-			 * }
-			 *//*
-                // }
+                }
                 else if (Flag.equalsIgnoreCase("4")) {
 
                     DisplayDialogMessage("Data Download Incomplete!!,Please try again after some time");
 
-				*//*Toast.makeText(
-						context,
-						"Data Download Incomplete!!,Please try again after some time",
-						Toast.LENGTH_SHORT).show();*//*
                 } else {
 
                     DisplayDialogMessage("Data Download Incomplete!!");
 
-				*//*Toast.makeText(context, "Data Download Incomplete!!",
-						Toast.LENGTH_SHORT).show();*//*
                 }
 
         }
 
         private void DisplayDialogMessage(String msg) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(DashboardNewActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
             builder.setMessage(msg)
                     .setCancelable(false)
                     .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -4137,23 +3821,16 @@ public class DashboardNewActivity extends Activity {
                         }
                     });
             AlertDialog alert = builder.create();
+            alert.getWindow().setType(WindowManager.LayoutParams.
+                    TYPE_SYSTEM_ALERT);
             alert.show();
         }
 
-        @Override
-        protected void onPreExecute() {
-            // TODO Auto-generated method stub
-            super.onPreExecute();
-
-            mProgress.setMessage("Receiving.....");
-            mProgress.show();
-            mProgress.setCancelable(false);
-        }
 
     }
 
     public void writeStringAsFile(String fileContents) {
-        //Context context1 = context;
+        Context context1 = mContext;
         try {
             File root;
             root = new File(Environment.getExternalStorageDirectory()
@@ -4167,6 +3844,45 @@ public class DashboardNewActivity extends Activity {
         } catch (IOException e) {
             // Logger.logError(TAG, e);
         }
-    }*/
 
+    }
+
+    public void AutologoutBroadcast(){
+        try {
+
+            AlarmManager mAlarmManger = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+            //Create pending intent & register it to your alarm notifier class
+            Intent broadCastIntent = new Intent(this, MyScheduledReceiver.class);
+            broadCastIntent.putExtra("uur", "1e"); // if you wanst
+            boolean alarmRunning = (PendingIntent.getBroadcast(this, 0, broadCastIntent, PendingIntent.FLAG_NO_CREATE) != null);
+            if(!alarmRunning) {
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, broadCastIntent, 0);
+                //set timer you want alarm to work (here I have set it to 7.00)
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.HOUR_OF_DAY, 7);  //24
+                calendar.set(Calendar.MINUTE, 0);   //0
+                calendar.set(Calendar.SECOND,0 );
+
+                //set that timer as a RTC Wakeup to alarm manager object
+                mAlarmManger.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+   }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This method enables the Broadcast receiver registered in the AndroidManifest file.
+     *
+     */
+    public void enableBroadcastReceiver(){
+        ComponentName receiver = new ComponentName(this, MyScheduledReceiver.class);
+        PackageManager pm = this.getPackageManager();
+
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
+        Toast.makeText(this, "Enabled broadcast receiver", Toast.LENGTH_SHORT).show();
+    }
 }

@@ -22,19 +22,17 @@ public class BocBroadcastReceiver extends BroadcastReceiver {
         sp = context.getSharedPreferences("Lotus", Context.MODE_PRIVATE);
         spe = sp.edit();
 
-        Log.v("","Boc running");
-        boolean boc26 = true;
+        Log.v("", "Boc running");
+        boolean boc26 = sp.getBoolean("BOC26", false);
 
-        /*spe.putBoolean("BOC26", boc26);
-        spe.commit();*/
+        if (boc26) {
+            Intent i = new Intent();
+            i.setClassName("com.prod.sudesi.lotusherbalsnew", "com.prod.sudesi.lotusherbalsnew.DashboardNewActivity");
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.putExtra("FROM", "RECEIVER");
+            context.startActivity(i);
+        }
 
-        Intent i   = new Intent();
-        i.setClassName("com.prod.sudesi.lotusherbalsnew", "com.prod.sudesi.lotusherbalsnew.DashboardNewActivity");
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        i.putExtra("Boc26", boc26);
-        context.startActivity(i);
-
-        Log.v("Receiver","Working");
-       // proposalDashboardListener.onItemRefreshList(true, context);
+        Log.v("Receiver", "Working");
     }
 }

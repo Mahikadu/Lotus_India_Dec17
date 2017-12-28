@@ -22,8 +22,10 @@ import libs.LotusWebservice;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.Dialog;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
@@ -162,7 +164,8 @@ public class AttendanceFragment extends Activity implements OnClickListener {
 
 		nextMonth = (ImageView) findViewById(R.id.nextMonth);
 		nextMonth.setOnClickListener(this);
-		
+
+
 		//------------------
 
 		tv_h_username = (TextView)findViewById(R.id.tv_h_username);
@@ -1397,7 +1400,7 @@ public class AttendanceFragment extends Activity implements OnClickListener {
 				 }else if (attendance_array==null) {
 
 				} else {
-					Log.e("No any  Attendance data for upload ",
+					Log.e("NoAttendance dataupload",
 							String.valueOf(attendance_array.getCount()));
 				}
 
@@ -1457,11 +1460,9 @@ public class AttendanceFragment extends Activity implements OnClickListener {
 					startActivity(i);
 					
 				}else{
-					
-					
-					
-					
+
 					Intent i = new Intent(getApplicationContext(), DashboardNewActivity.class);
+					i.putExtra("FROM", "LOGIN");
 					i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					startActivity(i);
 				}
@@ -1535,7 +1536,5 @@ public class AttendanceFragment extends Activity implements OnClickListener {
 		
 		
 	}
-	
 
-	
 }

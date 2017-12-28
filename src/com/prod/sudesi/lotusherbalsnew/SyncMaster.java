@@ -6280,10 +6280,10 @@ public class SyncMaster extends Activity {
 
 				if (Flag.equalsIgnoreCase("1")) {
 
-					/*boolean boc26 = true;
+					boolean boc26 = false;
 					spe.putBoolean("BOC26", boc26);
 					spe.commit();
-					final boolean boolRecd = false;*/
+					//final boolean boolRecd = false;
 
 					AlertDialog.Builder builder = new AlertDialog.Builder(SyncMaster.this);
 					builder.setMessage("Data Download Completed Successfully!!")

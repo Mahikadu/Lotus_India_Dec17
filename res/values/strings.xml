@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Lotus_PRO_v2.7</string>
-    <string name="app_name1">Lotus_UAT_v2.6</string>
+    <string name="app_name1">Lotus_UAT_v2.7</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="lightning">Natural Lightning</string>
