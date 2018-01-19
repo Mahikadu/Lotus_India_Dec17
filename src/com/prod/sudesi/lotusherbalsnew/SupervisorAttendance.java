@@ -112,7 +112,7 @@ public class SupervisorAttendance extends Activity implements OnClickListener {
 		username = sp.getString("username", "");
 		Log.v("","username=="+username);
 		
-		tv_h_username.setText(username);
+		tv_h_username.setText(BDEusername);
 	
 
 		Calendar cal = Calendar.getInstance();

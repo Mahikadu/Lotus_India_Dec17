@@ -75,7 +75,7 @@ public class SyncMaster extends Activity {
 	int soapresultforvisibilityid;
 
 	private double lon = 0.0, lat = 0.0;
-	String username, imgpth, producttype;
+	String username,bdename, imgpth, producttype;
 
 	// shredpreference
 	private SharedPreferences sharedpre = null;
@@ -93,7 +93,6 @@ public class SyncMaster extends Activity {
 	Button btn_home, btn_logout;
 	Button btn_ch;
 
-	RelativeLayout layout_relative;
 
 	// WriteErroLogs we;
 
@@ -128,8 +127,6 @@ public class SyncMaster extends Activity {
 
 		btn_usermanual = (Button) findViewById(R.id.btn_usermanual);
 
-		layout_relative = (RelativeLayout) findViewById(R.id.layout_relative);
-
 		cd = new ConnectionDetector(context);
 		db = new Dbcon(context);
 		mProgress = new ProgressDialog(SyncMaster.this);
@@ -148,11 +145,13 @@ public class SyncMaster extends Activity {
 		username = sp.getString("username", "");
 		Log.e("", "username==" + username);
 
+		bdename = sp.getString("BDEusername","");
+
 		tv_h_username = (TextView) findViewById(R.id.tv_h_username);
 		btn_home = (Button) findViewById(R.id.btn_home);
 		btn_logout = (Button) findViewById(R.id.btn_logout);
 
-		tv_h_username.setText(username);
+		tv_h_username.setText(bdename);
 
 		btn_logout.setOnClickListener(new OnClickListener() {
 

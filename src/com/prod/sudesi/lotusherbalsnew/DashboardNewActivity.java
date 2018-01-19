@@ -45,7 +45,6 @@ import android.widget.ViewFlipper;
 
 import com.littlefluffytoys.littlefluffylocationlibrary.LocationInfo;
 import com.littlefluffytoys.littlefluffylocationlibrary.LocationLibraryConstants;
-import com.prod.sudesi.lotusherbalsnew.R;
 
 import com.sudesi.tester.TesterSubmitActivity;
 
@@ -80,7 +79,7 @@ public class DashboardNewActivity extends Activity {
     // today
     private Dbcon db = null;
     String[] values;
-    String username;
+    String username,bdename;
 
     ConnectionDetector cd;
     LotusWebservice service;
@@ -118,7 +117,7 @@ public class DashboardNewActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.activity_dashboard_new);
+        setContentView(R.layout.activity_dashboard);
 
         //////////Crash Report
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
@@ -410,7 +409,8 @@ public class DashboardNewActivity extends Activity {
 
         try {
             username = sp.getString("username", "");
-            tv_h_username.setText(username);
+            bdename = sp.getString("BDEusername","");
+            tv_h_username.setText(bdename);
             yesterdaydate1 = getYesterdayDateString();
 
             String getmonth1 = getmonthforinsert(yesterdaydate1);
@@ -3854,13 +3854,13 @@ public class DashboardNewActivity extends Activity {
 
             //Create pending intent & register it to your alarm notifier class
             Intent broadCastIntent = new Intent(this, MyScheduledReceiver.class);
-            broadCastIntent.putExtra("uur", "1e"); // if you wanst
+            broadCastIntent.putExtra("uur", "1e"); // if you want
             boolean alarmRunning = (PendingIntent.getBroadcast(this, 0, broadCastIntent, PendingIntent.FLAG_NO_CREATE) != null);
             if(!alarmRunning) {
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, broadCastIntent, 0);
                 //set timer you want alarm to work (here I have set it to 7.00)
                 Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.HOUR_OF_DAY, 7);  //24
+                calendar.set(Calendar.HOUR_OF_DAY, 24);  //24
                 calendar.set(Calendar.MINUTE, 0);   //0
                 calendar.set(Calendar.SECOND,0 );
 

@@ -91,7 +91,7 @@ public class TesterFragment extends Activity {
 	
 	TextView tv_h_username;
 	Button btn_home,btn_logout;
-	String username;
+	String username,bdename;
 
 	@SuppressLint("NewApi")
 	@Override
@@ -151,7 +151,8 @@ public class TesterFragment extends Activity {
 				btn_home = (Button)findViewById(R.id.btn_home);
 				btn_logout =(Button)findViewById(R.id.btn_logout);
 				username = shp.getString("username", "");
-				tv_h_username.setText(username);
+				bdename = shp.getString("BDEusername","");
+				tv_h_username.setText(bdename);
 				btn_logout.setOnClickListener(new OnClickListener() {
 					
 					@Override

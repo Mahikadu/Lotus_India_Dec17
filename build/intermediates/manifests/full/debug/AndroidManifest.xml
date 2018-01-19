@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.prod.sudesi.lotusherbalsnew"
     android:versionCode="20"
-    android:versionName="2.7" >
+    android:versionName="2.8" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -71,16 +71,6 @@
             android:name="com.prod.sudesi.lotusherbalsnew.LoginActivity"
             android:screenOrientation="portrait" >
         </activity>
-        <!--
-        <activity android:name=".DashboardActivity" >
-        </activity>
-        -->
-        <!--
-        <activity
-            android:name=".AttendanceActivity"
-            android:screenOrientation="portrait" >
-        </activity>
-        -->
         <activity
             android:name="com.prod.sudesi.lotusherbalsnew.DashboardNewActivity"
             android:screenOrientation="portrait" >
@@ -91,10 +81,6 @@
         </activity>
         <activity
             android:name="com.prod.sudesi.lotusherbalsnew.TesterFragment"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name="com.prod.sudesi.lotusherbalsnew.StockFragment"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -140,20 +126,6 @@
             android:label="@string/title_activity_change_password"
             android:screenOrientation="portrait" >
         </activity>
-        <!--
-        <activity
-            android:name=".StockActivity"
-            android:label="@string/title_activity_stock"
-            android:screenOrientation="portrait" >
-        </activity>
-        -->
-        <!--
-        <activity
-            android:name=".SaleActivity"
-            android:label="@string/title_activity_sale"
-            android:screenOrientation="portrait" >
-        </activity>
-        -->
         <activity
             android:name="com.prod.sudesi.lotusherbalsnew.SaleCalculation"
             android:screenOrientation="portrait" >
@@ -169,31 +141,12 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="com.prod.sudesi.lotusherbalsnew.BocGridViewActivity"
-            android:label="@string/title_activity_boc_grid_view"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name="com.sudesi.tester.TesterSubmitActivity"
             android:label="@string/title_activity_tester_submit"
             android:screenOrientation="portrait" >
         </activity>
-        <!--
-        <activity
-            android:name=".ReportNewActivity"
-            android:label="@string/title_activity_report_new" >
-        </activity>
-        -->
         <activity android:name="com.prod.sudesi.lotusherbalsnew.SupervisorAttendance" >
         </activity>
-        <activity android:name="com.prod.sudesi.lotusherbalsnew.BocDashboardGridViewActivity" >
-        </activity>
-        <!--
-        <activity
-            android:name=".StockEntry"
-            android:label="@string/title_activity_stock_entry" >
-        </activity>
-        -->
         <activity
             android:name="com.prod.sudesi.lotusherbalsnew.BocCumulativeDashboardActivity"
             android:screenOrientation="landscape" >

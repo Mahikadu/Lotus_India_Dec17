@@ -86,7 +86,7 @@ public class AttendanceFragment extends Activity implements OnClickListener {
 	SharedPreferences sp;
 	SharedPreferences.Editor spe;
 	int day1, year1, month1;
-	String username;
+	String username,bdename;
 	ConnectionDetector cd;
 	LotusWebservice service;
 	private ProgressDialog pd;
@@ -151,6 +151,7 @@ public class AttendanceFragment extends Activity implements OnClickListener {
 			
 		}
 		username = sp.getString("username", "");
+		bdename = sp.getString("BDEusername","");
 
 		selectedDayMonthYearButton = (Button) findViewById(R.id.selectedDayMonthYear);
 		selectedDayMonthYearButton.setText("Selected: ");
@@ -169,7 +170,7 @@ public class AttendanceFragment extends Activity implements OnClickListener {
 		//------------------
 
 		tv_h_username = (TextView)findViewById(R.id.tv_h_username);
-		tv_h_username.setText(username);
+		tv_h_username.setText(bdename);
 		btn_logout.setOnClickListener(new OnClickListener() {
 			
 			@Override

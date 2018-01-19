@@ -1,150 +1,335 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <ViewFlipper
-        android:id="@+id/view_flipper"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+    <include layout="@layout/headernew" />
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:weightSum="4">
+
+            <ImageSwitcher
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="#C72C2C" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/one" />
-            
-        </RelativeLayout>
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
 
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                    <Button
+                        android:id="@+id/btn_atten"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:alpha="0.6"
+                        android:background="@drawable/attendance"
+                        android:padding="5dp"
+                         />
+
+                </LinearLayout>
+
+                <ImageSwitcher
+                    android:layout_width="3dp"
+                    android:layout_height="70dp"
+                    android:background="#C72C2C" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/btn_notifi"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:alpha="0.6"
+                        android:background="@drawable/noti"
+                        android:padding="5dp"
+                        />
+
+                </LinearLayout>
+
+                <ImageSwitcher
+                    android:layout_width="3dp"
+                    android:layout_height="70dp"
+                    android:background="#C72C2C" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/btn_master_sync"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:alpha="0.6"
+                        android:background="@drawable/master"
+                        android:padding="5dp"
+                       />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <ImageSwitcher
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="#C72C2C" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/two" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-           
-        </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+                    <Button
+                        android:id="@+id/btn_stock"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:alpha="0.6"
+                        android:background="@drawable/stock"
+                        android:padding="5dp"
+                       />
 
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                </LinearLayout>
+
+                <ImageSwitcher
+                    android:layout_width="3dp"
+                    android:layout_height="70dp"
+                    android:background="#C72C2C" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/btn_sale"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:alpha="0.6"
+                        android:background="@drawable/sale"
+                        android:padding="5dp"
+                         />
+
+                </LinearLayout>
+
+                <ImageSwitcher
+                    android:layout_width="3dp"
+                    android:layout_height="70dp"
+                    android:background="#C72C2C" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/btn_report"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:alpha="0.6"
+                        android:background="@drawable/reports"
+                        android:padding="5dp"
+                         />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <ImageSwitcher
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="#C72C2C" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/three" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-         
-        </RelativeLayout>
-        
-         <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
 
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                    <Button
+                        android:id="@+id/btn_ba_sale_month_wise"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:alpha="0.6"
+                        android:background="@drawable/ba_report"
+                        android:padding="5dp"
+                        />
+
+                </LinearLayout>
+
+                <ImageSwitcher
+                    android:layout_width="3dp"
+                    android:layout_height="70dp"
+                    android:background="#C72C2C" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/btn_dashboard"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:alpha="0.6"
+                        android:background="@drawable/dashboard"
+                        android:padding="5dp"
+                        />
+
+                </LinearLayout>
+
+                <ImageSwitcher
+                    android:layout_width="3dp"
+                    android:layout_height="70dp"
+                    android:background="#C72C2C" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/btn_ba_sale_yr"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:alpha="0.6"
+                        android:background="@drawable/ba_out_sale"
+                        android:padding="5dp"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <ImageSwitcher
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="#C72C2C" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/four" />
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-         
-        </RelativeLayout>
-        
-          <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
 
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/five" />
+                    <Button
+                        android:id="@+id/btn_super_atten"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:alpha="0.6"
+                        android:background="@drawable/supervisor"
+                        android:padding="5dp"
+                        />
 
-         
-        </RelativeLayout>
-        
-            <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+                </LinearLayout>
 
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/six" />
+                <ImageSwitcher
+                    android:layout_width="3dp"
+                    android:layout_height="70dp"
+                    android:background="#C72C2C" />
 
-         
-        </RelativeLayout>
-        
-              <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
 
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/seven" />
+                    <Button
+                        android:id="@+id/btn_tester"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:alpha="0.6"
+                        android:background="@drawable/test"
+                        android:padding="5dp"
+                      />
 
-         
-        </RelativeLayout>
-        
-                <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+                </LinearLayout>
 
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/eight" />
+                <ImageSwitcher
+                    android:layout_width="3dp"
+                    android:layout_height="70dp"
+                    android:background="#C72C2C" />
 
-         
-        </RelativeLayout>
-        
-                  <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
 
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/nine" />
+                    <Button
+                        android:id="@+id/btn_visibility"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:alpha="0.6"
+                        android:background="@drawable/visibility"
+                        android:padding="5dp"
+                        />
 
-         
-        </RelativeLayout>
-        
-    </ViewFlipper>
+                </LinearLayout>
 
-</RelativeLayout>
+            </LinearLayout>
+
+            <ImageSwitcher
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="#C72C2C" />
+
+        </LinearLayout>
+
+
+
+</LinearLayout>

@@ -109,12 +109,12 @@ public class LoginActivity extends Activity {
     String LogoutStatus = "";
 
     //Production
-    public static final String  downloadURL = "http://lotussmartforce.com/apk/Lotus_Pro.apk"; //production
-    public static final String downloadConfigFile = "http://lotussmartforce.com/apk/config.txt";//production
+    /*public static final String  downloadURL = "http://lotussmartforce.com/apk/Lotus_Pro.apk"; //production
+    public static final String downloadConfigFile = "http://lotussmartforce.com/apk/config.txt";//production*/
 
     //UAT
-    /*public static final String  downloadURL = "http://lotussmartforce.com/apk/Lotus_Pro.apk"; //UAT
-    public static final String downloadConfigFile = "http://lotussmartforce.com/apk/config.txt";//UAT*/
+    public static final String  downloadURL = "http://sandboxws.lotussmartforce.com/APK/Lotus_UAT.apk"; //UAT
+    public static final String downloadConfigFile = "http://sandboxws.lotussmartforce.com/APK/config.txt";//UAT
 
 
     @Override
@@ -170,7 +170,7 @@ public class LoginActivity extends Activity {
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         deviceId = telephonyManager.getDeviceId();
 
-        //exportDB();
+        exportDB();
 
         refreshDisplay();
         btn_login.setOnClickListener(new OnClickListener() {
@@ -1957,11 +1957,12 @@ public class LoginActivity extends Activity {
     public void LoginUser() {
 
         //spe.clear();
-        if (sp.getBoolean("Upload_data_flag", true) == true) {
-            Log.e("Upload Data Receivert", String.valueOf(sp.getBoolean("Upload_data_flag_true", true)));
+        if (sp.getBoolean("Upload_data_flag", false) == false) {
+
+            DataUploadAlaramReceiver();
 
         } else {
-            DataUploadAlaramReceiver();
+            Log.e("Upload Data Receivert", String.valueOf(sp.getBoolean("Upload_data_flag_true", true)));
 
         }
 

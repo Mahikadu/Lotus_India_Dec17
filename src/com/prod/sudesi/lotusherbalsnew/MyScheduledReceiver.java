@@ -27,7 +27,8 @@ public class MyScheduledReceiver extends BroadcastReceiver {
         try {
             spe.clear();
             Intent i = new Intent(context, LoginActivity.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            //i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             i.putExtra("LogoutFlag", "LOGOUTSERVICE");
             context.startActivity(i);
 

@@ -65,7 +65,7 @@ public class StockNewActivity extends Activity implements OnClickListener {
     int modecounter = 0;
     public static String PMODE;
 
-    String username;
+    String username,bdename;
 
     String sclo = "";
 
@@ -102,7 +102,8 @@ public class StockNewActivity extends Activity implements OnClickListener {
         db.open();
 
         username = shp.getString("username", "");
-        tv_h_username.setText(username);
+        bdename = shp.getString("BDEusername","");
+        tv_h_username.setText(bdename);
 
         String div = shp.getString("div", "");
 

@@ -40,7 +40,7 @@ public class VisibilityFragment extends Activity implements OnClickListener {
 
 	TextView tv_h_username;
 	Button btn_home, btn_logout;
-	String username;
+	String username,bdename;
 
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -93,7 +93,8 @@ public class VisibilityFragment extends Activity implements OnClickListener {
 		username = sp.getString("username", "");
 
 		Log.v("", "username at visi==" + username);
-		tv_h_username.setText(username);
+		bdename = sp.getString("BDEusername","");
+		tv_h_username.setText(bdename);
 		btn_logout.setOnClickListener(new OnClickListener() {
 
 			@Override

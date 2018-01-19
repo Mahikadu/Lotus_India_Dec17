@@ -56,7 +56,7 @@ public class BAYearWiseReport extends Activity {
 	
 	TextView tv_h_username;
 	Button btn_home,btn_logout;
-	String username;
+	String username,bdename;
 	
 	TextView tv_current_year_n1,tv_current_year_n2,tv_previous_year_p1,tv_previous_year_p2;
 	
@@ -95,8 +95,10 @@ public class BAYearWiseReport extends Activity {
 		
 		username = shp.getString("username", "");
 		Log.v("","username=="+username);
-		
-		tv_h_username.setText(username);
+
+		bdename = shp.getString("BDEusername","");
+
+		tv_h_username.setText(bdename);
 		
 		btn_logout.setOnClickListener(new OnClickListener() {
 			

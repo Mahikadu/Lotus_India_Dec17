@@ -50,7 +50,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <string name="action_settings">Settings</string>
     <string name="app_name">Lotus_PRO_v2.7</string>
-    <string name="app_name1">Lotus_UAT_v2.6</string>
+    <string name="app_name1">Lotus_UAT_v2.8</string>
     <string name="casualleave">Casual Leave</string>
     <string name="color_baloons">Color Baloons</string>
     <string name="hello_world">Hello world!</string>

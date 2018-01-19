@@ -979,6 +979,12 @@ public class SaleCalculation extends Activity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+
+    }
+
     public boolean validateEdit(EditText edt, String errorString,
                                 String valueString) {
 

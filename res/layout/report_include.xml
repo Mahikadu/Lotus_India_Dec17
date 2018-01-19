@@ -42,7 +42,8 @@
         android:layout_toRightOf="@+id/btn_home"
         android:text="Sale" 
         android:typeface="serif"
-        android:textStyle="italic"/>
+        android:textStyle="italic"/>
+
     -->
 
     <ImageView
@@ -51,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logonew" />
 
     <RadioGroup
         android:id="@+id/rg_lhm_choice"
