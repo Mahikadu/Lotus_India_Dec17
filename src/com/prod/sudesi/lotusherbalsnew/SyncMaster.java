@@ -1324,7 +1324,7 @@ public class SyncMaster extends Activity {
 
 					}
 
-					try {
+					/*try {
 						db.open();
 						attendance_array = db.getAttendanceData();
 
@@ -1457,7 +1457,7 @@ public class SyncMaster extends Activity {
 								sp.getString("username", ""),
 								"SaveAttendance()", "Fail");
 
-					}
+					}*/
 
 					try {
 						Log.e("", "saveto server1-stcok");

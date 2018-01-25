@@ -3860,7 +3860,7 @@ public class DashboardNewActivity extends Activity {
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, broadCastIntent, 0);
                 //set timer you want alarm to work (here I have set it to 7.00)
                 Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.HOUR_OF_DAY, 24);  //24
+                calendar.set(Calendar.HOUR_OF_DAY, 13);  //24
                 calendar.set(Calendar.MINUTE, 0);   //0
                 calendar.set(Calendar.SECOND,0 );
 

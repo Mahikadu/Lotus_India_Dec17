@@ -250,7 +250,7 @@ public class BackgroundService extends Service {
 
                     }
 
-                    try {
+                    /*try {
                         db.open();
                         attendance_array = db.getAttendanceData();
 
@@ -382,7 +382,7 @@ public class BackgroundService extends Service {
                                 sp.getString("username", ""),
                                 "SaveAttendance()", "Fail");
 
-                    }
+                    }*/
 
                     try {
                         Log.e("", "saveto server1-stcok");

@@ -660,6 +660,18 @@ public class Dbcon {
 
     }
 
+    /*------------------------------------------------------------*/
+    // new changes for attendance 24 jan 2018
+   /* public void updateAttendance_P_A(String attendance,String id) {
+        // TODO Auto-generated method stub
+
+        String sql = "UPDATE attendance SET attendance = '' WHERE attendance = 'P' AND id= '" + id + "'";
+        database.execSQL(sql);
+        Log.e("local database", "UPDATE attendance present or update data");
+
+    }*/
+   /*--------------------------------------------------*/
+
     @SuppressLint("ShowToast")
     public ArrayList<String> getproductcategory1() {
 

@@ -28,12 +28,12 @@
         "source": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\res\\drawable-xhdpi\\ic_launcher.png"
     },
     {
-        "merged": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\save.png",
-        "source": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\res\\drawable-xhdpi\\save.png"
-    },
-    {
         "merged": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\bg.png",
         "source": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\res\\drawable-xhdpi\\bg.png"
+    },
+    {
+        "merged": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\save.png",
+        "source": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\res\\drawable-xhdpi\\save.png"
     },
     {
         "merged": "D:\\Mahi\\My Project\\LotusProject Details\\Lotus_India_Dec17\\Lotus_India_Dec17\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\supervisor.png",

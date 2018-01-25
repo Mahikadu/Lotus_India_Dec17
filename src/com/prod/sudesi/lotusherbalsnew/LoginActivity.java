@@ -230,7 +230,7 @@ public class LoginActivity extends Activity {
             calendar.setTimeInMillis(System.currentTimeMillis());
             //set the alarm for particular time
             //  alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(this, 1, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 180, PendingIntent.getBroadcast(this, 0, intentAlarm, 0));
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 30, PendingIntent.getBroadcast(this, 0, intentAlarm, 0));
         } catch (Exception e) {
             e.printStackTrace();
         }
