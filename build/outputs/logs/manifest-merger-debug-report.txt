@@ -70,7 +70,7 @@ ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India
 application
 ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:33:5-174:19
 	android:label
-		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:37:9-42
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:37:9-41
 	android:allowBackup
 		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:35:9-35
 	android:icon
@@ -84,7 +84,7 @@ ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India
 activity#com.prod.sudesi.lotusherbalsnew.LotusMainActivity
 ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:40:9-48:20
 	android:label
-		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:42:13-46
+		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:42:13-45
 	android:name
 		ADDED from D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\AndroidManifest.xml:41:13-46
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER

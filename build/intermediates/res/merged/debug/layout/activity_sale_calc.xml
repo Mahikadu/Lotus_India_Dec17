@@ -72,25 +72,33 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Product"
-                          android:textStyle="italic"
-         android:typeface="serif"
+                        android:textStyle="italic"
+                        android:typeface="serif"
                         android:textColor="@android:color/white" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Quantity"
-                          android:textStyle="italic"
-         android:typeface="serif"
+                        android:textStyle="italic"
+                        android:typeface="serif"
                         android:textColor="@android:color/white" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="MRP"
-                          android:textStyle="italic"
-         android:typeface="serif"
+                        android:textStyle="italic"
+                        android:typeface="serif"
                         android:textColor="@android:color/white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Closing Bal"
+                        android:textColor="@android:color/white"
+                        android:textStyle="italic"
+                        android:typeface="serif" />
                 </TableRow>
             </TableLayout> 
             </LinearLayout>

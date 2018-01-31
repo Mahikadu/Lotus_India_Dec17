@@ -332,6 +332,7 @@ public class SaleNewActivity extends Activity implements OnClickListener {
 						String chck_db_id[] = new String[arr_selectedDBids
 								.size()];
 						String chck_mrp[] = new String[arr_selectedDBids.size()];
+						/*String chck_closing[] = new String[arr_selectedDBids.size()];*/
 						String chck_size[] = new String[arr_selectedDBids
 								.size()];
 						String chck_cat_id[] = new String[arr_selectedDBids
@@ -353,6 +354,8 @@ public class SaleNewActivity extends Activity implements OnClickListener {
 								chck_db_id[i4] = arr_selectedDBids.get(i4);
 								chck_mrp[i4] = cur.getString(cur
 										.getColumnIndex("MRP"));
+							/*	chck_closing[i4] = cur.getString(cur
+										.getColumnIndex("close_bal"));*/
 								chck_size[i4] = cur.getString(cur
 										.getColumnIndex("Size"));
 								chck_cat_id[i4] = cur.getString(cur
@@ -371,7 +374,7 @@ public class SaleNewActivity extends Activity implements OnClickListener {
 								.putExtra("pro_name", pro_name)
 								.putExtra("mrp", chck_mrp)
 								.putExtra("enacode", enacode)
-								// .putExtra("catid", chck_cat_id)
+								/*.putExtra("closing", chck_closing)*/
 								.putExtra("shadeNo", chck_shade));
 						// .putExtra("CAT", chck_cat_id)
 						// .putExtra("Size", chck_size));

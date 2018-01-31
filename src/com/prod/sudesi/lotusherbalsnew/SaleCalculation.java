@@ -48,6 +48,14 @@ public class SaleCalculation extends Activity {
 
     TableLayout tl_sale_calculation;
     TableRow tr;
+    TextView edti;
+    Cursor mCursor = null;
+    String old_return_non_salable = "", old_return_salable = "";
+    String old_stock_recive;
+    String str_openingstock = "0";
+    String str_stockinhand;
+    String sclo = "";
+    String old_return;
 
     EditText edt_gross, edt_discount, edt_net;
 
@@ -107,6 +115,7 @@ public class SaleCalculation extends Activity {
         String mrp[] = intent.getStringArrayExtra("mrp");
         String shadeno[] = intent.getStringArrayExtra("shadeNo");
         String enacode[] = intent.getStringArrayExtra("enacode");
+        //String closing[] = intent.getStringArrayExtra("closing");
         // ---------------------
 
         tv_h_username = (TextView) findViewById(R.id.tv_h_username);
@@ -840,6 +849,9 @@ public class SaleCalculation extends Activity {
 
         for (int i = 0; i < db_id.length; i++) {
 
+            String s = ""
+                    + getLastInsertIDofStock1("", db_id[i], "", mrp[i]);
+
 //			if (db_id[i].equalsIgnoreCase("0")) {
 //
 //			} else {
@@ -914,6 +926,12 @@ public class SaleCalculation extends Activity {
             tv3.setText(shadeno[i]);
             tv3.setVisibility(View.GONE);
             tr.addView(tv3);
+
+            edti = new TextView(this);
+            edti.setText(s);
+            edti.setTextColor(Color.WHITE);
+            edti.setMaxEms(10);
+            tr.addView(edti);
 
             //
             tl_sale_calculation.addView(tr);
@@ -1349,6 +1367,95 @@ public class SaleCalculation extends Activity {
         }
 
         return bb;
+    }
+
+    public String getLastInsertIDofStock1(String catid, String dbid,
+                                          String eanid, String PRICE) {
+
+        String catid1 = "", eanid1 = "", dbid1 = "", closebal = "", totalamount = "", sold = "", retn = "", retn_n_salebale = "", total_net_amt = "", price = "";
+        ;
+        String last_modified_date;
+        Calendar c = Calendar.getInstance();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        String date = sdf.format(c.getTime());
+
+        // 28.04.2015
+        String[] day = date.split("-");
+
+        String day1 = day[2];
+
+        // 28.04.2015
+        db.open();
+        mCursor = db.getuniquedata1(catid, eanid, dbid, date);
+
+        int count = mCursor.getCount();
+
+        if (mCursor != null) {
+
+            if (mCursor.moveToFirst()) {
+
+                do {
+
+                    closebal = mCursor.getString(mCursor
+                            .getColumnIndex("close_bal"));
+
+
+                    totalamount = mCursor.getString(mCursor
+                            .getColumnIndex("total_gross_amount"));
+
+                    catid1 = mCursor.getString(mCursor
+                            .getColumnIndex("product_id"));
+
+                    eanid1 = mCursor.getString(mCursor
+                            .getColumnIndex("eancode"));
+
+                    dbid1 = mCursor.getString(mCursor.getColumnIndex("db_id"));
+
+                    sold = mCursor.getString(mCursor
+                            .getColumnIndex("sold_stock"));
+
+                    old_return_salable = mCursor.getString(mCursor
+                            .getColumnIndex("return_saleable"));
+
+                    old_return_non_salable = mCursor.getString(mCursor
+                            .getColumnIndex("return_non_saleable"));
+
+                    Log.e("dbold_return_nonsalable", old_return_non_salable);
+
+                    total_net_amt = mCursor.getString(mCursor
+                            .getColumnIndex("total_net_amount"));
+
+                    old_stock_recive = mCursor.getString(mCursor
+                            .getColumnIndex("stock_received"));
+
+
+                    str_stockinhand = mCursor.getString(mCursor
+                            .getColumnIndex("stock_in_hand"));
+
+                    str_openingstock = mCursor.getString(mCursor
+                            .getColumnIndex("opening_stock"));
+
+
+                } while (mCursor.moveToNext());
+
+                sclo = "" + closebal;// 28.04.2015//19.05.2015//23.05.2015//25.05.2015//22.06.2015
+                old_return = "" + retn;
+//
+            } else {
+
+                sclo = "0";// 28.04.2015//19.05.2015//23.05.2015//25.05.2015//22.06.2015
+                old_return = "0";
+                old_return_non_salable = "0";
+
+            }
+
+        }
+        db.close();
+
+        // ll.setVisibility(View.GONE);
+        return closebal;
     }
 
 }

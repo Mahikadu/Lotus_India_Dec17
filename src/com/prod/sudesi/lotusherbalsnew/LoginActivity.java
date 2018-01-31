@@ -170,7 +170,7 @@ public class LoginActivity extends Activity {
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         deviceId = telephonyManager.getDeviceId();
 
-        exportDB();
+        //exportDB();
 
         refreshDisplay();
         btn_login.setOnClickListener(new OnClickListener() {
