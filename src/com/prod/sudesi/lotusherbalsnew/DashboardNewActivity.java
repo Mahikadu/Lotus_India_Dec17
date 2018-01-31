@@ -163,7 +163,7 @@ public class DashboardNewActivity extends Activity {
                                                     spe.putBoolean("BOC26", false);
                                                     spe.commit();
                                                     boolRecd = false;
-
+                                                    ClearLocalAppData();
                                                     new InsertFirstTimeMaster().execute();
 
                                                 }
@@ -400,8 +400,12 @@ public class DashboardNewActivity extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                startActivity(new Intent(getApplicationContext(),
-                        SupervisorAttendance.class));
+                /*startActivity(new Intent(getApplicationContext(),
+                        SupervisorAttendance.class));*/
+                Toast.makeText(mContext,
+                        "Coming Soon...!",
+                        Toast.LENGTH_LONG).show();
+
 
             }
         });
@@ -3829,6 +3833,26 @@ public class DashboardNewActivity extends Activity {
 
     }
 
+    private void ClearLocalAppData() {
+        try {
+           db.open();
+
+            db.deleteTables("SYNC_LOG");
+            db.deleteTables("boc_wise_stock");
+            db.deleteTables("dashboard_details");
+            db.deleteTables("image");
+            db.deleteTables("scan");
+            db.deleteTables("stock");
+            db.deleteTables("stock_monthwise");
+            db.deleteTables("supervisor_attendance");
+            db.deleteTables("tester");
+
+           db.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } }
+
     public void writeStringAsFile(String fileContents) {
         Context context1 = mContext;
         try {
@@ -3860,7 +3884,7 @@ public class DashboardNewActivity extends Activity {
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, broadCastIntent, 0);
                 //set timer you want alarm to work (here I have set it to 7.00)
                 Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.HOUR_OF_DAY, 13);  //24
+                calendar.set(Calendar.HOUR_OF_DAY, 23);  //24
                 calendar.set(Calendar.MINUTE, 0);   //0
                 calendar.set(Calendar.SECOND,0 );
 

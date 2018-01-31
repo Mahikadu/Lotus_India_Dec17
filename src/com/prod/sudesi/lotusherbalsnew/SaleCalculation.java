@@ -232,7 +232,7 @@ public class SaleCalculation extends Activity {
                                                     "stock_received",
                                                     "return_saleable",
                                                     "stock_in_hand",
-                                                    "return_non_saleable"},
+                                                    "return_non_saleable","price"},
                                             "db_id = '"
                                                     + tv_dbID.getText()
                                                     .toString() + "'",
@@ -301,7 +301,50 @@ public class SaleCalculation extends Activity {
 
                                             Log.e("i_stokinhand", String.valueOf(i_stokinhand));
 
-                                            int i_clstk = i_stokinhand - i_sold;
+                                            /* ..............  New changes ...........................*/
+                                            int i_return_customer = 0;
+
+                                            if (c.getString(7) != null) {
+                                                if (c.getString(7).trim()
+                                                        .equalsIgnoreCase("0")
+                                                        || c.getString(7).trim().equalsIgnoreCase("")) {
+
+                                                    i_return_customer = 0;
+
+                                                } else {
+
+                                                    i_return_customer = Integer.parseInt(c.getString(7).trim());
+                                                }
+                                            }
+
+
+                                            Log.e("i_return_customer", String.valueOf(i_return_customer));
+
+                                            int i_return_company = 0;
+
+                                            if (c.getString(9) != null) {
+                                                if (c.getString(9).trim()
+                                                        .equalsIgnoreCase("0")
+                                                        || c.getString(9).trim().equalsIgnoreCase("")) {
+
+                                                    i_return_company = 0;
+
+                                                } else {
+
+                                                    i_return_company = Integer.parseInt(c.getString(9).trim());
+                                                }
+                                            }
+
+
+                                            Log.e("i_return_company", String.valueOf(i_return_company));
+
+                                            /*...................End...................*/
+
+                                            //New changes
+                                            int i_clstk = i_stokinhand - i_sold + i_return_customer - i_return_company;
+
+                                            //old apk 2.7
+                                            // int i_clstk = i_stokinhand - i_sold;
 
                                             Log.e("i_clstk", String.valueOf(i_clstk));
 
@@ -315,8 +358,7 @@ public class SaleCalculation extends Activity {
                                                         int total_gross = Integer.parseInt(c
                                                                 .getString(0));
 
-                                                        gross = total_gross
-                                                                + calc_gross;
+                                                        gross = total_gross + calc_gross;
 
                                                     } else {
                                                         gross = calc_gross;
@@ -453,12 +495,9 @@ public class SaleCalculation extends Activity {
                                                                     shaddd,
                                                                     String.valueOf(i_clstk),
                                                                     String.valueOf(gross),
-
                                                                     String.valueOf(disss),
-
                                                                     String.valueOf(net1),
                                                                     String.valueOf(i_sold),
-
                                                                     "0",
                                                                     month_name,
                                                                     year_name,

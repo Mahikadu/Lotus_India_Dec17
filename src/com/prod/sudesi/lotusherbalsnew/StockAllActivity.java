@@ -43,6 +43,9 @@ public class StockAllActivity extends Activity {
     EditText edt_gross, edt_discount, edt_net;
     String old_stock_recive;
     String str_openingstock = "0";
+    String str_price = "0";
+    String str_grossamt = "0";
+    String str_discount = "0",str_soldstock = "0";
     String str_close_bal = "0";
     String str_stockinhand;
     Button btn_save, btn_back, btn_home, btn_logout;
@@ -308,7 +311,7 @@ public class StockAllActivity extends Activity {
                                         Toast.makeText(getApplicationContext(),
                                                 "Please Enter in All Fields",
                                                 Toast.LENGTH_SHORT);
-                                    } else if (difference < 0) {
+                                    } else if (difference <= 0) {
                                         negative = true;
                                     } else {
                                         etcount++;
@@ -809,7 +812,7 @@ public class StockAllActivity extends Activity {
                     old_return_non_salable = mCursor.getString(mCursor
                             .getColumnIndex("return_non_saleable"));
 
-                    Log.e("db-old_return_non_salable", old_return_non_salable);
+                    Log.e("dbold_return_nonsalable", old_return_non_salable);
 
                     total_net_amt = mCursor.getString(mCursor
                             .getColumnIndex("total_net_amount"));
@@ -1128,6 +1131,99 @@ public class StockAllActivity extends Activity {
 
             Log.e("str_openingstock", str_openingstock);
 
+            if (mCursor != null && mCursor.getCount() > 0) {
+                mCursor.moveToFirst();
+                str_price = mCursor.getString(mCursor
+                        .getColumnIndex("price"));
+                if (str_price != null) {
+
+                    if (str_price.equals("")) {
+
+                        str_price = "0";
+                    }
+
+                } else {
+                    str_price = "0";
+                }
+
+            } else {
+                str_price = "0";
+            }
+
+            Log.e("str_price", str_price);
+
+            if (mCursor != null && mCursor.getCount() > 0) {
+                mCursor.moveToFirst();
+                str_grossamt = mCursor.getString(mCursor
+                        .getColumnIndex("total_gross_amount"));
+                if (str_grossamt != null) {
+
+                    if (str_grossamt.equals("")) {
+
+                        str_grossamt = "0";
+                    }
+
+                } else {
+                    str_grossamt = "0";
+                }
+
+            } else {
+                str_grossamt = "0";
+            }
+
+            Log.e("str_price", str_grossamt);
+
+            if (mCursor != null && mCursor.getCount() > 0) {
+                mCursor.moveToFirst();
+                str_discount = mCursor.getString(mCursor
+                        .getColumnIndex("discount"));
+                if (str_discount != null) {
+
+                    if (str_discount.equals("")) {
+
+                        str_discount = "0.0";
+                    }
+
+                } else {
+                    str_discount = "0.0";
+                }
+
+            } else {
+                str_discount = "0.0";
+            }
+
+            Log.e("str_discount", str_discount);
+
+            if (mCursor != null && mCursor.getCount() > 0) {
+                mCursor.moveToFirst();
+                str_soldstock = mCursor.getString(mCursor
+                        .getColumnIndex("sold_stock"));
+                if (str_soldstock != null) {
+
+                    if (str_soldstock.equals("")) {
+
+                        str_soldstock = "0";
+                    }
+
+                } else {
+                    str_soldstock = "0";
+                }
+
+            } else {
+                str_soldstock = "0";
+            }
+
+            Log.e("str_soldstock", str_soldstock);
+
+            int soldstock = Integer.parseInt(str_soldstock) - new_retrn_sale;
+
+            int pricecustomer = Integer.parseInt(str_price) * new_retrn_sale;
+
+            int pricesold = Integer.parseInt(str_price) * Integer.parseInt(str_soldstock);
+
+            int i_net_amt = pricesold - pricecustomer;
+
+            float net_amt = Float.parseFloat(String.valueOf(i_net_amt))- Float.parseFloat(str_discount);
 
             //--------Old production apk use
             int i_stkinand = Integer
@@ -1143,8 +1239,7 @@ public class StockAllActivity extends Activity {
             Log.e("i_stkinand", String.valueOf(i_stkinand));
 
             //--------Old production apk use
-			int i_close = i_stkinand
-					- Integer.parseInt(solddd);
+			int i_close = i_stkinand- soldstock;
 
 			Log.e("i_close", String.valueOf(i_close));
 
@@ -1165,8 +1260,12 @@ public class StockAllActivity extends Activity {
                         db_id1,
                         cat_id,
                         insert_timestamp,
+                        String.valueOf(soldstock),
                         String.valueOf(new_retrn_sale),
                         String.valueOf(new_retrn_non_sale),
+                        String.valueOf(i_net_amt),
+                        String.valueOf(net_amt),
+                        str_discount,
                         shadenon, insert_timestamp,
                         month_name, year_name);
                 db.close();
@@ -1184,16 +1283,18 @@ public class StockAllActivity extends Activity {
                         product_category, product_type1,
                         product_name, emp_id,
                         String.valueOf(i_stock_inand),
-
                         String.valueOf(i_close),
 
                         String.valueOf(new_fresh_stock),
 
                         price, size1, eancode, db_id1,
                         cat_id, insert_timestamp,
-
+                        String.valueOf(soldstock),
                         String.valueOf(new_retrn_sale),
                         String.valueOf(new_retrn_non_sale),
+                        String.valueOf(i_net_amt),
+                        String.valueOf(net_amt),
+                        str_discount,
                         shadenon, insert_timestamp,
                         month_name, year_name);
                 db.close();

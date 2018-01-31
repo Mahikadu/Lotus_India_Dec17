@@ -404,6 +404,12 @@ public class SaleNewActivity extends Activity implements OnClickListener {
 
 	}
 
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+
+	}
+
 	public void getallproducts(String selected_category, String selected_type,
 			String flag) {
 		productDetailsArray.clear();

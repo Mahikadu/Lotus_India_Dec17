@@ -560,4 +560,10 @@ public class StockNewActivity extends Activity implements OnClickListener {
         return closebal;
     }
 
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+
+    }
+
 }

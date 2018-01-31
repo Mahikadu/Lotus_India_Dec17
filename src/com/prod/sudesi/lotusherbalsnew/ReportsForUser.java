@@ -246,16 +246,13 @@ public class ReportsForUser extends Activity {
 				
 				if(s.equalsIgnoreCase("LH"))
 				{
-					
-					
-					
+
 					displayCategory = "SKIN";
 					new ShowReportofStock().execute();
 				}
 				else if(s.equalsIgnoreCase("LHM"))
 				{
-					
-					
+
 					displayCategory = "COLOR";
 					new ShowReportofStock().execute();
 				}
@@ -379,12 +376,21 @@ public class ReportsForUser extends Activity {
 		// return view;
 	}
 
-	public class ShowReportofStock extends AsyncTask<String, String, String> {
+	public class ShowReportofStock extends AsyncTask<String, String, ArrayList<HashMap<String, String>>> {
 
 		String flag;
 
 		@Override
-		protected String doInBackground(String... params) {
+		protected void onPreExecute() {
+			// TODO Auto-generated method stub
+			mProgress.setMessage("Please Wait");
+			mProgress.show();
+			mProgress.setCancelable(false);
+		}
+
+
+		@Override
+		protected ArrayList<HashMap<String, String>> doInBackground(String... params) {
 			// TODO Auto-generated method stub
 			try {
 				db.open();
@@ -437,8 +443,55 @@ public class ReportsForUser extends Activity {
 				// TODO: handle exception
 				e.printStackTrace();
 			}
-			return null;
+			return reportlist;
 		}
+
+
+		@Override
+		protected void onPostExecute(ArrayList<HashMap<String, String>> result) {
+
+			try {
+				if (result != null && result.size() > 0) {
+					Log.e("", "reportlist==="+result);
+					adapter = new ReportAdapter(context, result);
+
+					runOnUiThread(new Runnable() {
+						public void run() {
+							listview.setAdapter(null);
+							if (adapter != null) {
+								listview.setVisibility(View.VISIBLE);
+								listview.setAdapter(adapter);
+							}
+						}
+					});
+
+				}
+				if (mProgress.isShowing())
+					mProgress.dismiss();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			
+
+			/*Log.e("", "reportlist==="+reportlist);
+			mProgress.dismiss();
+			// TODO Auto-generated method stub
+			listview.setVisibility(View.VISIBLE);
+			adapter = new ReportAdapter(getApplicationContext(), reportlist);
+			listview.setAdapter(adapter);
+			adapter.notifyDataSetChanged();
+			db.close();*/
+
+			// }
+		}
+
+	}
+	
+	public class ShowReportofTester extends AsyncTask<String, String, ArrayList<HashMap<String, String>>> {
+
+		String flag;
+		String t_catid,t_dbid,t_eancode,t_status;
 
 		@Override
 		protected void onPreExecute() {
@@ -449,31 +502,7 @@ public class ReportsForUser extends Activity {
 		}
 
 		@Override
-		protected void onPostExecute(String result) {
-
-			
-
-			Log.e("", "reportlist==="+reportlist);
-			mProgress.dismiss();
-			// TODO Auto-generated method stub
-			listview.setVisibility(View.VISIBLE);
-			adapter = new ReportAdapter(getApplicationContext(), reportlist);
-			adapter.notifyDataSetChanged();
-			listview.setAdapter(adapter);
-			db.close();
-
-			// }
-		}
-
-	}
-	
-	public class ShowReportofTester extends AsyncTask<String, String, String> {
-
-		String flag;
-		String t_catid,t_dbid,t_eancode,t_status;
-
-		@Override
-		protected String doInBackground(String... params) {
+		protected ArrayList<HashMap<String, String>> doInBackground(String... params) {
 			// TODO Auto-generated method stub
 
 			Log.e("", "checkrrr2t");
@@ -510,38 +539,19 @@ public class ReportsForUser extends Activity {
 				flag = "1";
 
 			}
-			return null;
+			return reportlist1;
 		}
 
 		@Override
-		protected void onPreExecute() {
-			// TODO Auto-generated method stub
-			mProgress.setMessage("Please Wait");
-			mProgress.show();
-			mProgress.setCancelable(false);
-		}
+		protected void onPostExecute(ArrayList<HashMap<String, String>> result) {
 
-		@Override
-		protected void onPostExecute(String result) {
-			/*
-			 * if(result.equalsIgnoreCase("1")){ mProgress.dismiss();
-			 * Toast.makeText(getActivity(),
-			 * "No Data Available or Check Connectivity",
-			 * Toast.LENGTH_SHORT).show();
-			 * 
-			 * }else{
-			 */
 			HashMap<String, String> map = new HashMap<String, String>();
-			
-			
-			
-		
-			
+
 			Log.e("", "check3");
 			mProgress.dismiss();
 			// TODO Auto-generated method stub
 			listview_t.setVisibility(View.VISIBLE);
-			adapter1 = new ReportTester(getApplicationContext(), reportlist1);
+			adapter1 = new ReportTester(getApplicationContext(), result);
 			listview_t.setAdapter(adapter1);
 			db.close();
 
@@ -577,10 +587,7 @@ public class ReportsForUser extends Activity {
 						@Override
 						public void onClick(View v) {
 							// TODO Auto-generated method stub
-							
-							
-							
-							
+
 							AlertDialog.Builder dlgAlert = new AlertDialog.Builder(
 									ReportsForUser.this);
 							dlgAlert.setMessage("Do you get products as tester?");
@@ -620,29 +627,21 @@ public class ReportsForUser extends Activity {
 							dlgAlert.create().show();//--------------------------06.11.2014
 						}
 					});
-					
-			
-		
-					
-					
-					
+
 					final Dialog d = new Dialog(ReportsForUser.this);
 					d.requestWindowFeature(Window.FEATURE_NO_TITLE);
 					d.setContentView(R.layout.popup_report);
-					
-					
+
 					final Dialog d2 = new Dialog(ReportsForUser.this);
 					d2.requestWindowFeature(Window.FEATURE_NO_TITLE);
 					d2.setContentView(R.layout.popup_report); 
-					
-					
+
 					product_type.setOnClickListener(new OnClickListener() {
 						
 						@Override
 						public void onClick(View v) {
 							// TODO Auto-generated method stub
-							
-							
+
 							String ppid = dbid.getText().toString();
 							Log.e("","ppid="+ppid);
 							db.open();
@@ -662,8 +661,7 @@ public class ReportsForUser extends Activity {
 						@Override
 						public void onClick(View v) {
 							// TODO Auto-generated method stub
-							
-							
+
 							String ppid = dbid.getText().toString();
 							Log.e("","ppid="+ppid);
 							db.open();
@@ -694,7 +692,7 @@ public class ReportsForUser extends Activity {
 
 	}
 
-	public class ShowReportofAttendance extends AsyncTask<Void, Void, String>
+	public class ShowReportofAttendance extends AsyncTask<String, String, ArrayList<HashMap<String, String>>>
 	{
 		
 		ArrayList<HashMap<String, String>> arr_attendance = new ArrayList<HashMap<String,String>>();
@@ -706,17 +704,7 @@ public class ReportsForUser extends Activity {
 		}
 
 		@Override
-		protected void onPostExecute(String result) {
-			// TODO Auto-generated method stub
-			super.onPostExecute(result);
-			
-			adapter_attend = new ReportAttendance(context, arr_attendance);
-			attendancelist.setAdapter(adapter_attend);
-			
-		}
-
-		@Override
-		protected String doInBackground(Void... params) {
+		protected ArrayList<HashMap<String, String>> doInBackground(String... params) {
 			// TODO Auto-generated method stub
 			
 			db.open();
@@ -738,7 +726,17 @@ public class ReportsForUser extends Activity {
 				}while(c.moveToNext());
 			}
 			
-			return null;
+			return arr_attendance;
+		}
+
+		@Override
+		protected void onPostExecute(ArrayList<HashMap<String, String>> result) {
+			// TODO Auto-generated method stub
+			super.onPostExecute(result);
+
+			adapter_attend = new ReportAttendance(context, result);
+			attendancelist.setAdapter(adapter_attend);
+
 		}
 		
 	}

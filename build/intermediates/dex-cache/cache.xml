@@ -8,7 +8,7 @@
         optimize="true"
         revision="27.0.1"
         sha1="5896b0a4e377ac4242eb2bc785220c1c4fc052f4">
-        <dex dex="D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\build\intermediates\pre-dexed\release\android-support-v4_e45f2d787f275f1f283798e97ec49cd50b67ff64.jar" />
+        <dex dex="D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\build\intermediates\pre-dexed\debug\android-support-v4_e45f2d787f275f1f283798e97ec49cd50b67ff64.jar" />
     </item>
     <item
         is-multidex="false"
@@ -17,7 +17,7 @@
         optimize="true"
         revision="27.0.1"
         sha1="b0c58bb48f671992c2e186cebc8587187d108699">
-        <dex dex="D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\build\intermediates\pre-dexed\release\littlefluffylocationlibrary_r15_8529227c974ef013b56805e68e03bf3e4316280f.jar" />
+        <dex dex="D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\build\intermediates\pre-dexed\debug\littlefluffylocationlibrary_r15_8529227c974ef013b56805e68e03bf3e4316280f.jar" />
     </item>
     <item
         is-multidex="false"
@@ -26,7 +26,7 @@
         optimize="true"
         revision="27.0.1"
         sha1="f8ddd5d69d8cdc994cde9af278ff79b06365eee3">
-        <dex dex="D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\build\intermediates\pre-dexed\release\ksoap2-android-assembly-3.0.0-RC.4-jar-with-dependencies_2c23ab0e4882b537774445755b157a12384e0fd0.jar" />
+        <dex dex="D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\build\intermediates\pre-dexed\debug\ksoap2-android-assembly-3.0.0-RC.4-jar-with-dependencies_2c23ab0e4882b537774445755b157a12384e0fd0.jar" />
     </item>
 
 </items>
