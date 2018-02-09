@@ -1617,6 +1617,7 @@ public class BackgroundService extends Service {
                             String username_r;
                             String sync_method;
                             String status;
+                            String errordate;
 
                             for (int m = 0; m < listofsyncerrorlog.size(); m++) {
 
@@ -1674,6 +1675,14 @@ public class BackgroundService extends Service {
 
                                     status = "";
                                 }
+
+                                if (map.get("CREATED_DATE") != null) {
+
+                                    errordate = map.get("CREATED_DATE");
+                                } else {
+
+                                    errordate = "";
+                                }
                                 // String username = map.get("USERNAME");
                                 // String sync_method = map
                                 // .get("SYNCMETHOD");
@@ -1682,7 +1691,7 @@ public class BackgroundService extends Service {
                                 SoapPrimitive soapObj123;
                                 soapObj123 = service.StoreErrorLogTablettxt(
                                         Exception, Lineno, Method, username_r,
-                                        sync_method, status);
+                                        sync_method, status, errordate);
 
                                 if (soapObj123 != null) {
 

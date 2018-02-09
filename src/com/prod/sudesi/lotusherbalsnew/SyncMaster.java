@@ -2691,6 +2691,7 @@ public class SyncMaster extends Activity {
 							String username_r;
 							String sync_method;
 							String status;
+							String errordate;
 
 							for (int m = 0; m < listofsyncerrorlog.size(); m++) {
 
@@ -2748,6 +2749,14 @@ public class SyncMaster extends Activity {
 
 									status = "";
 								}
+
+								if (map.get("CREATED_DATE") != null) {
+
+									errordate = map.get("CREATED_DATE");
+								} else {
+
+									errordate = "";
+								}
 								// String username = map.get("USERNAME");
 								// String sync_method = map
 								// .get("SYNCMETHOD");
@@ -2756,7 +2765,7 @@ public class SyncMaster extends Activity {
 								SoapPrimitive soapObj123;
 								soapObj123 = service.StoreErrorLogTablettxt(
 										Exception, Lineno, Method, username_r,
-										sync_method, status);
+										sync_method, status, errordate);
 
 								if (soapObj123 != null) {
 

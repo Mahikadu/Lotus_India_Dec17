@@ -25,6 +25,7 @@ import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -874,14 +875,17 @@ public class SaleCalculation extends Activity {
 
             tv.setText(pro_name[i]);
             tv.setTextColor(Color.WHITE);
-            tv.setMaxEms(15);
-            tv.setTextSize(13);
+            tv.setMaxEms(10);
+            tv.setTextSize(11);
             tr.addView(tv);
 
             EditText edt = new EditText(this);
+            edt.setTextColor(Color.WHITE);
+            edt.setMaxEms(10);
             edt.setSingleLine(true);
-            edt.setInputType(android.text.InputType.TYPE_CLASS_TEXT
-                    | android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_SUBJECT);
+//            edt.setInputType(android.text.InputType.TYPE_CLASS_TEXT
+//                    | android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_SUBJECT);
+            edt.setInputType(InputType.TYPE_CLASS_NUMBER);
             edt.setTextColor(Color.WHITE);
             tr.addView(edt);
 
@@ -912,7 +916,6 @@ public class SaleCalculation extends Activity {
             });
 
             TextView tv1 = new TextView(this);
-
             tv1.setText(mrp[i]);
             tv1.setTextColor(Color.WHITE);
             tr.addView(tv1);

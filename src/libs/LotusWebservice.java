@@ -737,7 +737,7 @@ public class LotusWebservice {
 
 	// StoreErro Log for Transaction Download
 	public SoapPrimitive StoreErrorLogTablettxt(String sMessage, String line,
-			String method, String username, String syncMethod, String status) {
+			String method, String username, String syncMethod, String status, String date) {
 
 		SoapPrimitive result = null;
 
@@ -752,6 +752,7 @@ public class LotusWebservice {
 			request.addProperty("username", username);
 			request.addProperty("syncMethod", syncMethod);
 			request.addProperty("result", status);
+			request.addProperty("ErrorDate", date);
 
 			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 					SoapEnvelope.VER11);// soap envelop with version

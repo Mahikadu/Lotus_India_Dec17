@@ -596,110 +596,152 @@ public class AttendanceFragment extends Activity implements OnClickListener {
 
         @Override
         public void onClick(final View view) {
-            String date_month_year = (String) view.getTag();
 
-            Calendar c = Calendar.getInstance();
-            year1 = c.get(Calendar.YEAR);
-            month1 = c.get(Calendar.MONTH);
-            day1 = c.get(Calendar.DAY_OF_MONTH);
-            String currentDate = String.valueOf(day1) + "-" + "0"
-                    + String.valueOf(month1 + 1) + "-" + String.valueOf(year1);
-            Log.e("Selected date", date_month_year);
-            Log.e("currentDate", currentDate);
+            if (cd.isConnectingToInternet()) {
+
+                String serverddate = sp.getString("currentdate","");
+                String[] parts = serverddate.split(" ");
+                String serverdd = parts[0];
+
+                String date_month_year = (String) view.getTag();
+
+                Calendar c = Calendar.getInstance();
+                year1 = c.get(Calendar.YEAR);
+                month1 = c.get(Calendar.MONTH);
+                day1 = c.get(Calendar.DAY_OF_MONTH);
+                String currentDate = String.valueOf(day1) + "-" + "0"
+                        + String.valueOf(month1 + 1) + "-" + String.valueOf(year1);
+                Log.e("Selected date", date_month_year);
+                Log.e("currentDate", currentDate);
 
 
-            if (date_month_year != null) {
-                if (date_month_year.contains("-")) {
-                    String d[] = date_month_year.split("-");
+                if (date_month_year != null) {
+                    if (date_month_year.contains("-")) {
+                        String d[] = date_month_year.split("-");
 
-                    Log.v("checklength==", "" + d[0].length());
-                    if (d[0].length() < 2) {
-                        Log.v("", "checklength1==");
-                        attendanceDate = "0" + d[0] + "-" + getmonthNo(d[1])
-                                + "-" + d[2];
-                        attendmonth = getmonthNo(d[1]);
+                        Log.v("checklength==", "" + d[0].length());
+                        if (d[0].length() < 2) {
+                            Log.v("", "checklength1==");
+                            attendanceDate = "0" + d[0] + "-" + getmonthNo(d[1])
+                                    + "-" + d[2];
+                            attendmonth = getmonthNo(d[1]);
 
-                    } else {
-                        attendanceDate = d[0] + "-" + getmonthNo(d[1]) + "-"
-                                + d[2];
-                        attendmonth = getmonthNo(d[1]);
+                        } else {
+                            attendanceDate = d[0] + "-" + getmonthNo(d[1]) + "-"
+                                    + d[2];
+                            attendmonth = getmonthNo(d[1]);
+
+                        }
 
                     }
-
                 }
-            }
-            Log.e("attendanceDate", attendanceDate);
+                Log.e("attendanceDate", attendanceDate);
 
 
-            String d[] = date_month_year.split("-");
-            String daa = "";
-            if (d[0].length() > 0) {
+                String d[] = date_month_year.split("-");
+                String daa = "";
+                if (d[0].length() > 0) {
 
-                daa = "0" + d[0];
-            }
-            String aattddate = d[2] + "-" + getmonthNo(d[1]) + "-"
-                    + daa;
-            Log.e("aattddate==", aattddate);
-            // if(checkholiday(attendanceDate)){
-            db.open();
-            //	if ((db.isholiday(attendanceDate)).toString().length() > 0) {
-            if ((db.isholiday(aattddate)).toString().length() > 0) {
+                    daa = "0" + d[0];
+                }
+                String aattddate = d[2] + "-" + getmonthNo(d[1]) + "-"
+                        + daa;
+                Log.e("aattddate==", aattddate);
+                // if(checkholiday(attendanceDate)){
+                db.open();
+                //	if ((db.isholiday(attendanceDate)).toString().length() > 0) {
+                if ((db.isholiday(aattddate)).toString().length() > 0) {
 
-                Toast.makeText(context,
-                        "Its holliday for " + db.isholiday(aattddate),
-                        Toast.LENGTH_SHORT).show();
-                db.close();
-            } else if (afterdateValidate(attendanceDate)) {
-                db.close();
-                Toast.makeText(context, "Select Current Date only",
-                        Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,
+                            "Its holliday for " + db.isholiday(aattddate),
+                            Toast.LENGTH_SHORT).show();
+                    db.close();
+                } else if (afterdateValidate(attendanceDate)) {
+                    db.close();
+                    Toast.makeText(context, "Select Current Date only",
+                            Toast.LENGTH_SHORT).show();
 
-            } else if (beforedatevalidate(attendanceDate, currentDate)) {
-                db.close();
-                Toast.makeText(context, "Select Current Date only",
-                        Toast.LENGTH_SHORT).show();
+                } else if (beforedatevalidate(attendanceDate, currentDate)) {
+                    db.close();
+                    Toast.makeText(context, "Select Current Date only",
+                            Toast.LENGTH_SHORT).show();
 
-            } else {
-                db.close();
+                } else if (afterdateChangeValidate(serverdd)) {
+                    Toast.makeText(context, "Please Check your Handset Date",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    db.close();
 
-                Button present;
-                Button absent;
-                Button out;
-                Button cancel;
-                try {
+                    Button present;
+                    Button absent;
+                    Button out;
+                    Button cancel;
+                    try {
 
-                    Date date = new Date();
-                    SimpleDateFormat form = new SimpleDateFormat(
-                            "yyyy-MM-dd HH:mm:ss");
+                        Date date = new Date();
+                        SimpleDateFormat form = new SimpleDateFormat(
+                                "yyyy-MM-dd HH:mm:ss");
 
-                    attendanceDate1 = form.format(date);
-                    Log.v("", "attendanceDate1=" + attendanceDate1);
+                        attendanceDate1 = form.format(date);
+                        Log.v("", "attendanceDate1=" + attendanceDate1);
 
-                    String sld[] = attendanceDate1.split(" ");
-                    final String sld1 = sld[0];
+                        String sld[] = attendanceDate1.split(" ");
+                        final String sld1 = sld[0];
 
-                    String ddd[] = sld1.split("-");
-                    final String year = ddd[0];
+                        String ddd[] = sld1.split("-");
+                        final String year = ddd[0];
 
-                    Cursor c1 = null;
-                    db.open();
-                    c1 = db.getpreviousData1(sld1, username);
+                        Cursor c1 = null;
+                        db.open();
+                        c1 = db.getpreviousData1(sld1, username);
 
-                    Log.v("", "c.getcount=" + c1.getCount());
+                        Log.v("", "c.getcount=" + c1.getCount());
 
-                    if (c1 != null && c1.getCount() > 0) {
-//						db.close();
+                        if (c1 != null && c1.getCount() > 0) {
+//
+                            c1.moveToFirst();
+                            String logout_status = c1.getString(c1.getColumnIndex("logout_status"));
+                            if (logout_status != null) {
 
-//						Toast.makeText(AttendanceFragment.this,
-//								"Attendance already Present",
-//								Toast.LENGTH_SHORT).show();
-                        c1.moveToFirst();
-                        String logout_status = c1.getString(c1.getColumnIndex("logout_status"));
-                        if (logout_status != null) {
+                                Log.e("logout_status", logout_status);
+                                if (logout_status.equalsIgnoreCase("OUT")) {
+                                    Toast.makeText(AttendanceFragment.this, "Attendance is marked", Toast.LENGTH_LONG).show();
+                                } else {
+                                    final Dialog dialog = new Dialog(AttendanceFragment.this);
+                                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                    dialog.setContentView(R.layout.layout_out_attendance);
 
-                            Log.e("logout_status", logout_status);
-                            if (logout_status.equalsIgnoreCase("OUT")) {
-                                Toast.makeText(AttendanceFragment.this, "Attendance is marked", Toast.LENGTH_LONG).show();
+                                    out = (Button) dialog.findViewById(R.id.btn_out);
+                                    cancel = (Button) dialog.findViewById(R.id.btn_cancel);
+
+                                    out.setOnClickListener(new OnClickListener() {
+
+                                        @Override
+                                        public void onClick(View v) {
+                                            // TODO Auto-generated method stub
+                                            db.updateAttendance(sld1, username, sld1);
+                                            savelogout = new SaveLogoutTime();
+                                            savelogout.execute();
+
+                                        }
+                                    });
+
+                                    cancel.setOnClickListener(new OnClickListener() {
+
+
+                                        @Override
+                                        public void onClick(View v) {
+
+                                            // TODO Auto-generated method stub
+
+                                            dialog.cancel();
+
+                                        }
+                                    });
+
+                                    dialog.show();
+
+                                }
                             } else {
                                 final Dialog dialog = new Dialog(AttendanceFragment.this);
                                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -714,9 +756,9 @@ public class AttendanceFragment extends Activity implements OnClickListener {
                                     public void onClick(View v) {
                                         // TODO Auto-generated method stub
                                         db.updateAttendance(sld1, username, sld1);
+                                        dialog.cancel();
                                         savelogout = new SaveLogoutTime();
                                         savelogout.execute();
-
                                     }
                                 });
 
@@ -736,293 +778,154 @@ public class AttendanceFragment extends Activity implements OnClickListener {
                                 dialog.show();
 
                             }
+
+
                         } else {
+
+
                             final Dialog dialog = new Dialog(AttendanceFragment.this);
                             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                            dialog.setContentView(R.layout.layout_out_attendance);
+                            dialog.setContentView(R.layout.popup_attendance);
 
-                            out = (Button) dialog.findViewById(R.id.btn_out);
-                            cancel = (Button) dialog.findViewById(R.id.btn_cancel);
+                            present = (Button) dialog.findViewById(R.id.btn_present);
+                            absent = (Button) dialog.findViewById(R.id.btn_absent);
+                            final String[] columns = new String[]{"emp_id", "Adate",
+                                    "attendance", "absent_type", "lat", "lon", "savedServer", "month",
+                                    "holiday_desc", "year"};
 
-                            out.setOnClickListener(new OnClickListener() {
+
+                            present.setOnClickListener(new OnClickListener() {
 
                                 @Override
                                 public void onClick(View v) {
                                     // TODO Auto-generated method stub
-                                    db.updateAttendance(sld1, username, sld1);
-                                    dialog.cancel();
-                                    savelogout = new SaveLogoutTime();
-                                    savelogout.execute();
+                                    attendance_flag = "P";
+                                    leavetype_flag = "";
+                                    if (cd.isConnectingToInternet()) {
+                                        view.setBackgroundResource(R.drawable.green);
+                                        dialog.dismiss();
+                                        LocationLibrary.forceLocationUpdate(context);
+
+                                        try {
+                                            new SaveAttendance().execute(attendance_flag, leavetype_flag);
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+
+                                    } else {
+                                        Toast.makeText(AttendanceFragment.this, "Please check internet Connectivity & Try Again", Toast.LENGTH_LONG).show();
+                                    }
+
                                 }
                             });
 
-                            cancel.setOnClickListener(new OnClickListener() {
-
+                            absent.setOnClickListener(new OnClickListener() {
 
                                 @Override
                                 public void onClick(View v) {
 
-                                    // TODO Auto-generated method stub
+                                    if (cd.isConnectingToInternet()) {
 
-                                    dialog.cancel();
+                                        // TODO Auto-generated method stub
+
+                                        final Dialog d = new Dialog(AttendanceFragment.this);
+                                        d.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                                        d.setContentView(R.layout.absent_popup);
+
+                                        RadioGroup rg_attendance_type = (RadioGroup) d
+                                                .findViewById(R.id.rg_absent_type);
+
+                                        final RadioButton rb_seek_leave = (RadioButton) d
+                                                .findViewById(R.id.rb_seek_leave);
+
+                                        final RadioButton rb_weekly_off = (RadioButton) d
+                                                .findViewById(R.id.rb_weekly_off);
+
+                                        final RadioButton rb_holiday = (RadioButton) d
+                                                .findViewById(R.id.rb_holiday);
+
+
+                                        rg_attendance_type
+                                                .setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+                                                    @Override
+                                                    public void onCheckedChanged(
+                                                            RadioGroup group, int checkedId) {
+                                                        // TODO Auto-generated method stub
+                                                        attendance_flag = "A";
+                                                        if (rb_seek_leave.isChecked()) {
+
+                                                            leavetype_flag = "Leave";
+
+                                                            view.setBackgroundResource(R.drawable.red);
+                                                            d.dismiss();
+                                                            dialog.dismiss();
+
+                                                            try {
+                                                                new SaveAttendance().execute(attendance_flag, leavetype_flag);
+                                                            } catch (Exception e) {
+                                                                e.printStackTrace();
+                                                            }
+
+                                                        }
+
+                                                        if (rb_weekly_off.isChecked()) {
+                                                            leavetype_flag = "Weekly Off";
+
+                                                            view.setBackgroundResource(R.drawable.red);
+                                                            d.dismiss();
+                                                            dialog.dismiss();
+
+                                                            try {
+                                                                new SaveAttendance().execute(attendance_flag, leavetype_flag);
+                                                            } catch (Exception e) {
+                                                                e.printStackTrace();
+                                                            }
+                                                        }
+
+                                                        if (rb_holiday.isChecked()) {
+                                                            leavetype_flag = "Holiday";
+
+                                                            view.setBackgroundResource(R.drawable.red);
+                                                            d.dismiss();
+                                                            dialog.dismiss();
+
+                                                            try {
+                                                                new SaveAttendance().execute(attendance_flag, leavetype_flag);
+                                                            } catch (Exception e) {
+                                                                e.printStackTrace();
+                                                            }
+
+                                                        }
+
+
+                                                    }
+                                                });
+                                        d.show();
+
+                                    } else {
+                                        Toast.makeText(AttendanceFragment.this, "Please check internet Connectivity & Try Again", Toast.LENGTH_LONG).show();
+                                    }
 
                                 }
+
+
+                                /////
                             });
 
                             dialog.show();
 
                         }
-
-
-                    } else {
-
-
-                        final Dialog dialog = new Dialog(AttendanceFragment.this);
-                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                        dialog.setContentView(R.layout.popup_attendance);
-
-                        present = (Button) dialog.findViewById(R.id.btn_present);
-                        absent = (Button) dialog.findViewById(R.id.btn_absent);
-                        final String[] columns = new String[]{"emp_id", "Adate",
-                                "attendance", "absent_type", "lat", "lon", "savedServer", "month",
-                                "holiday_desc", "year"};
-
-
-                        present.setOnClickListener(new OnClickListener() {
-
-                            @Override
-                            public void onClick(View v) {
-                                // TODO Auto-generated method stub
-                                attendance_flag = "P";
-                                leavetype_flag = "";
-                                if (cd.isConnectingToInternet()) {
-
-                                   /* db.close();
-
-                                    String attendmonth1 = getmonthNo1(attendmonth);
-                                    db.open();
-
-                                    values = new String[]{username,
-                                            attendanceDate1,
-                                            "P",
-                                            "",
-                                            String.valueOf(lat),
-                                            String.valueOf(lon),
-                                            "0",
-                                            attendmonth1,
-                                            "",
-                                            year};
-
-                                    db.insert(values, columns, "attendance");
-
-                                    db.close();*/
-
-                                    view.setBackgroundResource(R.drawable.green);
-                                    dialog.dismiss();
-                                    LocationLibrary.forceLocationUpdate(context);
-
-
-                                    try {
-                                        new SaveAttendance().execute(attendance_flag,leavetype_flag);
-                                    }catch (Exception e){
-                                        e.printStackTrace();
-                                    }
-                                    //Intent i = new Intent(getApplicationContext(), DashboardNewActivity.class);
-                                    //i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    //startActivity(i);
-
-                                } else {
-                                    Toast.makeText(AttendanceFragment.this, "Please check internet Connectivity & Try Again", Toast.LENGTH_LONG).show();
-                                }
-
-                            }
-                        });
-
-                        absent.setOnClickListener(new OnClickListener() {
-
-                            @Override
-                            public void onClick(View v) {
-
-                                if (cd.isConnectingToInternet()) {
-
-                                    // TODO Auto-generated method stub
-
-                                    final Dialog d = new Dialog(AttendanceFragment.this);
-                                    d.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                                    d.setContentView(R.layout.absent_popup);
-
-                                    RadioGroup rg_attendance_type = (RadioGroup) d
-                                            .findViewById(R.id.rg_absent_type);
-
-                                    final RadioButton rb_seek_leave = (RadioButton) d
-                                            .findViewById(R.id.rb_seek_leave);
-
-                                    final RadioButton rb_weekly_off = (RadioButton) d
-                                            .findViewById(R.id.rb_weekly_off);
-
-                                    final RadioButton rb_holiday = (RadioButton) d
-                                            .findViewById(R.id.rb_holiday);
-
-
-                                    rg_attendance_type
-                                            .setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-                                                @Override
-                                                public void onCheckedChanged(
-                                                        RadioGroup group, int checkedId) {
-                                                    // TODO Auto-generated method stub
-                                                    attendance_flag = "A";
-                                                    if (rb_seek_leave.isChecked()) {
-
-                                                        leavetype_flag = "Leave";
-                                                        /* String attendmonth1 = getmonthNo1(attendmonth);
-                                                       db.open();
-
-                                                        values = new String[]{
-                                                                username,
-                                                                attendanceDate1,
-                                                                "A",
-                                                                " Leave",
-                                                                String.valueOf(lat),
-                                                                String.valueOf(lon),
-                                                                "0", attendmonth1,
-                                                                "", year};
-
-                                                        db.insert(values, columns,
-                                                                "attendance");
-
-                                                        db.close();*/
-
-                                                        view.setBackgroundResource(R.drawable.red);
-
-                                                        d.dismiss();
-                                                        dialog.dismiss();
-
-                                                        try {
-                                                            new SaveAttendance().execute(attendance_flag, leavetype_flag);
-                                                        }catch (Exception e){
-                                                            e.printStackTrace();
-                                                        }
-
-
-                                                        //Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-                                                        //i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                        //startActivity(i);
-
-
-                                                    }
-
-                                                    if (rb_weekly_off.isChecked()) {
-                                                        leavetype_flag = "Weekly Off";
-                                                       /* String attendmonth1 = getmonthNo1(attendmonth);
-                                                        db.open();
-
-                                                        values = new String[]{
-                                                                username,
-                                                                attendanceDate1,
-                                                                "A",
-                                                                " Weekly Off",
-                                                                String.valueOf(lat),
-                                                                String.valueOf(lon),
-                                                                "0", attendmonth1,
-                                                                "", year};
-
-                                                        db.insert(values, columns,
-                                                                "attendance");
-
-                                                        db.close();*/
-
-                                                        view.setBackgroundResource(R.drawable.red);
-
-                                                        d.dismiss();
-                                                        dialog.dismiss();
-
-                                                        try {
-                                                            new SaveAttendance().execute(attendance_flag, leavetype_flag);
-                                                        }catch (Exception e){
-                                                            e.printStackTrace();
-                                                        }
-                                                        //Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-                                                        //i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                        //startActivity(i);
-
-
-                                                    }
-
-                                                    if (rb_holiday.isChecked()) {
-                                                        leavetype_flag = "Holiday";
-                                                       /* String attendmonth1 = getmonthNo1(attendmonth);
-                                                        db.open();
-
-                                                        values = new String[]{
-                                                                username,
-                                                                attendanceDate1,
-                                                                "A",
-                                                                " Holiday",
-                                                                String.valueOf(lat),
-                                                                String.valueOf(lon),
-                                                                "0", attendmonth1,
-                                                                "", year};
-
-                                                        db.insert(values, columns,
-                                                                "attendance");
-
-                                                        db.close();*/
-
-                                                        view.setBackgroundResource(R.drawable.red);
-
-                                                        d.dismiss();
-                                                        dialog.dismiss();
-
-                                                        try {
-                                                            new SaveAttendance().execute(attendance_flag, leavetype_flag);
-                                                        }catch (Exception e){
-                                                            e.printStackTrace();
-                                                        }
-                                                        //Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-                                                        //i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                        //startActivity(i);
-
-
-                                                    }
-
-
-                                                }
-                                            });
-                                    d.show();
-
-                                } else {
-                                    Toast.makeText(AttendanceFragment.this, "Please check internet Connectivity & Try Again", Toast.LENGTH_LONG).show();
-                                }
-
-                            }
-
-
-                            /////
-                        });
-
-                        dialog.show();
-
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+
                 }
 
+            } else {
+                Toast.makeText(AttendanceFragment.this, "Please ON your Mobile Internet", Toast.LENGTH_LONG).show();
             }
-
-            // String date_month_year = (String) view.getTag();
-            // view.setBackgroundResource(R.drawable.calendar_bg_orange);
-            // selectedDayMonthYearButton.setText("Selected: " +
-            // date_month_year);
-            // Log.e("Selected date", date_month_year);
-            // try {
-            // Date parsedDate = dateFormatter.parse(date_month_year);
-            // Log.d(tag, "Parsed Date: " + parsedDate.toString());
-            //
-            // } catch (ParseException e) {
-            // e.printStackTrace();
-            // }
         }
 
         public int getCurrentDayOfMonth() {
@@ -1215,6 +1118,31 @@ public class AttendanceFragment extends Activity implements OnClickListener {
             }
 
         } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return result;
+
+    }
+
+    public static boolean afterdateChangeValidate(String serverdate) {
+        boolean result = false;
+
+        try {
+            final Calendar calendar1 = Calendar
+                    .getInstance();
+            SimpleDateFormat formatter1 = new SimpleDateFormat(
+                    "M/d/yyyy");
+            String currentdate = formatter1.format(calendar1
+                    .getTime());
+
+            if (!serverdate.equalsIgnoreCase(currentdate)) {
+
+                result = true;
+            }
+
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

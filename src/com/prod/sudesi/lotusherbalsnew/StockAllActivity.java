@@ -11,10 +11,13 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -171,30 +174,29 @@ public class StockAllActivity extends Activity {
                 tr = new TableRow(this);
                 tr.setLayoutParams(new TableLayout.LayoutParams(
                         TableLayout.LayoutParams.FILL_PARENT,
-                        50));
+                        60));
                 TextView tv = new TextView(this);
-
                 tv.setText(pro_name[i]);
                 tv.setTextColor(Color.WHITE);
-                // tv.setLayoutParams(new LayoutParams(
-                // LayoutParams.FILL_PARENT,
-                // LayoutParams.WRAP_CONTENT));
-                // tv.setGravity(Gravity.CENTER);
-                tv.setMaxEms(7);
-                tv.setTextSize(12);
-                // tv.setMaxLines(2);
-
+//                 tv.setLayoutParams(new WindowManager.LayoutParams(
+//                 WindowManager.LayoutParams.FILL_PARENT,
+//                 WindowManager.LayoutParams.WRAP_CONTENT));
+//                tv.setGravity(Gravity.CENTER);
+                tv.setMaxEms(12);
+                tv.setTextSize(11);
+                tv.setMaxLines(3);
                 tr.addView(tv);
 
                 EditText edt = new EditText(this);
                 // edt.setText("dsfgdfg");
                 edt.setTextColor(Color.WHITE);
-                edt.setMaxEms(10);
+                edt.setMaxEms(6);
                 tr.addView(edt);
+                edt.setFilters(new InputFilter[] {new InputFilter.LengthFilter(3)});
                 edt.setSingleLine(true);
-                edt.setInputType(android.text.InputType.TYPE_CLASS_TEXT
-                        | android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_SUBJECT);
-
+//                edt.setInputType(android.text.InputType.TYPE_CLASS_TEXT
+//                        | android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_SUBJECT);
+                edt.setInputType(InputType.TYPE_CLASS_NUMBER);
                 edt.addTextChangedListener(new TextWatcher() {
 
                     @Override
@@ -219,7 +221,6 @@ public class StockAllActivity extends Activity {
                 });
 
                 TextView tv1 = new TextView(this);
-
                 tv1.setText(mrp[i]);
                 tv1.setTextColor(Color.WHITE);
                 tr.addView(tv1);
@@ -237,7 +238,7 @@ public class StockAllActivity extends Activity {
                 edti = new TextView(this);
                 edti.setText(s);
                 edti.setTextColor(Color.WHITE);
-                edti.setMaxEms(10);
+                edti.setMaxEms(5);
                 tr.addView(edti);
                 //
                 tl_sale_calculation.addView(tr);

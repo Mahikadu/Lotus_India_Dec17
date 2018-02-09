@@ -51,6 +51,7 @@ import java.net.URL;
 import java.nio.channels.FileChannel;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -63,6 +64,7 @@ import libs.LotusWebservice;
 @SuppressLint("SimpleDateFormat")
 public class LoginActivity extends Activity {
 
+    String serverdate;
     Button btn_login;
     LocationInfo locationInfo;
     EditText edt_username;
@@ -76,7 +78,7 @@ public class LoginActivity extends Activity {
     String alaram_flag = "false";
 
     LotusWebservice service;
-    String username = "", pass = "",VERSION_NAME = "",OS_VERSION = "";
+    String username = "", pass = "", VERSION_NAME = "", OS_VERSION = "";
 
     private ProgressDialog pd;
     ConnectionDetector cd;
@@ -113,7 +115,7 @@ public class LoginActivity extends Activity {
     public static final String downloadConfigFile = "http://lotussmartforce.com/apk/config.txt";//production*/
 
     //UAT
-    public static final String  downloadURL = "http://sandboxws.lotussmartforce.com/APK/Lotus_UAT.apk"; //UAT
+    public static final String downloadURL = "http://sandboxws.lotussmartforce.com/APK/Lotus_UAT.apk"; //UAT
     public static final String downloadConfigFile = "http://sandboxws.lotussmartforce.com/APK/config.txt";//UAT
 
 
@@ -170,7 +172,7 @@ public class LoginActivity extends Activity {
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         deviceId = telephonyManager.getDeviceId();
 
-        //exportDB();
+        exportDB();
 
         refreshDisplay();
         btn_login.setOnClickListener(new OnClickListener() {
@@ -247,7 +249,7 @@ public class LoginActivity extends Activity {
             //intent.putExtra("Boc", true);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            Log.v("jflksdjfk","started");
+            Log.v("jflksdjfk", "started");
             //set timer you want alarm to work (here I have set it to 24.00)
             Calendar calendar = Calendar.getInstance();
             Calendar setcalendar = Calendar.getInstance();
@@ -260,18 +262,16 @@ public class LoginActivity extends Activity {
             SimpleDateFormat dateFormat = new SimpleDateFormat(
                     "MM/dd/yyyy HH:mm:ss");
             // get current date time with Date()
-             String currentDate = dateFormat.format(calendar.getTime()).split(" ")[0];
-             db.open();
-             String syncDate = db.getLastSyncDate("stock").split(" ")[0];
-             db.close();
-             if(syncDate==null)
-             {
-                syncDate="";
-             }
+            String currentDate = dateFormat.format(calendar.getTime()).split(" ")[0];
+            db.open();
+            String syncDate = db.getLastSyncDate("stock").split(" ")[0];
+            db.close();
+            if (syncDate == null) {
+                syncDate = "";
+            }
 
 
-            if(calendar.get(Calendar.DAY_OF_MONTH) == 26 && (sp.getBoolean("BOC26",false) || !currentDate.equals(syncDate)) )
-            {
+            if (calendar.get(Calendar.DAY_OF_MONTH) == 26 && (sp.getBoolean("BOC26", false) || !currentDate.equals(syncDate))) {
                 boolean boc26 = true;
 
                 spe.putBoolean("BOC26", boc26);
@@ -319,7 +319,7 @@ public class LoginActivity extends Activity {
 
         ContentValues contentvalues = new ContentValues();
         private SoapObject soap_result = null;
-        private SoapPrimitive server_date_result = null;
+        // private SoapPrimitive server_date_result = null;
         private SoapPrimitive soap_result2 = null;
 
         String Flag = "";
@@ -339,9 +339,8 @@ public class LoginActivity extends Activity {
                 // stop executing code by return
 
             } else {
+
                 try {
-                    String serverdate;
-                    server_date_result = service.GetServerDate();
 
                     PackageInfo pInfo = getPackageManager().getPackageInfo(
                             getPackageName(), 0);
@@ -357,85 +356,81 @@ public class LoginActivity extends Activity {
                         Flag = "5";
                     } else {
 
-                        if (server_date_result != null) {
+                        if (soap_result != null) {
 
-                            serverdate = server_date_result.toString();
+                            for (int i = 0; i < soap_result
+                                    .getPropertyCount(); i++) {
 
-                            if (soap_result != null) {
+                                SoapObject getmessaage = (SoapObject) soap_result
+                                        .getProperty(i);
 
-                                for (int i = 0; i < soap_result
-                                        .getPropertyCount(); i++) {
+                                if (String.valueOf(
+                                        getmessaage.getProperty("status"))
+                                        .equals("INACTIVE")) {
 
-                                    SoapObject getmessaage = (SoapObject) soap_result
-                                            .getProperty(i);
+                                    Flag = "INACTIVE";
 
-                                    if (String.valueOf(
-                                            getmessaage.getProperty("status"))
-                                            .equals("INACTIVE")) {
+                                } else if (String.valueOf(
+                                        getmessaage.getProperty("status"))
+                                        .equals("N")) {
 
-                                        Flag = "INACTIVE";
+                                    Flag = "N";
 
-                                    } else if (String.valueOf(
-                                            getmessaage.getProperty("status"))
-                                            .equals("N")) {
+                                } else if (String.valueOf(
+                                        getmessaage.getProperty("status"))
+                                        .equalsIgnoreCase("Expired")) {
+                                    Flag = "Expired";
+                                }
+                                // 27.03.2015
+                                else if (String.valueOf(
+                                        getmessaage.getProperty("status"))
+                                        .equalsIgnoreCase("SE")) {
+                                    Flag = "SE";
+                                } else if (String.valueOf(
+                                        getmessaage.getProperty("status"))
+                                        .equalsIgnoreCase("V")) {
+                                    Flag = "V";
+                                }
+                                // 27.03.2015
 
-                                        Flag = "N";
+                                else {
 
-                                    } else if (String.valueOf(
-                                            getmessaage.getProperty("status"))
-                                            .equalsIgnoreCase("Expired")) {
-                                        Flag = "Expired";
-                                    }
-                                    // 27.03.2015
-                                    else if (String.valueOf(
-                                            getmessaage.getProperty("status"))
-                                            .equalsIgnoreCase("SE")) {
-                                        Flag = "SE";
-                                    } else if (String.valueOf(
-                                            getmessaage.getProperty("status"))
-                                            .equalsIgnoreCase("V")) {
-                                        Flag = "V";
-                                    }
-                                    // 27.03.2015
+                                    status = String.valueOf(getmessaage
+                                            .getProperty("status"));
 
-                                    else {
+                                    if (String.valueOf(getmessaage
+                                            .getProperty("div")) != null) {
 
-                                        status = String.valueOf(getmessaage
-                                                .getProperty("status"));
-
-                                        if (String.valueOf(getmessaage
-                                                .getProperty("div")) != null) {
-
-                                            div = String.valueOf(getmessaage
-                                                    .getProperty("div"));
-                                            if (div.contentEquals("anyType{}")) {
-                                                div = "";
-                                            }
-                                            spe.putString("div", div);
-                                            spe.commit();
-
+                                        div = String.valueOf(getmessaage
+                                                .getProperty("div"));
+                                        if (div.contentEquals("anyType{}")) {
+                                            div = "";
                                         }
+                                        spe.putString("div", div);
+                                        spe.commit();
 
-                                        if (String.valueOf(getmessaage
-                                                .getProperty("username")) != null) {
+                                    }
 
-                                            spe.putString(
+                                    if (String.valueOf(getmessaage
+                                            .getProperty("username")) != null) {
 
-                                                    "username",
-                                                    String.valueOf(getmessaage
-                                                            .getProperty("username")));
-                                            spe.putString(
-                                                    "BDEusername",
-                                                    String.valueOf(getmessaage
-                                                            .getProperty("bdename")));
-                                            spe.putString(
-                                                    "BDE_Code",
-                                                    String.valueOf(getmessaage
-                                                            .getProperty("bdecode")));
-                                            spe.commit();
+                                        spe.putString(
 
-                                            Flag = String.valueOf(getmessaage
-                                                    .getProperty("username"));
+                                                "username",
+                                                String.valueOf(getmessaage
+                                                        .getProperty("username")));
+                                        spe.putString(
+                                                "BDEusername",
+                                                String.valueOf(getmessaage
+                                                        .getProperty("bdename")));
+                                        spe.putString(
+                                                "BDE_Code",
+                                                String.valueOf(getmessaage
+                                                        .getProperty("bdecode")));
+                                        spe.commit();
+
+                                        Flag = String.valueOf(getmessaage
+                                                .getProperty("username"));
 
 											/*
                                              * final Calendar calendar =
@@ -448,181 +443,159 @@ public class LoginActivity extends Activity {
 											 * .getTime());
 											 */
 
-                                            contentvalues.put("username",
-                                                    username);
-                                            contentvalues.put("password", pass);
-                                            contentvalues.put(
-                                                    "bde_Name",
-                                                    getmessaage.getProperty(
-                                                            "bdename")
-                                                            .toString());
-                                            contentvalues.put(
-                                                    "bde_Code",
-                                                    getmessaage.getProperty(
-                                                            "bdecode")
-                                                            .toString());
+                                        contentvalues.put("username",
+                                                username);
+                                        contentvalues.put("password", pass);
+                                        contentvalues.put(
+                                                "bde_Name",
+                                                getmessaage.getProperty(
+                                                        "bdename")
+                                                        .toString());
+                                        contentvalues.put(
+                                                "bde_Code",
+                                                getmessaage.getProperty(
+                                                        "bdecode")
+                                                        .toString());
 
-                                            contentvalues
-                                                    .put("status",
-                                                            String.valueOf(getmessaage
-                                                                    .getProperty("status")));
+                                        contentvalues
+                                                .put("status",
+                                                        String.valueOf(getmessaage
+                                                                .getProperty("status")));
 
-                                            loginstaus = "true";
-                                            soap_result2 = service.setDeviceId(
-                                                    username, deviceId);
+                                        loginstaus = "true";
+                                        soap_result2 = service.setDeviceId(
+                                                username, deviceId);
 
-                                            if (soap_result2 != null) {
-                                                if (soap_result2.toString()
-                                                        .equalsIgnoreCase(
-                                                                "success")) {
+                                        if (soap_result2 != null) {
+                                            if (soap_result2.toString()
+                                                    .equalsIgnoreCase(
+                                                            "success")) {
 
-                                                    contentvalues.put(
-                                                            "android_uid",
-                                                            deviceId);
+                                                contentvalues.put(
+                                                        "android_uid",
+                                                        deviceId);
 
-                                                    // contentvalues.put("ACTIVE",1);
+                                                // contentvalues.put("ACTIVE",1);
 
+                                                db.open();
+                                                String ddd = db.check_password_from_db(
+                                                        username,
+                                                        pass);
+                                                db.close();
+
+                                                if (ddd.equalsIgnoreCase("1")) {
+                                                    contentvalues
+                                                            .put("last_modified_date",
+                                                                    serverdate);
                                                     db.open();
-                                                    String ddd = db.check_password_from_db(
-                                                            username,
-                                                            pass);
+                                                    db.updatevalues(
+                                                            "login",
+                                                            contentvalues,
+                                                            "username",
+                                                            username);
                                                     db.close();
+                                                    loginstaus = "valid_user";
 
-                                                    if (ddd.equalsIgnoreCase("1")) {
-                                                        contentvalues
-                                                                .put("last_modified_date",
-                                                                        serverdate);
-                                                        db.open();
-                                                        db.updatevalues(
-                                                                "login",
-                                                                contentvalues,
-                                                                "username",
-                                                                username);
-                                                        db.close();
-                                                        loginstaus = "valid_user";
+                                                } else {
 
-                                                    } else {
-
-                                                        // db.insertValues(contentvalues,"login");
-                                                        db.open();
-
-                                                        db.insertLogin(
-                                                                username,
-                                                                pass,
-                                                                deviceId,
-                                                                serverdate,
-                                                                "f",
-                                                                div,
-                                                                status,
-                                                                getmessaage
-                                                                        .getProperty(
-                                                                                "bdename")
-                                                                        .toString(),
-                                                                getmessaage
-                                                                        .getProperty(
-                                                                                "bdecode")
-                                                                        .toString());
-                                                        db.close();
-
-                                                    }
-                                                    loginstaus = "true1";
-                                                    checkAndSaveMonthly();
-
-                                                } else if (soap_result2
-                                                        .toString()
-                                                        .equalsIgnoreCase(
-                                                                "false")) {
-                                                    loginstaus = "true2";
-
-                                                } else if (soap_result2
-                                                        .toString()
-                                                        .equalsIgnoreCase(
-                                                                "EXIST")) {
-
-                                                    loginstaus = "true3";
-
-                                                } else if (soap_result2
-                                                        .toString()
-                                                        .equalsIgnoreCase(
-                                                                "NotActive")) {
-                                                    loginstaus = "NotActive";
-                                                } else if (soap_result2
-                                                        .toString()
-                                                        .equalsIgnoreCase(
-                                                                "NoKey")) {
-                                                    loginstaus = "NoKey";
-                                                } else if (soap_result2
-                                                        .toString()
-                                                        .equalsIgnoreCase(
-                                                                "success")) {
-                                                    loginstaus = "success";
-                                                } else if (soap_result2
-                                                        .toString()
-                                                        .equalsIgnoreCase("SE")) {
-                                                    loginstaus = "true4";
-
-                                                    final Calendar calendar = Calendar
-                                                            .getInstance();
-                                                    SimpleDateFormat formatter = new SimpleDateFormat(
-                                                            "MM/dd/yyyy HH:mm:ss");
-                                                    String Createddate = formatter
-                                                            .format(calendar
-                                                                    .getTime());
-
-                                                    int n = Thread
-                                                            .currentThread()
-                                                            .getStackTrace()[2]
-                                                            .getLineNumber();
+                                                    // db.insertValues(contentvalues,"login");
                                                     db.open();
-                                                    db.insertSyncLog(
-                                                            "SE error in GetLogin()",
-                                                            String.valueOf(n),
-                                                            "GetLogin()",
-                                                            Createddate,
-                                                            Createddate,
-                                                            sp.getString(
-                                                                    "username",
-                                                                    ""),
-                                                            "Login Check",
-                                                            "Fail");
+
+                                                    db.insertLogin(
+                                                            username,
+                                                            pass,
+                                                            deviceId,
+                                                            serverdate,
+                                                            "f",
+                                                            div,
+                                                            status,
+                                                            getmessaage
+                                                                    .getProperty(
+                                                                            "bdename")
+                                                                    .toString(),
+                                                            getmessaage
+                                                                    .getProperty(
+                                                                            "bdecode")
+                                                                    .toString());
                                                     db.close();
 
                                                 }
-                                            }
+                                                loginstaus = "true1";
+                                                checkAndSaveMonthly();
 
+                                            } else if (soap_result2
+                                                    .toString()
+                                                    .equalsIgnoreCase(
+                                                            "false")) {
+                                                loginstaus = "true2";
+
+                                            } else if (soap_result2
+                                                    .toString()
+                                                    .equalsIgnoreCase(
+                                                            "EXIST")) {
+
+                                                loginstaus = "true3";
+
+                                            } else if (soap_result2
+                                                    .toString()
+                                                    .equalsIgnoreCase(
+                                                            "NotActive")) {
+                                                loginstaus = "NotActive";
+                                            } else if (soap_result2
+                                                    .toString()
+                                                    .equalsIgnoreCase(
+                                                            "NoKey")) {
+                                                loginstaus = "NoKey";
+                                            } else if (soap_result2
+                                                    .toString()
+                                                    .equalsIgnoreCase(
+                                                            "success")) {
+                                                loginstaus = "success";
+                                            } else if (soap_result2
+                                                    .toString()
+                                                    .equalsIgnoreCase("SE")) {
+                                                loginstaus = "true4";
+
+                                                final Calendar calendar = Calendar
+                                                        .getInstance();
+                                                SimpleDateFormat formatter = new SimpleDateFormat(
+                                                        "MM/dd/yyyy HH:mm:ss");
+                                                String Createddate = formatter
+                                                        .format(calendar
+                                                                .getTime());
+
+                                                int n = Thread
+                                                        .currentThread()
+                                                        .getStackTrace()[2]
+                                                        .getLineNumber();
+                                                db.open();
+                                                db.insertSyncLog(
+                                                        "SE error in GetLogin()",
+                                                        String.valueOf(n),
+                                                        "GetLogin()",
+                                                        Createddate,
+                                                        Createddate,
+                                                        sp.getString(
+                                                                "username",
+                                                                ""),
+                                                        "Login Check",
+                                                        "Fail");
+                                                db.close();
+
+                                            }
                                         }
 
                                     }
 
                                 }
-                            } else {
-                                Flag = "SOUP NULL";
-                                String errors = "Login soap giving null response. GetLogin Method";
-                                // we.writeToSD(errors.toString());
-                                final Calendar calendar = Calendar
-                                        .getInstance();
-                                SimpleDateFormat formatter = new SimpleDateFormat(
-                                        "MM/dd/yyyy HH:mm:ss");
-                                String Createddate = formatter.format(calendar
-                                        .getTime());
-
-                                int n = Thread.currentThread().getStackTrace()[2]
-                                        .getLineNumber();
-                                db.open();
-                                db.insertSyncLog(
-                                        "Soup is Null While GetLogin()",
-                                        String.valueOf(n), "GetLogin()",
-                                        Createddate, Createddate,
-                                        sp.getString("username", ""),
-                                        "Login Check", "Fail");
-                                db.close();
 
                             }
                         } else {
-
                             Flag = "SOUP NULL";
-
-                            final Calendar calendar = Calendar.getInstance();
+                            String errors = "Login soap giving null response. GetLogin Method";
+                            // we.writeToSD(errors.toString());
+                            final Calendar calendar = Calendar
+                                    .getInstance();
                             SimpleDateFormat formatter = new SimpleDateFormat(
                                     "MM/dd/yyyy HH:mm:ss");
                             String Createddate = formatter.format(calendar
@@ -632,14 +605,15 @@ public class LoginActivity extends Activity {
                                     .getLineNumber();
                             db.open();
                             db.insertSyncLog(
-                                    "Soup is Null While GetServerDate()",
-                                    String.valueOf(n), "GetServerDate()",
+                                    "Soup is Null While GetLogin()",
+                                    String.valueOf(n), "GetLogin()",
                                     Createddate, Createddate,
                                     sp.getString("username", ""),
                                     "Login Check", "Fail");
                             db.close();
 
                         }
+
                     }
 
                 } catch (Exception e) {
@@ -657,7 +631,6 @@ public class LoginActivity extends Activity {
 
             pd.dismiss();
             try {
-                if (server_date_result != null) {
                     if (soap_result != null) {
                         if (!Flag.equalsIgnoreCase("0")) {
 
@@ -737,10 +710,6 @@ public class LoginActivity extends Activity {
                                     } else if (loginstaus
                                             .equalsIgnoreCase("success")) {
 
-
-                                        String serverdate = server_date_result
-                                                .toString();
-
                                         String[] serverdatearray = serverdate
                                                 .split(" ");
 
@@ -776,9 +745,6 @@ public class LoginActivity extends Activity {
                                         // checkAndSaveMonthly();
 
                                     } else {
-
-                                        String serverdate = server_date_result
-                                                .toString();
 
                                         String[] serverdatearray = serverdate
                                                 .split(" ");
@@ -849,13 +815,6 @@ public class LoginActivity extends Activity {
                                 Toast.LENGTH_SHORT).show();
 
                     }
-                } else {
-                    Toast.makeText(
-                            getApplicationContext(),
-                            "Connectivity Error, Please check Internet connection!!",
-                            Toast.LENGTH_SHORT).show();
-
-                }
 
             } catch (Exception e) {
                 // TODO: handle exception
@@ -1944,14 +1903,16 @@ public class LoginActivity extends Activity {
                     Toast.makeText(LoginActivity.this, "New Apk Version has been Installed..!", Toast.LENGTH_SHORT).show();
                 } else {
 //                    Toast.makeText(MainActivity.this, "No New Version !", Toast.LENGTH_SHORT).show();
-                    LoginUser();
+                    new GetServerDate().execute();
                 }
             } else {
 //                Toast.makeText(MainActivity.this, "No New Version !", Toast.LENGTH_SHORT).show();
-                LoginUser();
+                new GetServerDate().execute();
+
             }
 
         }
+
     }
 
     public void LoginUser() {
@@ -2121,7 +2082,7 @@ public class LoginActivity extends Activity {
 
             File file = new File(PATH);
             file.mkdirs();
-            File outputFile = new File(file, "app1.apk");
+            File outputFile = new File(file, "Lotus_Pro.apk");
             FileOutputStream fos = new FileOutputStream(outputFile);
 
             InputStream is = c.getInputStream();
@@ -2139,7 +2100,7 @@ public class LoginActivity extends Activity {
             intent.setDataAndType(Uri.fromFile(new File(Environment
                             .getExternalStorageDirectory()
                             + "/download/"
-                            + "app1.apk")),
+                            + "Lotus_Pro.apk")),
                     "application/vnd.android.package-archive");
             startActivity(intent);
 
@@ -2160,9 +2121,8 @@ public class LoginActivity extends Activity {
 
     /**
      * This method disables the Broadcast receiver registered in the AndroidManifest file.
-     *
      */
-    public void disableBroadcastReceiver(){
+    public void disableBroadcastReceiver() {
         ComponentName receiver = new ComponentName(this, MyScheduledReceiver.class);
         PackageManager pm = this.getPackageManager();
 
@@ -2172,5 +2132,92 @@ public class LoginActivity extends Activity {
         Toast.makeText(this, "Disabled broadcst receiver", Toast.LENGTH_SHORT).show();
     }
 
+
+    public class GetServerDate extends AsyncTask<Void, Void, SoapPrimitive> {
+
+        private SoapPrimitive server_date_result = null;
+
+        @Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+            super.onPreExecute();
+
+            mProgress.setMessage("Please Wait");
+            mProgress.show();
+            mProgress.setCancelable(false);
+        }
+
+        @Override
+        protected SoapPrimitive doInBackground(Void... params) {
+            if (cd.isConnectingToInternet()) {
+                try {
+
+                    server_date_result = service.GetServerDate();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+            return server_date_result;
+        }
+
+        @Override
+        protected void onPostExecute(SoapPrimitive result) {
+            // TODO Auto-generated method stub
+            super.onPostExecute(result);
+            mProgress.dismiss();
+            try {
+                if (result != null) {
+
+                    serverdate = server_date_result.toString();
+
+                    final Calendar calendar1 = Calendar
+                            .getInstance();
+                    SimpleDateFormat formatter1 = new SimpleDateFormat(
+                            "M/d/yyyy");
+                    String systemdate = formatter1.format(calendar1
+                            .getTime());
+
+//                            String date = "8/29/2011 11:16:12 AM";
+                    String[] parts = serverdate.split(" ");
+                    String serverdd = parts[0];
+
+                    if (systemdate != null && serverdd != null
+                            && systemdate.equalsIgnoreCase(serverdd)) {
+                        LoginUser();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Please Check your Handset Date", Toast.LENGTH_LONG).show();
+                    }
+
+                } else {
+
+                    final Calendar calendar = Calendar.getInstance();
+                    SimpleDateFormat formatter = new SimpleDateFormat(
+                            "MM/dd/yyyy HH:mm:ss");
+                    String Createddate = formatter.format(calendar
+                            .getTime());
+
+                    int n = Thread.currentThread().getStackTrace()[2]
+                            .getLineNumber();
+                    db.open();
+                    db.insertSyncLog(
+                            "Soup is Null While GetServerDate()",
+                            String.valueOf(n), "GetServerDate()",
+                            Createddate, Createddate,
+                            sp.getString("username", ""),
+                            "Login Check", "Fail");
+                    db.close();
+
+                    Toast.makeText(
+                            getApplicationContext(),
+                            "Connectivity Error, Please check Internet connection!!",
+                            Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }

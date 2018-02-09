@@ -1503,6 +1503,7 @@ public class Dbcon {
                         map.put("USERNAME", c.getString(c.getColumnIndex("USERNAME")));
                         map.put("SYNCMETHOD", c.getString(c.getColumnIndex("SYNCMETHOD")));
                         map.put("RESULT", c.getString(c.getColumnIndex("RESULT")));
+                        map.put("CREATED_DATE", c.getString(c.getColumnIndex("CREATED_DATE")));
 
                         liveLIST.add(map);
                     } while (c.moveToNext());

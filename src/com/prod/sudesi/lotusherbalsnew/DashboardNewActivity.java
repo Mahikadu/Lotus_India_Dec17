@@ -163,7 +163,7 @@ public class DashboardNewActivity extends Activity {
                                                     spe.putBoolean("BOC26", false);
                                                     spe.commit();
                                                     boolRecd = false;
-                                                    ClearLocalAppData();
+                                                   // ClearLocalAppData();
                                                     new InsertFirstTimeMaster().execute();
 
                                                 }
@@ -269,8 +269,9 @@ public class DashboardNewActivity extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                startActivity(new Intent(getApplicationContext(),
-                        TesterSubmitActivity.class));
+                /*startActivity(new Intent(getApplicationContext(),
+                        TesterSubmitActivity.class));*/
+                Toast.makeText(mContext,"Coming Soon...!",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -315,8 +316,9 @@ public class DashboardNewActivity extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                startActivity(new Intent(getApplicationContext(),
-                        VisibilityFragment.class));
+               /* startActivity(new Intent(getApplicationContext(),
+                        VisibilityFragment.class));*/
+                Toast.makeText(mContext,"Coming Soon...!",Toast.LENGTH_LONG).show();
 
             }
         });
@@ -963,6 +965,8 @@ public class DashboardNewActivity extends Activity {
                     }
 
                     // -----------------------------------------------------------------------------01.03.2016
+
+                    ClearLocalAppData();
 
                     String lastdate;
                     db.open();
@@ -3884,7 +3888,7 @@ public class DashboardNewActivity extends Activity {
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, broadCastIntent, 0);
                 //set timer you want alarm to work (here I have set it to 7.00)
                 Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.HOUR_OF_DAY, 23);  //24
+                calendar.set(Calendar.HOUR_OF_DAY, 5);  //24
                 calendar.set(Calendar.MINUTE, 0);   //0
                 calendar.set(Calendar.SECOND,0 );
 

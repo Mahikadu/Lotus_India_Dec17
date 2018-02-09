@@ -75,15 +75,18 @@
                             android:textColor="@android:color/white"
                             android:textStyle="italic"
                             android:typeface="serif" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Closing Bal"
+                            android:textColor="@android:color/white"
+                            android:textStyle="italic"
+                            android:typeface="serif" />
+
                     </TableRow>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Closing Bal"
-                        android:textColor="@android:color/white"
-                        android:textStyle="italic"
-                        android:typeface="serif" />
+
                 </TableLayout>
 
             </ScrollView>
