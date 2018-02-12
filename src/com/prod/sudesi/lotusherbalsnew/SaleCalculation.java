@@ -20,6 +20,7 @@ import android.database.SQLException;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
@@ -859,6 +860,80 @@ public class SaleCalculation extends Activity {
 
             tr = new TableRow(this);
             tr.setLayoutParams(new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.FILL_PARENT,
+                    TableLayout.LayoutParams.WRAP_CONTENT));
+
+            TextView productname = new TextView(this);
+            productname.setText(pro_name[i]);
+            productname.setTextColor(Color.WHITE);
+            productname.setMaxEms(12);
+            productname.setTextSize(11);
+            productname.setMaxLines(3);
+            tr.addView(productname);// add the column to the table row here
+
+            EditText qty = new EditText(this);
+            qty.setTextColor(Color.WHITE);
+            qty.setFilters(new InputFilter[] {new InputFilter.LengthFilter(3)});
+            qty.setSingleLine(true);
+            qty.setTextSize(15);
+            qty.setGravity(Gravity.CENTER);
+            qty.setInputType(InputType.TYPE_CLASS_NUMBER);
+            tr.addView(qty);
+
+            qty.addTextChangedListener(new TextWatcher() {
+
+                @Override
+                public void onTextChanged(CharSequence s, int start,
+                                          int before, int count) {
+                    // TODO Auto-generated method stub
+
+                }
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start,
+                                              int count, int after) {
+                    // TODO Auto-generated method stub
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    // TODO Auto-generated method stub
+
+                }
+            });
+
+            TextView price = new TextView(this);
+            price.setText(mrp[i]);
+            price.setTextSize(15);
+            price.setGravity(Gravity.CENTER);
+            price.setTextColor(Color.WHITE);
+            tr.addView(price);
+
+            TextView tv2 = new TextView(this);
+            tv2.setText(db_id[i]);
+            tv2.setVisibility(View.GONE);
+            tr.addView(tv2);
+
+            TextView tv3 = new TextView(this);
+            tv3.setText(shadeno[i]);
+            tv3.setVisibility(View.GONE);
+            tr.addView(tv3);
+
+            edti = new TextView(this);
+            edti.setText(s);
+            edti.setTextSize(15);
+            edti.setGravity(Gravity.CENTER);
+            edti.setTextColor(Color.WHITE);
+            tr.addView(edti);
+
+            tl_sale_calculation.addView(tr,new TableLayout.LayoutParams(
+                    TableLayout.LayoutParams.FILL_PARENT,
+                    TableLayout.LayoutParams.WRAP_CONTENT));
+            tl_sale_calculation.setShrinkAllColumns(true);
+
+            /*tr = new TableRow(this);
+            tr.setLayoutParams(new TableLayout.LayoutParams(
                     TableLayout.LayoutParams.MATCH_PARENT,
                     TableLayout.LayoutParams.WRAP_CONTENT));
 
@@ -939,7 +1014,7 @@ public class SaleCalculation extends Activity {
             //
             tl_sale_calculation.addView(tr);
             tl_sale_calculation.setShrinkAllColumns(true);
-//			}
+//			}*/
 
         }
 

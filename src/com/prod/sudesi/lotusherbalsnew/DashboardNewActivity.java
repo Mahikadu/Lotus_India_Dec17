@@ -79,7 +79,7 @@ public class DashboardNewActivity extends Activity {
     // today
     private Dbcon db = null;
     String[] values;
-    String username,bdename;
+    String username, bdename;
 
     ConnectionDetector cd;
     LotusWebservice service;
@@ -163,7 +163,7 @@ public class DashboardNewActivity extends Activity {
                                                     spe.putBoolean("BOC26", false);
                                                     spe.commit();
                                                     boolRecd = false;
-                                                   // ClearLocalAppData();
+                                                    // ClearLocalAppData();
                                                     new InsertFirstTimeMaster().execute();
 
                                                 }
@@ -247,7 +247,6 @@ public class DashboardNewActivity extends Activity {
             btn_sale.setEnabled(false);
 
 
-
         }
 
         //Boc26AlaramReceiver();
@@ -271,7 +270,7 @@ public class DashboardNewActivity extends Activity {
 
                 /*startActivity(new Intent(getApplicationContext(),
                         TesterSubmitActivity.class));*/
-                Toast.makeText(mContext,"Coming Soon...!",Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "Coming Soon...!", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -318,7 +317,7 @@ public class DashboardNewActivity extends Activity {
 
                /* startActivity(new Intent(getApplicationContext(),
                         VisibilityFragment.class));*/
-                Toast.makeText(mContext,"Coming Soon...!",Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "Coming Soon...!", Toast.LENGTH_LONG).show();
 
             }
         });
@@ -415,7 +414,7 @@ public class DashboardNewActivity extends Activity {
 
         try {
             username = sp.getString("username", "");
-            bdename = sp.getString("BDEusername","");
+            bdename = sp.getString("BDEusername", "");
             tv_h_username.setText(bdename);
             yesterdaydate1 = getYesterdayDateString();
 
@@ -3774,47 +3773,44 @@ public class DashboardNewActivity extends Activity {
 
                 DisplayDialogMessage("Check Your Internet Connection!!!");
 
-            } else
+            } else if (Flag.equalsIgnoreCase("1")) {
 
-                if (Flag.equalsIgnoreCase("1")) {
+                boolean boc26 = false;
+                spe.putBoolean("BOC26", boc26);
+                spe.commit();
+                //final boolean boolRecd = false;
 
-                    boolean boc26 = false;
-                    spe.putBoolean("BOC26", boc26);
-                    spe.commit();
-                    //final boolean boolRecd = false;
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                    builder.setMessage("Data Download Completed Successfully!!")
-                            .setCancelable(false)
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    //do things
-                                    dialog.dismiss();
-                                    Intent i = new Intent(DashboardNewActivity.this, DashboardNewActivity.class);
-                                    //i.putExtra("Boc26",boolRecd);
-                                    startActivity(i);
-                                }
-                            });
-                    AlertDialog alert = builder.create();
-                    alert.getWindow().setType(WindowManager.LayoutParams.
-                            TYPE_SYSTEM_ALERT);
-                    alert.show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setMessage("Data Download Completed Successfully!!")
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                //do things
+                                dialog.dismiss();
+                                Intent i = new Intent(DashboardNewActivity.this, DashboardNewActivity.class);
+                                //i.putExtra("Boc26",boolRecd);
+                                startActivity(i);
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.getWindow().setType(WindowManager.LayoutParams.
+                        TYPE_SYSTEM_ALERT);
+                alert.show();
 
 
-                } else if (Flag.equalsIgnoreCase("2")) {
+            } else if (Flag.equalsIgnoreCase("2")) {
 
-                    DisplayDialogMessage("Data Download Incomplete!!");
+                DisplayDialogMessage("Data Download Incomplete!!");
 
-                }
-                else if (Flag.equalsIgnoreCase("4")) {
+            } else if (Flag.equalsIgnoreCase("4")) {
 
-                    DisplayDialogMessage("Data Download Incomplete!!,Please try again after some time");
+                DisplayDialogMessage("Data Download Incomplete!!,Please try again after some time");
 
-                } else {
+            } else {
 
-                    DisplayDialogMessage("Data Download Incomplete!!");
+                DisplayDialogMessage("Data Download Incomplete!!");
 
-                }
+            }
 
         }
 
@@ -3839,7 +3835,7 @@ public class DashboardNewActivity extends Activity {
 
     private void ClearLocalAppData() {
         try {
-           db.open();
+            db.open();
 
             db.deleteTables("SYNC_LOG");
             db.deleteTables("boc_wise_stock");
@@ -3851,11 +3847,12 @@ public class DashboardNewActivity extends Activity {
             db.deleteTables("supervisor_attendance");
             db.deleteTables("tester");
 
-           db.close();
+            db.close();
 
         } catch (Exception e) {
             e.printStackTrace();
-        } }
+        }
+    }
 
     public void writeStringAsFile(String fileContents) {
         Context context1 = mContext;
@@ -3875,7 +3872,7 @@ public class DashboardNewActivity extends Activity {
 
     }
 
-    public void AutologoutBroadcast(){
+    public void AutologoutBroadcast() {
         try {
 
             AlarmManager mAlarmManger = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -3884,17 +3881,17 @@ public class DashboardNewActivity extends Activity {
             Intent broadCastIntent = new Intent(this, MyScheduledReceiver.class);
             broadCastIntent.putExtra("uur", "1e"); // if you want
             boolean alarmRunning = (PendingIntent.getBroadcast(this, 0, broadCastIntent, PendingIntent.FLAG_NO_CREATE) != null);
-            if(!alarmRunning) {
+            if (!alarmRunning) {
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, broadCastIntent, 0);
                 //set timer you want alarm to work (here I have set it to 7.00)
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(Calendar.HOUR_OF_DAY, 5);  //24
                 calendar.set(Calendar.MINUTE, 0);   //0
-                calendar.set(Calendar.SECOND,0 );
+                calendar.set(Calendar.SECOND, 0);
 
                 //set that timer as a RTC Wakeup to alarm manager object
                 mAlarmManger.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-   }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -3902,9 +3899,8 @@ public class DashboardNewActivity extends Activity {
 
     /**
      * This method enables the Broadcast receiver registered in the AndroidManifest file.
-     *
      */
-    public void enableBroadcastReceiver(){
+    public void enableBroadcastReceiver() {
         ComponentName receiver = new ComponentName(this, MyScheduledReceiver.class);
         PackageManager pm = this.getPackageManager();
 

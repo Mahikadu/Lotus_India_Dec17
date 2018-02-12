@@ -115,8 +115,8 @@ public class LoginActivity extends Activity {
     public static final String downloadConfigFile = "http://lotussmartforce.com/apk/config.txt";//production*/
 
     //UAT
-    public static final String downloadURL = "http://sandboxws.lotussmartforce.com/APK/Lotus_UAT.apk"; //UAT
-    public static final String downloadConfigFile = "http://sandboxws.lotussmartforce.com/APK/config.txt";//UAT
+    public static final String downloadURL = "http://lotussmartforce.com/UATAPK/Lotus_UAT.apk"; //UAT
+    public static final String downloadConfigFile = "http://lotussmartforce.com/UATAPK/config.txt";//UAT
 
 
     @Override

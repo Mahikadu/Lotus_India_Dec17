@@ -36,15 +36,15 @@
             <ScrollView
                 android:id="@+id/scrv_sale"
                 android:layout_width="match_parent"
-                android:layout_height="250dp">
+                android:layout_height="400dp">
 
                 <TableLayout
                     android:id="@+id/tl_sale_calculation"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     android:stretchColumns="*"
                     android:visibility="visible">
 
@@ -63,7 +63,8 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Quantity"
+                            android:text="Qty"
+                            android:gravity="center"
                             android:textColor="@android:color/white"
                             android:textStyle="italic"
                             android:typeface="serif" />
@@ -72,6 +73,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="MRP"
+                            android:gravity="center"
                             android:textColor="@android:color/white"
                             android:textStyle="italic"
                             android:typeface="serif" />
@@ -80,6 +82,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Closing Bal"
+                            android:gravity="center"
                             android:textColor="@android:color/white"
                             android:textStyle="italic"
                             android:typeface="serif" />
@@ -176,6 +179,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="50dp"
                 android:visibility="visible">
 
                 <TableRow

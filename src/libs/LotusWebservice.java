@@ -46,7 +46,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 																			// transport
 																			// call
 			androidHttpTransport.call(
@@ -79,25 +79,21 @@ public class LotusWebservice {
 
 				CatCodeId = "0";
 			}
-			
 
 			if (CatCodeId == null || CatCodeId.equalsIgnoreCase("null")) {
 
 				CatCodeId = "0";
 			}
-			
 
 			if (EANCode == null ||  EANCode.equalsIgnoreCase("null") ) {
 
 				EANCode = "0";
 			}
-			
 
 			if (ProductCategory == null || ProductCategory.equalsIgnoreCase("null")) {
 
 				ProductCategory = "";
 			}
-			
 			
 			if (product_type == null || product_type.equalsIgnoreCase("null") ) {
 
@@ -108,12 +104,10 @@ public class LotusWebservice {
 				product_name = "";
 			}
 			
-			
 			if (shadeno == null || shadeno.equalsIgnoreCase("null")) {
 
 				shadeno = "0";
 			}
-			
 			
 			if (Opening_Stock == null || Opening_Stock.equalsIgnoreCase("null")) {
 
@@ -134,48 +128,36 @@ public class LotusWebservice {
 				Stock_inhand = "";
 			}
 			
-			
-			
 			if (S_Return_Saleable == null || S_Return_Saleable.equalsIgnoreCase("null")) {
 
 				S_Return_Saleable = "0";
 			}
-			
-			
-			
+
 			if (S_Return_NonSaleable == null || S_Return_NonSaleable.equalsIgnoreCase("null")) {
 
 				S_Return_NonSaleable = "0";
 			}
-			
-			
 			
 			if (ClosingBal == null || ClosingBal.equalsIgnoreCase("null")) {
 
 				ClosingBal = "0";
 			}
 			
-
-			
 			if (GrossAmount == null || GrossAmount.equalsIgnoreCase("null")) {
 
 				GrossAmount = "0";
 			}
-			
 
-			
 			if (Discount == null || Discount.equalsIgnoreCase("null")) {
 
 				Discount = "0";
 			}
-			
-			
+
 			if (NetAmount == null || NetAmount.equalsIgnoreCase("null")) {
 
 				NetAmount = "0";
 			}
-			
-			
+
 			if (Size == null || Size.equalsIgnoreCase("null")) {
 
 				Size = "0";
@@ -199,9 +181,7 @@ public class LotusWebservice {
 			request.addProperty("ProductCategory", ProductCategory);
 			request.addProperty("product_type", product_type);
 			request.addProperty("product_name", product_name);
-
 			request.addProperty("shadeno", shadeno);
-
 			request.addProperty("Opening_Stock", Opening_Stock);
 			request.addProperty("FreshStock", FreshStock);
 			request.addProperty("Stock_inhand", Stock_inhand);
@@ -209,7 +189,6 @@ public class LotusWebservice {
 			request.addProperty("S_Return_Saleable", S_Return_Saleable);
 			request.addProperty("S_Return_NonSaleable", S_Return_NonSaleable);
 			request.addProperty("ClosingBal", ClosingBal);
-
 			request.addProperty("GrossAmount", GrossAmount);
 			request.addProperty("Discount", Discount);
 			request.addProperty("NetAmount", NetAmount);
@@ -222,7 +201,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 																			// transport
 																			// call
 			androidHttpTransport.call("http://tempuri.org/IService1/SaveStock",
@@ -260,11 +239,9 @@ public class LotusWebservice {
 			request.addProperty("ProductType", ProductType);
 			request.addProperty("ProductName", ProductName);
 			request.addProperty("shadeno", shadeno);
-
 			request.addProperty("Current_status", Current_status);
 			request.addProperty("RequestDate", RequestDate);
 			request.addProperty("DeliveredDate", DeliveredDate);
-
 			request.addProperty("Size", Size);
 
 			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
@@ -272,7 +249,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 																			// transport
 																			// call
 			androidHttpTransport.call(
@@ -318,7 +295,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 																			// transport
 																			// call
 			androidHttpTransport.call(
@@ -381,7 +358,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 																			// transport
 																			// call
 			androidHttpTransport.call(
@@ -419,7 +396,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 																			// transport
 																			// call
 			androidHttpTransport.call(
@@ -478,7 +455,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 																			// transport
 																			// call
 			androidHttpTransport.call(
@@ -510,7 +487,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 																			// transport
 																			// call
 			androidHttpTransport.call(
@@ -542,7 +519,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,30000);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 			// transport
 			// call
 			androidHttpTransport.call("http://tempuri.org/IService1/GetBAOutletSales", envelope);
@@ -579,7 +556,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 			// transport
 			// call
 			androidHttpTransport
@@ -608,7 +585,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 																			// transport
 																			// call
 			androidHttpTransport.call(
@@ -641,7 +618,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 																			// transport
 																			// call
 			androidHttpTransport.call(
@@ -719,7 +696,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 																			// transport
 																			// call
 			androidHttpTransport.call(
@@ -758,7 +735,7 @@ public class LotusWebservice {
 					SoapEnvelope.VER11);// soap envelop with version
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 																			// transport
 																			// call
 																			// call
@@ -805,7 +782,7 @@ public class LotusWebservice {
 					SoapEnvelope.VER11);// soap envelop with version
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 			// transport
 			// call
 			androidHttpTransport.call("http://tempuri.org/IService1/assignUID",
@@ -850,7 +827,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 																			// transport
 																			// call
 			androidHttpTransport.call(
@@ -881,7 +858,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 																			// transport
 																			// call
 			androidHttpTransport
@@ -941,7 +918,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 																			// transport
 																			// call
 			androidHttpTransport.call(
@@ -972,7 +949,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 																			// transport
 																			// call
 			androidHttpTransport.call(
@@ -1002,31 +979,26 @@ public class LotusWebservice {
 			SoapObject request = new SoapObject("http://tempuri.org/",
 					"InsertStockEveryDayNetvalue");
 
-			
-
 			if (CatCodeId == null || CatCodeId.equalsIgnoreCase("null")) {
 
 				CatCodeId = "0";
 			}
-			
 
 			if (EANCode == null || EANCode.equalsIgnoreCase("null")) {
 
 				EANCode = "";
 			}
-			
 
 			if (ProductCategory == null || ProductCategory.equalsIgnoreCase("null")) {
 
 				ProductCategory = "";
 			}
 			
-			
 			if (product_type == null || product_type.equalsIgnoreCase("null") ) {
 
 				product_type = "";
 			}
-			
+
 			if (product_name==null || product_name.equalsIgnoreCase("null") ) {
 				product_name = "";
 			}
@@ -1036,7 +1008,6 @@ public class LotusWebservice {
 
 				shadeno = "0";
 			}
-			
 			
 			if (Opening_Stock == null || Opening_Stock.equalsIgnoreCase("null")) {
 
@@ -1056,52 +1027,36 @@ public class LotusWebservice {
 			if (Stock_inhand==null || Stock_inhand.equalsIgnoreCase("null")) {
 				Stock_inhand = "";
 			}
-			
-			
 
-			
-
-			
-			
 			if (S_Return_Saleable == null || S_Return_Saleable.equalsIgnoreCase("null")) {
 
 				S_Return_Saleable = "0";
 			}
-			
-			
-			
+
 			if (S_Return_NonSaleable == null || S_Return_NonSaleable.equalsIgnoreCase("null")) {
 
 				S_Return_NonSaleable = "0";
 			}
-			
-			
-			
+
 			if (ClosingBal == null || ClosingBal.equalsIgnoreCase("null")) {
 
 				ClosingBal = "0";
 			}
-			
 
-			
 			if (GrossAmount == null || GrossAmount.equalsIgnoreCase("null")) {
 
 				GrossAmount = "0";
 			}
-			
 
-			
 			if (Discount == null || Discount.equalsIgnoreCase("null")) {
 
 				Discount = "0";
 			}
 			
-			
 			if (NetAmount == null || NetAmount.equalsIgnoreCase("null")) {
 
 				NetAmount = "0";
 			}
-			
 			
 			if (Size == null || Size.equalsIgnoreCase("null")) {
 
@@ -1126,9 +1081,7 @@ public class LotusWebservice {
 			request.addProperty("ProductCategory", ProductCategory);
 			request.addProperty("product_type", product_type);
 			request.addProperty("product_name", product_name);
-
 			request.addProperty("shadeno", shadeno);
-
 			request.addProperty("Opening_Stock", Opening_Stock);
 			request.addProperty("FreshStock", FreshStock);
 			request.addProperty("Stock_inhand", Stock_inhand);
@@ -1136,7 +1089,6 @@ public class LotusWebservice {
 			request.addProperty("S_Return_Saleable", S_Return_Saleable);
 			request.addProperty("S_Return_NonSaleable", S_Return_NonSaleable);
 			request.addProperty("ClosingBal", ClosingBal);
-
 			request.addProperty("GrossAmount", GrossAmount);
 			request.addProperty("Discount", Discount);
 			request.addProperty("NetAmount", NetAmount);
@@ -1151,14 +1103,13 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 																			// transport
 								Log.v("","Log1");											// call
 			androidHttpTransport.call("http://tempuri.org/IService1/InsertStockEveryDayNetvalue",
 					envelope);
 			
 			Log.v("","Log2");
-
 			result = (SoapPrimitive) envelope.getResponse();
 			Log.v("","Log3");
 			Log.e("InsertStockEveryDayNetvalue", result.toString());
@@ -1186,7 +1137,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 																			// transport
 																			// call
 			androidHttpTransport.call(
@@ -1217,7 +1168,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 																			// transport
 																			// call
 			androidHttpTransport.call(
@@ -1254,7 +1205,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 																			// transport
 																			// call
 			androidHttpTransport.call(
@@ -1289,7 +1240,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 																			// transport
 																			// call
 			androidHttpTransport.call(
@@ -1313,20 +1264,15 @@ public class LotusWebservice {
 		try {
 			SoapObject request = new SoapObject("http://tempuri.org/",
 					"Base64ToImage");
-//ImageBase64
-			//imageName
 			request.addProperty("base64String", base64String);
 			request.addProperty("imgName", imgName);
-
-//			request.addProperty("ImageBase64", base64String);
-//			request.addProperty("imageName", imgName);
 
 			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 					SoapEnvelope.VER11);// soap envelop with version
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 																			// transport
 																			// call
 			androidHttpTransport.call(
@@ -1404,7 +1350,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,30000);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 			// transport
 			// call
 			androidHttpTransport.call("http://tempuri.org/IService1/GetDashboradData", envelope);
@@ -1423,8 +1369,6 @@ public class LotusWebservice {
 
 	public SoapObject GetBOCOpening(String EmpId)
 	{
-
-
 		SoapObject result = null;
 		try {
 
@@ -1440,7 +1384,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 			// transport
 			// call
 			androidHttpTransport.call("http://tempuri.org/IService1/GetBOCOpening", envelope);
@@ -1476,7 +1420,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,6000);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 			// transport
 			// call
 			androidHttpTransport.call(
@@ -1507,7 +1451,7 @@ public class LotusWebservice {
 			envelope.setOutputSoapObject(request); // set request object
 			envelope.dotNet = true;
 
-			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,6000);// http
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(url,60000);// http
 			// transport
 			// call
 			androidHttpTransport.call(
