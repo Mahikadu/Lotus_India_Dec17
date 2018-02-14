@@ -610,7 +610,14 @@ public class Dbcon {
 
         String sql = "delete from stock where savedServer = '1'";
         database.execSQL(sql);
-        Log.e("local database", "UPDATE stock table data");
+        Log.e("local database", "Delete stock table data");
+    }
+
+    public void delete_errorlog_data() {
+
+        String sql = "delete from SYNC_LOG where FLAG = 'U'";
+        database.execSQL(sql);
+        Log.e("local database", "Delete log table data");
     }
 
     public void update_stock_cumm(String id) {

@@ -20,6 +20,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
+import android.os.SystemClock;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -226,13 +227,23 @@ public class LoginActivity extends Activity {
 
         try {
             Intent intentAlarm = new Intent(this, UploadDataBrodcastReceiver.class);
+
+            boolean alarmRunning = (PendingIntent.getBroadcast(this.context, 0, intentAlarm, PendingIntent.FLAG_NO_CREATE) != null);
+
+            if (alarmRunning == false) {
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(this.context, 0, intentAlarm, 0);
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 1000 * 60 * 120, pendingIntent);
+            }
+
             // create the object
-            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis());
-            //set the alarm for particular time
-            //  alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(this, 1, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 120, PendingIntent.getBroadcast(this, 0, intentAlarm, 0));
+//            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//            Calendar calendar = Calendar.getInstance();
+//            calendar.setTimeInMillis(System.currentTimeMillis());
+//            //set the alarm for particular time
+//            //  alarmManager.set(AlarmManager.RTC_WAKEUP, time, PendingIntent.getBroadcast(this, 1, intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
+//            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 1000 * 60 * 15, PendingIntent.getBroadcast(this, 0, intentAlarm, 0));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -254,10 +265,10 @@ public class LoginActivity extends Activity {
             Calendar calendar = Calendar.getInstance();
             Calendar setcalendar = Calendar.getInstance();
             setcalendar.setTimeInMillis(System.currentTimeMillis());
-            setcalendar.set(Calendar.HOUR_OF_DAY, 6);
+            setcalendar.set(Calendar.HOUR_OF_DAY, 7);
             setcalendar.set(Calendar.MINUTE, 0);
             setcalendar.set(Calendar.SECOND, 0);
-            setcalendar.set(Calendar.DAY_OF_MONTH, 26);
+            setcalendar.set(Calendar.DAY_OF_MONTH, 15);
 
             SimpleDateFormat dateFormat = new SimpleDateFormat(
                     "MM/dd/yyyy HH:mm:ss");
@@ -270,8 +281,16 @@ public class LoginActivity extends Activity {
                 syncDate = "";
             }
 
+            Calendar now = Calendar.getInstance();
+            int currentMonth = now.get(calendar.MONTH);
+            int currentYear = now.get(Calendar.YEAR);
 
-            if (calendar.get(Calendar.DAY_OF_MONTH) == 26 && (sp.getBoolean("BOC26", false) || !currentDate.equals(syncDate))) {
+            String boc26date = String.valueOf(currentMonth)+"-26-"+String.valueOf(currentYear);
+            SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+            Date bocdate = format.parse(boc26date);
+            Date current = format.parse(currentDate);
+
+            if (calendar.get(Calendar.DAY_OF_MONTH) == 26 || current.after(bocdate) && (sp.getBoolean("BOC26", false) || !currentDate.equals(syncDate))) {
                 boolean boc26 = true;
 
                 spe.putBoolean("BOC26", boc26);
@@ -631,190 +650,190 @@ public class LoginActivity extends Activity {
 
             pd.dismiss();
             try {
-                    if (soap_result != null) {
-                        if (!Flag.equalsIgnoreCase("0")) {
+                if (soap_result != null) {
+                    if (!Flag.equalsIgnoreCase("0")) {
 
-                            if (!Flag.equalsIgnoreCase("5")) {
+                        if (!Flag.equalsIgnoreCase("5")) {
 
-                                if (!Flag.equalsIgnoreCase("SE")) {
+                            if (!Flag.equalsIgnoreCase("SE")) {
 
-                                    if (Flag.toString().equalsIgnoreCase(
-                                            "INACTIVE")) {
+                                if (Flag.toString().equalsIgnoreCase(
+                                        "INACTIVE")) {
 
-                                        Toast.makeText(LoginActivity.this,
-                                                "User is Inactive",
-                                                Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this,
+                                            "User is Inactive",
+                                            Toast.LENGTH_SHORT).show();
 
-                                    } else if (Flag.toString()
-                                            .equalsIgnoreCase("N")) {
+                                } else if (Flag.toString()
+                                        .equalsIgnoreCase("N")) {
 
-                                        Toast.makeText(
-                                                LoginActivity.this,
-                                                "Enter Correct UserName and Password.",
-                                                Toast.LENGTH_SHORT).show();
-                                    } else if (Flag.equalsIgnoreCase("Expired")) {
-                                        Toast.makeText(LoginActivity.this,
-                                                "Activation Key is Expired",
-                                                Toast.LENGTH_SHORT).show();
-                                    } else if (Flag.equalsIgnoreCase("V")) {
-                                        Toast.makeText(
-                                                LoginActivity.this,
-                                                "Please Update to Newer Version!",
-                                                Toast.LENGTH_SHORT).show();
-                                    } else if (loginstaus
-                                            .equalsIgnoreCase("true3")) {
+                                    Toast.makeText(
+                                            LoginActivity.this,
+                                            "Enter Correct UserName and Password.",
+                                            Toast.LENGTH_SHORT).show();
+                                } else if (Flag.equalsIgnoreCase("Expired")) {
+                                    Toast.makeText(LoginActivity.this,
+                                            "Activation Key is Expired",
+                                            Toast.LENGTH_SHORT).show();
+                                } else if (Flag.equalsIgnoreCase("V")) {
+                                    Toast.makeText(
+                                            LoginActivity.this,
+                                            "Please Update to Newer Version!",
+                                            Toast.LENGTH_SHORT).show();
+                                } else if (loginstaus
+                                        .equalsIgnoreCase("true3")) {
 
-                                        db.open();
-                                        String userid = db.getUserId();
-                                        db.close();
+                                    db.open();
+                                    String userid = db.getUserId();
+                                    db.close();
 
-                                        if (userid.equalsIgnoreCase("no")) {
-
-                                            Toast.makeText(
-                                                    LoginActivity.this,
-                                                    "This device is already assigned to another user.Please contact your system administrator!",
-                                                    Toast.LENGTH_LONG).show();
-
-                                        } else {
-
-                                            Toast.makeText(
-                                                    LoginActivity.this,
-                                                    "This device is already assigned to another user.Please contact your system administrator!. Already Login Id = "
-                                                            + userid,
-                                                    Toast.LENGTH_LONG).show();
-                                        }
-                                    } else if (loginstaus
-                                            .equalsIgnoreCase("true2")) {
-
-                                        Toast.makeText(LoginActivity.this,
-                                                "Invalid User!!",
-                                                Toast.LENGTH_SHORT).show();
-                                    } else if (loginstaus
-                                            .equalsIgnoreCase("true4")) {
+                                    if (userid.equalsIgnoreCase("no")) {
 
                                         Toast.makeText(
                                                 LoginActivity.this,
-                                                "Server Error! Please try again!!",
-                                                Toast.LENGTH_SHORT).show();
-                                    } else if (loginstaus
-                                            .equalsIgnoreCase("NotActive")) {
-                                        Toast.makeText(
-                                                LoginActivity.this,
-                                                "Activation Key is Not Updated",
+                                                "This device is already assigned to another user.Please contact your system administrator!",
                                                 Toast.LENGTH_LONG).show();
-                                    } else if (loginstaus
-                                            .equalsIgnoreCase("NoKey")) {
-                                        Toast.makeText(LoginActivity.this,
-                                                "No Activation Key",
-                                                Toast.LENGTH_LONG).show();
-                                    } else if (loginstaus
-                                            .equalsIgnoreCase("success")) {
-
-                                        String[] serverdatearray = serverdate
-                                                .split(" ");
-
-                                        server_date = serverdatearray[0];
-
-                                        String[] serverdate1 = server_date
-                                                .split("/");
-
-
-                                        spe.putString("currentdate", serverdate);
-                                        spe.commit();
-
-                                        SimpleDateFormat sdf = new SimpleDateFormat(
-                                                "MM/dd/yyyy");
-
-                                        Date curntdte = null;
-                                        try {
-                                            curntdte = sdf.parse(server_date);
-                                        } catch (ParseException e) {
-                                            // TODO Auto-generated catch block
-                                            e.printStackTrace();
-                                        }
-
-                                        sdf.applyPattern("yyyy-MM-dd");
-                                        todaydate1 = sdf.format(curntdte);
-
-                                        spe.putString("todaydate", todaydate1);
-                                        spe.commit();
-
-                                        //SetClosingISOpeningOnlyOnce();
-                                        // checkAndSaveMonthly();
-                                        checkpresentornot(todaydate1);
-                                        // checkAndSaveMonthly();
 
                                     } else {
 
-                                        String[] serverdatearray = serverdate
-                                                .split(" ");
+                                        Toast.makeText(
+                                                LoginActivity.this,
+                                                "This device is already assigned to another user.Please contact your system administrator!. Already Login Id = "
+                                                        + userid,
+                                                Toast.LENGTH_LONG).show();
+                                    }
+                                } else if (loginstaus
+                                        .equalsIgnoreCase("true2")) {
 
-                                        server_date = serverdatearray[0];
+                                    Toast.makeText(LoginActivity.this,
+                                            "Invalid User!!",
+                                            Toast.LENGTH_SHORT).show();
+                                } else if (loginstaus
+                                        .equalsIgnoreCase("true4")) {
 
-                                        String[] serverdate1 = server_date
-                                                .split("/");
+                                    Toast.makeText(
+                                            LoginActivity.this,
+                                            "Server Error! Please try again!!",
+                                            Toast.LENGTH_SHORT).show();
+                                } else if (loginstaus
+                                        .equalsIgnoreCase("NotActive")) {
+                                    Toast.makeText(
+                                            LoginActivity.this,
+                                            "Activation Key is Not Updated",
+                                            Toast.LENGTH_LONG).show();
+                                } else if (loginstaus
+                                        .equalsIgnoreCase("NoKey")) {
+                                    Toast.makeText(LoginActivity.this,
+                                            "No Activation Key",
+                                            Toast.LENGTH_LONG).show();
+                                } else if (loginstaus
+                                        .equalsIgnoreCase("success")) {
 
-                                        spe.putString("current_year",
-                                                serverdate1[2]);
-                                        spe.commit();
+                                    String[] serverdatearray = serverdate
+                                            .split(" ");
 
-                                        spe.putString("currentdate", serverdate);
-                                        spe.commit();
+                                    server_date = serverdatearray[0];
 
-                                        SimpleDateFormat sdf = new SimpleDateFormat(
-                                                "MM/dd/yyyy");
+                                    String[] serverdate1 = server_date
+                                            .split("/");
 
-                                        Date curntdte = null;
-                                        try {
-                                            curntdte = sdf.parse(server_date);
-                                        } catch (ParseException e) {
-                                            // TODO Auto-generated catch block
-                                            e.printStackTrace();
-                                        }
 
-                                        sdf.applyPattern("yyyy-MM-dd");
-                                        todaydate1 = sdf.format(curntdte);
+                                    spe.putString("currentdate", serverdate);
+                                    spe.commit();
 
-                                        spe.putString("todaydate", todaydate1);
-                                        spe.commit();
+                                    SimpleDateFormat sdf = new SimpleDateFormat(
+                                            "MM/dd/yyyy");
 
-                                        //SetClosingISOpeningOnlyOnce();
-                                        // checkAndSaveMonthly();
-                                        checkpresentornot(todaydate1);
-                                        // checkAndSaveMonthly();
-
+                                    Date curntdte = null;
+                                    try {
+                                        curntdte = sdf.parse(server_date);
+                                    } catch (ParseException e) {
+                                        // TODO Auto-generated catch block
+                                        e.printStackTrace();
                                     }
 
+                                    sdf.applyPattern("yyyy-MM-dd");
+                                    todaydate1 = sdf.format(curntdte);
+
+                                    spe.putString("todaydate", todaydate1);
+                                    spe.commit();
+
+                                    //SetClosingISOpeningOnlyOnce();
+                                    // checkAndSaveMonthly();
+                                    checkpresentornot(todaydate1);
+                                    // checkAndSaveMonthly();
+
                                 } else {
-                                    Toast.makeText(
-                                            getApplicationContext(),
-                                            "Connectivity Error, Please check Internet connection!!",
-                                            Toast.LENGTH_SHORT).show();
+
+                                    String[] serverdatearray = serverdate
+                                            .split(" ");
+
+                                    server_date = serverdatearray[0];
+
+                                    String[] serverdate1 = server_date
+                                            .split("/");
+
+                                    spe.putString("current_year",
+                                            serverdate1[2]);
+                                    spe.commit();
+
+                                    spe.putString("currentdate", serverdate);
+                                    spe.commit();
+
+                                    SimpleDateFormat sdf = new SimpleDateFormat(
+                                            "MM/dd/yyyy");
+
+                                    Date curntdte = null;
+                                    try {
+                                        curntdte = sdf.parse(server_date);
+                                    } catch (ParseException e) {
+                                        // TODO Auto-generated catch block
+                                        e.printStackTrace();
+                                    }
+
+                                    sdf.applyPattern("yyyy-MM-dd");
+                                    todaydate1 = sdf.format(curntdte);
+
+                                    spe.putString("todaydate", todaydate1);
+                                    spe.commit();
+
+                                    //SetClosingISOpeningOnlyOnce();
+                                    // checkAndSaveMonthly();
+                                    checkpresentornot(todaydate1);
+                                    // checkAndSaveMonthly();
 
                                 }
 
                             } else {
-
-                                Toast.makeText(getApplicationContext(),
-                                        "Connectivity Error!!",
+                                Toast.makeText(
+                                        getApplicationContext(),
+                                        "Connectivity Error, Please check Internet connection!!",
                                         Toast.LENGTH_SHORT).show();
 
                             }
+
                         } else {
 
-                            Toast.makeText(
-                                    getApplicationContext(),
-                                    "User not activated ,Please contact admin!!",
+                            Toast.makeText(getApplicationContext(),
+                                    "Connectivity Error!!",
                                     Toast.LENGTH_SHORT).show();
 
                         }
                     } else {
+
                         Toast.makeText(
                                 getApplicationContext(),
-                                "Connectivity Error, Please check Internet connection!!",
+                                "User not activated ,Please contact admin!!",
                                 Toast.LENGTH_SHORT).show();
 
                     }
+                } else {
+                    Toast.makeText(
+                            getApplicationContext(),
+                            "Connectivity Error, Please check Internet connection!!",
+                            Toast.LENGTH_SHORT).show();
+
+                }
 
             } catch (Exception e) {
                 // TODO: handle exception
@@ -991,7 +1010,7 @@ public class LoginActivity extends Activity {
         if (a.equalsIgnoreCase("")) {
 
 
-            if (sp.getBoolean("Upload_data_flag", false) == false) {
+           /* if (sp.getBoolean("Upload_data_flag", false) == false) {
                 Log.e("Upload Data Receiver", String.valueOf(sp.getBoolean("Upload_data_flag", true)));
                 DataUploadAlaramReceiver();
                 spe.putBoolean("Upload_data_flag", true);
@@ -999,7 +1018,7 @@ public class LoginActivity extends Activity {
 
             } else {
 
-            }
+            }*/
             Boc26AlaramReceiver();
             Intent i = new Intent(getApplicationContext(), AttendanceFragment.class);
             i.putExtra("FromLoginpage", "L");
@@ -1159,7 +1178,7 @@ public class LoginActivity extends Activity {
         String RESULT;
         int updateCount = 0;
 
-        try {
+        /*try {
             db.open();
             stock_array = db.getStockdetails();
             // db.close();
@@ -1324,7 +1343,7 @@ public class LoginActivity extends Activity {
                     Createddate, Createddate, sp.getString("username", ""),
                     "SaveStock()", "Fail");
 
-        }
+        }*/
     }
 
     public void getBOCOpening() {
@@ -1903,10 +1922,12 @@ public class LoginActivity extends Activity {
                     Toast.makeText(LoginActivity.this, "New Apk Version has been Installed..!", Toast.LENGTH_SHORT).show();
                 } else {
 //                    Toast.makeText(MainActivity.this, "No New Version !", Toast.LENGTH_SHORT).show();
-                    new GetServerDate().execute();
+                    //LoginUser();
+                     new GetServerDate().execute();
                 }
             } else {
 //                Toast.makeText(MainActivity.this, "No New Version !", Toast.LENGTH_SHORT).show();
+                //LoginUser();
                 new GetServerDate().execute();
 
             }
@@ -1918,14 +1939,14 @@ public class LoginActivity extends Activity {
     public void LoginUser() {
 
         //spe.clear();
-        if (sp.getBoolean("Upload_data_flag", false) == false) {
+        /*if (sp.getBoolean("Upload_data_flag", false) == false) {
 
             DataUploadAlaramReceiver();
 
         } else {
             Log.e("Upload Data Receivert", String.valueOf(sp.getBoolean("Upload_data_flag_true", true)));
 
-        }
+        }*/
 
         if (edt_username.getText().toString().equalsIgnoreCase("")) {
         } else if (edt_password.getText().toString()
@@ -2219,5 +2240,6 @@ public class LoginActivity extends Activity {
             }
         }
     }
+
 
 }

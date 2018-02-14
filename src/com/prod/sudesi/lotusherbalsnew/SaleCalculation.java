@@ -31,6 +31,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.MotionEvent;
 import android.view.Window;
@@ -87,7 +88,7 @@ public class SaleCalculation extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_sale_calc);
+        setContentView(R.layout.activity_saleall);
 
         //////////Crash Report
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
@@ -862,20 +863,27 @@ public class SaleCalculation extends Activity {
             tr.setLayoutParams(new TableLayout.LayoutParams(
                     TableLayout.LayoutParams.FILL_PARENT,
                     TableLayout.LayoutParams.WRAP_CONTENT));
+            tr.setWeightSum(6f);
 
+            TableRow.LayoutParams lp;
+            lp = new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 3f);
             TextView productname = new TextView(this);
             productname.setText(pro_name[i]);
             productname.setTextColor(Color.WHITE);
             productname.setMaxEms(12);
             productname.setTextSize(11);
             productname.setMaxLines(3);
+            productname.setLayoutParams(lp);
             tr.addView(productname);// add the column to the table row here
 
+            lp = new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
             EditText qty = new EditText(this);
             qty.setTextColor(Color.WHITE);
             qty.setFilters(new InputFilter[] {new InputFilter.LengthFilter(3)});
             qty.setSingleLine(true);
             qty.setTextSize(15);
+            qty.setMaxEms(5);
+            qty.setLayoutParams(lp);
             qty.setGravity(Gravity.CENTER);
             qty.setInputType(InputType.TYPE_CLASS_NUMBER);
             tr.addView(qty);
@@ -903,9 +911,11 @@ public class SaleCalculation extends Activity {
                 }
             });
 
+            lp = new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
             TextView price = new TextView(this);
             price.setText(mrp[i]);
             price.setTextSize(15);
+            price.setLayoutParams(lp);
             price.setGravity(Gravity.CENTER);
             price.setTextColor(Color.WHITE);
             tr.addView(price);
@@ -920,9 +930,11 @@ public class SaleCalculation extends Activity {
             tv3.setVisibility(View.GONE);
             tr.addView(tv3);
 
+            lp = new TableRow.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
             edti = new TextView(this);
             edti.setText(s);
             edti.setTextSize(15);
+            edti.setLayoutParams(lp);
             edti.setGravity(Gravity.CENTER);
             edti.setTextColor(Color.WHITE);
             tr.addView(edti);

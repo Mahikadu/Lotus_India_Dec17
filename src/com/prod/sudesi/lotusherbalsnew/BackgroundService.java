@@ -111,7 +111,7 @@ public class BackgroundService extends Service {
                 try {
                     Flag = "1";
                     ErroFlag = "1";
-                    try {
+                    /*try {
                         db.open();
 
                         test_array = db.getTesterdetails(); // --------------
@@ -248,7 +248,7 @@ public class BackgroundService extends Service {
                                 sp.getString("username", ""),
                                 "SaveTesterData()", "Fail");
 
-                    }
+                    }*/
 
                     /*try {
                         db.open();
@@ -384,7 +384,7 @@ public class BackgroundService extends Service {
 
                     }*/
 
-                    try {
+                    /*try {
                         Log.e("", "saveto server1-stcok");
                         db.open();
                         stock_array = db.getStockdetails();
@@ -504,7 +504,7 @@ public class BackgroundService extends Service {
 
                                     );
 
-									/*
+									*//*
 									 * soap_result_stock = service.SaveStock(
 									 * stock_array.getString(2),
 									 * stock_array.getString(1), eancode_string,
@@ -527,7 +527,7 @@ public class BackgroundService extends Service {
 									 *
 									 *
 									 * );
-									 */
+									 *//*
 
                                     if (soap_result_stock != null) {
                                         String result_stock = soap_result_stock
@@ -631,7 +631,7 @@ public class BackgroundService extends Service {
                                 sp.getString("username", ""), "SaveStock()",
                                 "Fail");
 
-                    }
+                    }*/
                     // -----------------------------------boc day wise data
                     // -----------------------------------------------//
                     final Calendar calendar123 = Calendar.getInstance();
@@ -983,7 +983,7 @@ public class BackgroundService extends Service {
 
                     // ----------------------------visibility
 
-                    try {
+                   /* try {
 
                         Log.e("in weservice", "statrt- visibility");
 
@@ -1048,7 +1048,7 @@ public class BackgroundService extends Service {
                                                 upload_image = db
                                                         .getimageDetails1();
 
-												/*
+												*//*
 												 * if (upload_image != null &&
 												 * upload_image.moveToFirst()) {
 												 *
@@ -1065,7 +1065,7 @@ public class BackgroundService extends Service {
 												 *
 												 *
 												 * }
-												 */
+												 *//*
                                                 if (upload_image.getCount() > 0) {
 
                                                     if (upload_image != null
@@ -1484,7 +1484,7 @@ public class BackgroundService extends Service {
 
                                                 }
 
-												/*
+												*//*
 												 * String image_name_return =
 												 * ImageUtils
 												 * .getCompressedImagePath(
@@ -1504,7 +1504,7 @@ public class BackgroundService extends Service {
 												 *
 												 *
 												 * }
-												 */
+												 *//*
 
                                             } while (image_array1.moveToNext());
 
@@ -1549,7 +1549,7 @@ public class BackgroundService extends Service {
                                     String.valueOf(image_array.getCount()));
                         }
 
-						/*
+						*//*
 						 * if(soap_result_img != null && soap_result_img_data
 						 * !=null &&
 						 * !soap_result_img_data.toString().equalsIgnoreCase
@@ -1570,7 +1570,7 @@ public class BackgroundService extends Service {
 						 * db.close();
 						 *
 						 * } }
-						 */
+						 *//*
                     } catch (Exception e) {
 
                         e.printStackTrace();
@@ -1592,7 +1592,7 @@ public class BackgroundService extends Service {
                                 sp.getString("username", ""), "Visibility()",
                                 "Fail");
 
-                    }
+                    }*/
 
                     // -------------------------
 

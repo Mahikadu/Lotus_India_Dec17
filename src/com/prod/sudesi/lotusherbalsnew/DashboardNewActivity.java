@@ -43,11 +43,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.littlefluffytoys.littlefluffylocationlibrary.LocationInfo;
 import com.littlefluffytoys.littlefluffylocationlibrary.LocationLibraryConstants;
 
 import com.sudesi.tester.TesterSubmitActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 
@@ -134,7 +142,6 @@ public class DashboardNewActivity extends Activity {
         sp = mContext.getSharedPreferences("Lotus", Context.MODE_PRIVATE);
         spe = sp.edit();
 
-        //AutologoutBroadcast();
         //enableBroadcastReceiver();
 
         Intent intent = getIntent();
@@ -249,6 +256,7 @@ public class DashboardNewActivity extends Activity {
 
         }
 
+        AutologoutBroadcast();
         //Boc26AlaramReceiver();
 
         btn_logout.setOnClickListener(new OnClickListener() {
@@ -531,7 +539,7 @@ public class DashboardNewActivity extends Activity {
         // cancel any notification we may have received from
         // TestBroadcastReceiver
 
-        AutologoutBroadcast();
+       // AutologoutBroadcast();
 
         startRepeatingTimer();// ------------------------------------
 
@@ -713,7 +721,7 @@ public class DashboardNewActivity extends Activity {
                     // --------------------------------upload
                     // stock-----------------------------------01.03.2016
 
-                    try {
+           /*         try {
                         Log.e("", "saveto server1-stcok");
                         db.open();
                         stock_array = db.getStockdetails();
@@ -836,7 +844,7 @@ public class DashboardNewActivity extends Activity {
 
                                             );
 
-									/*
+									*//*
                                      * soap_result_stock = service.SaveStock(
 									 * stock_array.getString(2),
 									 * stock_array.getString(1), eancode_string,
@@ -859,7 +867,7 @@ public class DashboardNewActivity extends Activity {
 									 *
 									 *
 									 * );
-									 */
+									 *//*
 
                                     if (soap_result_stock != null) {
                                         String result_stock = soap_result_stock
@@ -961,7 +969,7 @@ public class DashboardNewActivity extends Activity {
                                 sp.getString("username", ""), "SaveStock()",
                                 "Fail");
 
-                    }
+                    }*/
 
                     // -----------------------------------------------------------------------------01.03.2016
 
@@ -3909,4 +3917,5 @@ public class DashboardNewActivity extends Activity {
                 PackageManager.DONT_KILL_APP);
         Toast.makeText(this, "Enabled broadcast receiver", Toast.LENGTH_SHORT).show();
     }
+
 }
