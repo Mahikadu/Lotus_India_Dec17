@@ -112,7 +112,7 @@ public class SyncMaster extends Activity {
     ArrayList<HashMap<String, String>> listofimages = new ArrayList<HashMap<String, String>>();
 
     public static String URL = "http://sandboxws.lotussmartforce.com/WebAPIStock/api/Stock/SaveStock";//UAT Server
-   // public static String URL = "http://sandboxws.lotussmartforce.com/WebAPIStock/api/Stock/SaveStock";//Production Server
+    //public static String URL = "http://lotusws.lotussmartforce.com/WebAPIStock/api/Stock/SaveStock/";//Production Server
     private JSONArray array = new JSONArray();
     String flag;
     String ErroFlag = "";
@@ -1150,7 +1150,11 @@ public class SyncMaster extends Activity {
         public syncAllData(String flag) {
             super();
             // do stuff
-            //ErroFlag = flag;
+            if(flag.equalsIgnoreCase("TRUE")){
+                ErroFlag = "1";
+            }else{
+                ErroFlag = "0";
+            }
         }
 
         private SoapPrimitive soap_result = null;
@@ -1204,7 +1208,7 @@ public class SyncMaster extends Activity {
 
                 try {
                     Flag = "1";
-                    ErroFlag = "1";
+                    //ErroFlag = "1";
 /*
                     try {
                         db.open();
@@ -6609,7 +6613,7 @@ public class SyncMaster extends Activity {
                                             Createddate, sp.getString("username", ""),
                                             "SaveStock()", "Fail");
 
-                                    new syncAllData(flag).execute();
+                                    new syncAllData(ErroFlag).execute();
                                 }
                                 dissmissDialog();
                             } catch (Exception e) {
@@ -6639,6 +6643,11 @@ public class SyncMaster extends Activity {
                                 Createddate, sp.getString(
                                         "username", ""),
                                 "SaveStock()", "Fail");
+
+                        Toast.makeText(context,"Stock Data not upload",Toast.LENGTH_SHORT).show();
+
+                        new syncAllData(ErroFlag).execute();
+
                     }
                 }) {
                     @Override

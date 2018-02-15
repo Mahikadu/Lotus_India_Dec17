@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.prod.sudesi.lotusherbalsnew"
-    android:versionCode="2"
+    android:versionCode="20"
     android:versionName="2.8" >
 
     <uses-sdk
-        android:minSdkVersion="17"
-        android:targetSdkVersion="26" />
+        android:minSdkVersion="14"
+        android:targetSdkVersion="17" />
 
     <supports-screens android:xlargeScreens="true" />
     <supports-screens android:resizeable="true" />

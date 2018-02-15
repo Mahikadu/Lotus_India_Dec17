@@ -144,8 +144,14 @@ public class DashboardNewActivity extends Activity {
 
         //enableBroadcastReceiver();
 
+
+       /* db.open();
+        String a = db.getdatepresentorabsent(sp.getString("todaydate", ""), username = sp.getString("username", ""));
+        db.close();*/
+
         Intent intent = getIntent();
         if (intent != null) {
+     //       if(!a.equalsIgnoreCase("")){
             if (intent.getStringExtra("FROM") != null) {
                 String from26 = intent.getStringExtra("FROM");
                 if (from26.equals("RECEIVER")) {
@@ -171,7 +177,16 @@ public class DashboardNewActivity extends Activity {
                                                     spe.commit();
                                                     boolRecd = false;
                                                     // ClearLocalAppData();
-                                                    new InsertFirstTimeMaster().execute();
+                                                    db.open();
+                                                    Cursor c = db.fetchallOrder("product_master", null, null);
+
+
+                                                    if (c.getCount() > 0) {
+                                                        new InsertFirstTimeMaster().execute();
+                                                    } else {
+                                                        new InsertProductMaster().execute();
+                                                    }
+                                                    db.close();
 
                                                 }
                                             });
@@ -190,6 +205,10 @@ public class DashboardNewActivity extends Activity {
 
                 }
             }
+       /* }else{
+                Intent i = new Intent(this,AttendanceFragment.class);
+                startActivity(i);
+            }*/
 
         }
 
@@ -256,7 +275,7 @@ public class DashboardNewActivity extends Activity {
 
         }
 
-        AutologoutBroadcast();
+        //AutologoutBroadcast();
         //Boc26AlaramReceiver();
 
         btn_logout.setOnClickListener(new OnClickListener() {
@@ -3795,9 +3814,21 @@ public class DashboardNewActivity extends Activity {
                             public void onClick(DialogInterface dialog, int id) {
                                 //do things
                                 dialog.dismiss();
-                                Intent i = new Intent(DashboardNewActivity.this, DashboardNewActivity.class);
-                                //i.putExtra("Boc26",boolRecd);
-                                startActivity(i);
+
+                                db.open();
+                                String a = db.getdatepresentorabsent(sp.getString("todaydate", ""), username = sp.getString("username", ""));
+                                db.close();
+
+                                if(!a.equalsIgnoreCase("")){
+                                    Intent i = new Intent(DashboardNewActivity.this, DashboardNewActivity.class);
+                                    //i.putExtra("Boc26",boolRecd);
+                                    startActivity(i);
+                                }else{
+                                    Intent i = new Intent(DashboardNewActivity.this, AttendanceFragment.class);
+                                    i.putExtra("FromLoginpage", "L");
+                                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(i);
+                                }
                             }
                         });
                 AlertDialog alert = builder.create();
@@ -3838,6 +3869,822 @@ public class DashboardNewActivity extends Activity {
             alert.show();
         }
 
+
+    }
+
+    public class InsertProductMaster extends AsyncTask<Void, Void, SoapObject> {
+
+        private SoapObject soap_result = null;
+
+        private SoapObject soap_result_tester = null;
+
+        SoapObject soap_result1 = null;
+        SoapObject soap_result_tester1 = null;
+
+        String Flag;
+
+        @SuppressLint("NewApi")
+        @Override
+        protected SoapObject doInBackground(Void... params) {
+
+            if (!cd.isConnectingToInternet()) {
+                // Internet Connection is not present
+                // Toast.makeText(SyncMaster.this(),"Check Your Internet Connection!!!",
+                // Toast.LENGTH_LONG).show();
+
+                Flag = "0";
+                // stop executing code by return
+
+            } else {
+                Flag = "1";
+                // TODO Auto-generated method stub
+                Log.e("pm", "pm0");
+                db.open();
+                String lastdatesync = db.getLastSyncDate("product_master");
+                db.close();
+
+                Log.e("pm", "lastdatesync=" + lastdatesync);
+
+                soap_result = service.GetProducts(lastdatesync,
+                        sp.getString("username", ""));
+                // ,);
+
+                Log.e("pm", "pm1");
+                if (soap_result != null) {
+
+                    Log.e("pm",
+                            "count================="
+                                    + soap_result.getPropertyCount());
+
+                    for (int i = 0; i < soap_result.getPropertyCount(); i++) {
+
+                        soap_result1 = (SoapObject) soap_result.getProperty(i);
+
+                        Log.e("pm", "pm3");
+
+                        if (soap_result1.getProperty("Flag") != null) {
+
+                            if (soap_result1.getProperty("Flag").toString()
+                                    .equalsIgnoreCase("E")) {
+                                Log.e("pm", "pm4");
+                                try {
+
+                                    String d_id = soap_result1
+                                            .getProperty("ID").toString();
+
+                                    String product_category = soap_result1
+                                            .getProperty("ProductCategory")
+                                            .toString();
+                                    String product_type = soap_result1
+                                            .getProperty("ProductType")
+                                            .toString();
+                                    String product = soap_result1.getProperty(
+                                            "ProductName").toString();
+
+                                    String categoryid = soap_result1
+                                            .getProperty("CategoryId")
+                                            .toString();
+                                    String category = soap_result1.getProperty(
+                                            "Category").toString();
+                                    String shadeno = soap_result1.getProperty(
+                                            "ShadeNo").toString();
+                                    String eancode = soap_result1.getProperty(
+                                            "EANCode").toString();
+                                    String size = soap_result1.getProperty(
+                                            "Size").toString();
+                                    String mrp = soap_result1
+                                            .getProperty("MRP").toString();
+                                    String masterpackqty = soap_result1
+                                            .getProperty("MasterPackQty")
+                                            .toString();
+                                    String monopackqty = soap_result1
+                                            .getProperty("MonoPackQty")
+                                            .toString();
+                                    String innerqty = soap_result1.getProperty(
+                                            "InnerQty").toString();
+                                    String sku_l = soap_result1.getProperty(
+                                            "SKU_L").toString();
+                                    String sku_b = soap_result1.getProperty(
+                                            "SKU_B").toString();
+                                    String sku_h = soap_result1.getProperty(
+                                            "SKU_H").toString();
+                                    String price_type = soap_result1
+                                            .getPropertyAsString("OldNewStatus")
+                                            .toString();
+                                    String order_flag = soap_result1
+                                            .getPropertyAsString("order_flag")
+                                            .toString();
+                                    // String lmd =
+                                    // soap_result1.getProperty("LMD").toString();
+                                    String flag = soap_result1.getProperty(
+                                            "Flag").toString();
+
+                                    if (d_id.equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for d_id");
+                                        d_id = " ";
+                                    }
+                                    if (product_category
+                                            .equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for product");
+                                        product_category = " ";
+                                    }
+                                    if (product_type
+                                            .equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for producttype");
+                                        product_type = " ";
+                                    }
+                                    if (product.equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for product");
+                                        product = " ";
+                                    }
+                                    if (categoryid
+                                            .equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for categoryid");
+                                        categoryid = " ";
+                                    }
+                                    if (category.equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for category");
+                                        category = " ";
+                                    }
+                                    if (shadeno.equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for shadeno");
+                                        shadeno = " ";
+                                    }
+                                    if (eancode.equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for eancode");
+                                        eancode = " ";
+                                    }
+                                    if (size.equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for size");
+                                        size = " ";
+                                    }
+                                    if (mrp.equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for mrp");
+                                        mrp = " ";
+                                    }
+                                    if (masterpackqty
+                                            .equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for masterpackqty");
+                                        masterpackqty = " ";
+                                    }
+                                    if (monopackqty
+                                            .equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for monopackqty");
+                                        monopackqty = " ";
+                                    }
+                                    if (innerqty.equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for innerqty");
+                                        innerqty = " ";
+                                    }
+                                    if (sku_l.equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for sku_l");
+                                        sku_l = " ";
+                                    }
+                                    if (sku_b.equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for sku_b");
+                                        sku_b = " ";
+                                    }
+                                    if (sku_h.equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for sku_h");
+                                        sku_h = " ";
+                                    }
+                                    if (sku_h.equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for sku_h");
+                                        sku_h = " ";
+                                    }
+
+                                    if (d_id.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for d_id");
+                                        d_id = " ";
+                                    }
+                                    if (product_category
+                                            .equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for product");
+                                        product_category = " ";
+                                    }
+                                    if (product_type.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for producttype");
+                                        product_type = " ";
+                                    }
+                                    if (product.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for product");
+                                        product = " ";
+                                    }
+                                    if (categoryid.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for categoryid");
+                                        categoryid = " ";
+                                    }
+                                    if (category.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for category");
+                                        category = " ";
+                                    }
+                                    if (shadeno.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for shadeno");
+                                        shadeno = " ";
+                                    }
+                                    if (eancode.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for eancode");
+                                        eancode = " ";
+                                    }
+                                    if (size.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for size");
+                                        size = " ";
+                                    }
+                                    if (mrp.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for mrp");
+                                        mrp = " ";
+                                    }
+                                    if (masterpackqty.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for masterpackqty");
+                                        masterpackqty = " ";
+                                    }
+                                    if (monopackqty.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for monopackqty");
+                                        monopackqty = " ";
+                                    }
+                                    if (innerqty.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for innerqty");
+                                        innerqty = " ";
+                                    }
+                                    if (sku_l.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for sku_l");
+                                        sku_l = " ";
+                                    }
+                                    if (sku_b.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for sku_b");
+                                        sku_b = " ";
+                                    }
+                                    if (sku_h.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for sku_h");
+                                        sku_h = " ";
+                                    }
+                                    if (sku_h.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for sku_h");
+                                        sku_h = " ";
+                                    }
+                                    /*
+                                     * if (order_flag!=null ||
+									 * order_flag.equalsIgnoreCase("NULL")) {
+									 * Log.e("", "anytype for sku_h");
+									 * order_flag = " "; }
+									 */
+
+                                    Log.v("", "flag=" + flag);
+                                    // if (flag.equalsIgnoreCase("E")) {
+
+                                    Log.e("pm", "pm5--");
+                                    db.open();
+                                    Cursor c = db.getuniquedata(categoryid,
+                                            eancode, d_id, "product_master");
+
+                                    int count = c.getCount();
+                                    Log.v("", "" + count);
+                                    db.close();
+                                    if (count > 0) {
+
+                                        Log.v("", "data already available");
+
+                                        db.open();
+                                        db.UpdateProductMaster(
+                                                product_category,
+                                                product_type.trim(), product,
+                                                d_id, categoryid, category,
+                                                shadeno, eancode, size, mrp,
+                                                masterpackqty, monopackqty,
+                                                innerqty, sku_l, sku_b, sku_h,
+                                                price_type, order_flag);
+                                        db.close();
+
+                                    } else {
+
+                                        Log.e("pm", "pm5");
+
+                                        db.open();
+                                        db.insertProductMaster(
+                                                product_category,
+                                                product_type.trim(), product,
+                                                d_id, categoryid, category,
+                                                shadeno, eancode, size, mrp,
+                                                masterpackqty, monopackqty,
+                                                innerqty, sku_l, sku_b, sku_h,
+                                                price_type, order_flag);
+                                        db.close();
+
+                                    }
+
+                                    // }
+
+                                } catch (Exception e) {
+                                    // TODO: handle exception
+                                    e.printStackTrace();
+                                    String error = e.toString();
+                                    final Calendar calendar1 = Calendar
+                                            .getInstance();
+                                    SimpleDateFormat formatter1 = new SimpleDateFormat(
+                                            "MM/dd/yyyy HH:mm:ss");
+                                    String Createddate = formatter1
+                                            .format(calendar1.getTime());
+
+                                    int n = Thread.currentThread()
+                                            .getStackTrace()[2].getLineNumber();
+                                    db.insertSyncLog(error, String.valueOf(n),
+                                            "GetProducts()", Createddate,
+                                            Createddate,
+                                            sp.getString("username", ""),
+                                            "GetProducts", "Fail");
+                                }
+
+                            } else if (soap_result1.getProperty("Flag")
+                                    .toString().equalsIgnoreCase("D")) {
+
+                                Log.e("pm", "pm6");
+                                db.open();
+                                db.deletproductmaster("", "", soap_result1
+                                                .getProperty("ID").toString(),
+                                        "product_master");
+                                db.close();
+
+                            }
+                        } else if (soap_result1.getProperty("status").toString()
+                                .equalsIgnoreCase("C")) {
+                            Log.e("pm", "pm7");
+
+                            SimpleDateFormat dateFormat = new SimpleDateFormat(
+                                    "MM/dd/yyyy HH:mm:ss");
+                            // get current date time with Date()
+                            Calendar cal = Calendar.getInstance();
+                            // dateFormat.format(cal.getTime())
+                            db.open();
+                            db.updateDateSync(dateFormat.format(cal.getTime()),
+                                    "product_master");
+                            db.close();
+
+                        } else if (soap_result1.getProperty("status")
+                                .toString().equalsIgnoreCase("SE")) {
+                            Log.e("pm", "pm7");
+
+                            final Calendar calendar1 = Calendar.getInstance();
+                            SimpleDateFormat formatter1 = new SimpleDateFormat(
+                                    "MM/dd/yyyy HH:mm:ss");
+                            String Createddate = formatter1.format(calendar1
+                                    .getTime());
+
+                            int n = Thread.currentThread().getStackTrace()[2]
+                                    .getLineNumber();
+                            db.insertSyncLog("GetProducts_SE",
+                                    String.valueOf(n), "GetProducts()",
+                                    Createddate, Createddate,
+                                    sp.getString("username", ""),
+                                    "GetProducts", "Fail");
+                        }
+                    }
+
+                } else {
+                    Log.v("", "Soap result is null");
+                    // Toast.makeText(context,
+                    // "Data Not Available or Check Connectivity",
+                    // Toast.LENGTH_SHORT).show();
+
+                    final Calendar calendar1 = Calendar.getInstance();
+                    SimpleDateFormat formatter1 = new SimpleDateFormat(
+                            "MM/dd/yyyy HH:mm:ss");
+                    String Createddate = formatter1.format(calendar1.getTime());
+
+                    int n = Thread.currentThread().getStackTrace()[2]
+                            .getLineNumber();
+                    db.insertSyncLog(
+                            "Internet Connection Lost, Soap in giving null while 'GetProducts'",
+                            String.valueOf(n), "GetProducts()", Createddate,
+                            Createddate, sp.getString("username", ""),
+                            "GetProducts", "Fail");
+                }
+
+                db.open();
+                String lastdatesyncdate_tester = db
+                        .getLastSyncDate("tester_master");
+                db.close();
+                Log.e("pm", "lastdatesyncdate_tester="
+                        + lastdatesyncdate_tester);
+
+                soap_result_tester = service.GetTesterProducts(
+                        lastdatesyncdate_tester, sp.getString("username", ""));
+                // ,);
+
+                Log.e("pm", "pm1");
+                if (soap_result_tester != null) {
+
+                    for (int i = 0; i < soap_result_tester.getPropertyCount(); i++) {
+                        Log.e("pm", "pm2");
+
+                        soap_result_tester1 = (SoapObject) soap_result_tester
+                                .getProperty(i);
+
+                        Log.e("pm", "pm3");
+
+                        if (soap_result_tester1.getProperty("Flag") != null) {
+
+                            if (soap_result_tester1.getProperty("Flag")
+                                    .toString().equalsIgnoreCase("E")) {
+                                Log.e("pm", "pm4");
+                                try {
+
+                                    String server_db_id = soap_result_tester1
+                                            .getProperty("ID").toString();
+                                    String product_id = soap_result_tester1
+                                            .getPropertyAsString("ProductID");
+
+                                    String product_category = soap_result_tester1
+                                            .getProperty("ProductCategory")
+                                            .toString();
+                                    String product_type = soap_result_tester1
+                                            .getProperty("ProductType")
+                                            .toString();
+                                    String product = soap_result_tester1
+                                            .getProperty("ProductName")
+                                            .toString();
+
+                                    String categoryid = soap_result_tester1
+                                            .getProperty("CategoryId")
+                                            .toString();
+                                    String category = soap_result_tester1
+                                            .getProperty("Category").toString();
+                                    String shadeno = soap_result_tester1
+                                            .getProperty("ShadeNo").toString();
+                                    String eancode = soap_result_tester1
+                                            .getProperty("EANCode").toString();
+                                    String size = soap_result_tester1
+                                            .getProperty("Size").toString();
+                                    String mrp = soap_result_tester1
+                                            .getProperty("MRP").toString();
+                                    String masterpackqty = soap_result_tester1
+                                            .getProperty("MasterPackQty")
+                                            .toString();
+                                    String monopackqty = soap_result_tester1
+                                            .getProperty("MonoPackQty")
+                                            .toString();
+                                    String innerqty = soap_result_tester1
+                                            .getProperty("InnerQty").toString();
+                                    String sku_l = soap_result_tester1
+                                            .getProperty("SKU_L").toString();
+                                    String sku_b = soap_result_tester1
+                                            .getProperty("SKU_B").toString();
+                                    String sku_h = soap_result_tester1
+                                            .getProperty("SKU_H").toString();
+                                    String price_type = soap_result_tester1
+                                            .getPropertyAsString("OldNewStatus")
+                                            .toString();
+                                    // String lmd =
+                                    // soap_result1.getProperty("LMD").toString();
+                                    String flag = soap_result_tester1
+                                            .getProperty("Flag").toString();
+
+                                    if (server_db_id
+                                            .equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for server_db_id");
+                                        server_db_id = " ";
+                                    }
+
+                                    if (product_id
+                                            .equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for server_db_id");
+                                        product_id = " ";
+                                    }
+
+                                    if (product_category
+                                            .equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for product");
+                                        product_category = " ";
+                                    }
+                                    if (product_type
+                                            .equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for producttype");
+                                        product_type = " ";
+                                    }
+                                    if (product.equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for product");
+                                        product = " ";
+                                    }
+                                    if (categoryid
+                                            .equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for categoryid");
+                                        categoryid = " ";
+                                    }
+                                    if (category.equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for category");
+                                        category = " ";
+                                    }
+                                    if (shadeno.equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for shadeno");
+                                        shadeno = " ";
+                                    }
+                                    if (eancode.equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for eancode");
+                                        eancode = " ";
+                                    }
+                                    if (size.equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for size");
+                                        size = " ";
+                                    }
+                                    if (mrp.equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for mrp");
+                                        mrp = " ";
+                                    }
+                                    if (masterpackqty
+                                            .equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for masterpackqty");
+                                        masterpackqty = " ";
+                                    }
+                                    if (monopackqty
+                                            .equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for monopackqty");
+                                        monopackqty = " ";
+                                    }
+                                    if (innerqty.equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for innerqty");
+                                        innerqty = " ";
+                                    }
+                                    if (sku_l.equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for sku_l");
+                                        sku_l = " ";
+                                    }
+                                    if (sku_b.equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for sku_b");
+                                        sku_b = " ";
+                                    }
+                                    if (sku_h.equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for sku_h");
+                                        sku_h = " ";
+                                    }
+                                    if (sku_h.equalsIgnoreCase("anyType{}")) {
+                                        Log.e("", "anytype for sku_h");
+                                        sku_h = " ";
+                                    }
+
+                                    if (server_db_id.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for server_db_id");
+                                        server_db_id = " ";
+                                    }
+                                    if (product_id.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for product_id");
+                                        product_id = " ";
+                                    }
+                                    if (product_category
+                                            .equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for product");
+                                        product_category = " ";
+                                    }
+                                    if (product_type.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for producttype");
+                                        product_type = " ";
+                                    }
+                                    if (product.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for product");
+                                        product = " ";
+                                    }
+                                    if (categoryid.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for categoryid");
+                                        categoryid = " ";
+                                    }
+                                    if (category.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for category");
+                                        category = " ";
+                                    }
+                                    if (shadeno.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for shadeno");
+                                        shadeno = " ";
+                                    }
+                                    if (eancode.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for eancode");
+                                        eancode = " ";
+                                    }
+                                    if (size.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for size");
+                                        size = " ";
+                                    }
+                                    if (mrp.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for mrp");
+                                        mrp = " ";
+                                    }
+                                    if (masterpackqty.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for masterpackqty");
+                                        masterpackqty = " ";
+                                    }
+                                    if (monopackqty.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for monopackqty");
+                                        monopackqty = " ";
+                                    }
+                                    if (innerqty.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for innerqty");
+                                        innerqty = " ";
+                                    }
+                                    if (sku_l.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for sku_l");
+                                        sku_l = " ";
+                                    }
+                                    if (sku_b.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for sku_b");
+                                        sku_b = " ";
+                                    }
+                                    if (sku_h.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for sku_h");
+                                        sku_h = " ";
+                                    }
+                                    if (sku_h.equalsIgnoreCase("NULL")) {
+                                        Log.e("", "anytype for sku_h");
+                                        sku_h = " ";
+                                    }
+
+                                    Log.v("", "flag=" + flag);
+                                    if (flag.equalsIgnoreCase("E")) {
+
+                                        Log.e("pm", "pm5--");
+                                        db.open();
+                                        Cursor c = db.getuniquedata(categoryid,
+                                                eancode, product_id,
+                                                "tester_master");
+
+                                        int count = c.getCount();
+                                        Log.v("", "" + count);
+                                        db.close();
+                                        if (count > 0) {
+
+                                            Log.v("", "data already available");
+
+                                            db.open();
+                                            db.UpdateTesterMaster(
+                                                    product_category,
+                                                    product_type.trim(),
+                                                    product, server_db_id,
+                                                    product_id, categoryid,
+                                                    category, shadeno, eancode,
+                                                    size, mrp, masterpackqty,
+                                                    monopackqty, innerqty,
+                                                    sku_l, sku_b, sku_h,
+                                                    price_type);
+                                            db.close();
+
+                                        } else {
+
+                                            Log.e("pm", "pm5");
+                                            db.open();
+                                            db.insertTesterMaster(
+                                                    product_category,
+                                                    product_type.trim(),
+                                                    product, server_db_id,
+                                                    product_id, categoryid,
+                                                    category, shadeno, eancode,
+                                                    size, mrp, masterpackqty,
+                                                    monopackqty, innerqty,
+                                                    sku_l, sku_b, sku_h,
+                                                    price_type);
+                                            db.close();
+
+                                        }
+
+                                    }
+
+                                } catch (Exception e) {
+                                    // TODO: handle exception
+                                    e.printStackTrace();
+                                    String error = e.toString();
+                                    final Calendar calendar1 = Calendar
+                                            .getInstance();
+                                    SimpleDateFormat formatter1 = new SimpleDateFormat(
+                                            "MM/dd/yyyy HH:mm:ss");
+                                    String Createddate = formatter1
+                                            .format(calendar1.getTime());
+
+                                    int n = Thread.currentThread()
+                                            .getStackTrace()[2].getLineNumber();
+                                    db.insertSyncLog(error, String.valueOf(n),
+                                            "GetTesterProducts()", Createddate,
+                                            Createddate,
+                                            sp.getString("username", ""),
+                                            "GetTesterProducts()", "Fail");
+                                }
+
+                            } else if (soap_result_tester1.getProperty("Flag")
+                                    .toString().equalsIgnoreCase("D")) {
+
+                                Log.e("pm", "pm6");
+                                db.open();
+                                db.deletproductmaster("", "",
+                                        soap_result_tester1.getProperty("ID")
+                                                .toString(), "tester_master");
+                                db.close();
+
+                            }
+                        } else if (soap_result_tester1.getProperty("status")
+                                .toString().equalsIgnoreCase("C")) {
+                            Log.e("pm", "pm7");
+
+                            SimpleDateFormat dateFormat = new SimpleDateFormat(
+                                    "MM/dd/yyyy HH:mm:ss");
+                            // get current date time with Date()
+                            Calendar cal = Calendar.getInstance();
+                            // dateFormat.format(cal.getTime())
+                            db.open();
+                            db.updateDateSync(dateFormat.format(cal.getTime()),
+                                    "tester_master");
+                            db.close();
+
+                        } else if (soap_result_tester1.getProperty("status")
+                                .toString().equalsIgnoreCase("SE")) {
+                            Log.e("pm", "pm7");
+
+                            final Calendar calendar1 = Calendar.getInstance();
+                            SimpleDateFormat formatter1 = new SimpleDateFormat(
+                                    "MM/dd/yyyy HH:mm:ss");
+                            String Createddate = formatter1.format(calendar1
+                                    .getTime());
+
+                            int n = Thread.currentThread().getStackTrace()[2]
+                                    .getLineNumber();
+                            db.insertSyncLog("GetTesterProducts_SE",
+                                    String.valueOf(n), "GetTesterProducts()",
+                                    Createddate, Createddate,
+                                    sp.getString("username", ""),
+                                    "GetTesterProducts()", "Fail");
+                        }
+                    }
+
+                } else {
+                    Log.v("", "Soap result is null");
+                    // Toast.makeText(context,
+                    // "Data Not Available or Check Connectivity",
+                    // Toast.LENGTH_SHORT).show();
+
+                    final Calendar calendar1 = Calendar.getInstance();
+                    SimpleDateFormat formatter1 = new SimpleDateFormat(
+                            "MM/dd/yyyy HH:mm:ss");
+                    String Createddate = formatter1.format(calendar1.getTime());
+
+                    int n = Thread.currentThread().getStackTrace()[2]
+                            .getLineNumber();
+                    db.insertSyncLog(
+                            "Internet Connection Lost, Soap in giving null while 'GetTesterProducts'",
+                            String.valueOf(n), "GetTesterProducts()",
+                            Createddate, Createddate,
+                            sp.getString("username", ""),
+                            "GetTesterProducts()", "Fail");
+                }
+            }
+            return soap_result;
+        }
+
+        @Override
+        protected void onPostExecute(SoapObject result) {
+
+            // TODO Auto-generated method stub
+            super.onPostExecute(result);
+
+            mProgress.dismiss();
+            if (Flag.equalsIgnoreCase("0")) {
+
+               // DisplayDialogMessage("Check Your Internet Connection!!!");
+                /*
+                Toast.makeText(SyncMaster.this,
+						"Check Your Internet Connection!!!", Toast.LENGTH_LONG)
+						.show();*/
+            } else {
+                if (soap_result == null) {
+
+                   // DisplayDialogMessage("Master Data Sync Incomplete, Please try again!!");
+					/*Toast.makeText(context,
+							"Master Data Sync Incomplete, Please try again!!",
+							Toast.LENGTH_SHORT).show();*/
+
+                } else if (soap_result1.getProperty("status").toString()
+                        .equalsIgnoreCase("C")) {
+
+                    new InsertFirstTimeMaster().execute();
+                    //DisplayDialogMessage("Master Data Completed Successfully!!");
+
+				/*	Toast.makeText(context,
+							"Master Data Completed Successfully!!",
+							Toast.LENGTH_SHORT).show();*/
+
+                } else if (soap_result1.getProperty("status").toString()
+                        .equalsIgnoreCase("SE")) {
+
+                   // DisplayDialogMessage("Master Data Sync Incomplete please try again!!");
+					/*Toast.makeText(context,
+							"Master Data Sync Incomplete please try again!!",
+							Toast.LENGTH_SHORT).show();*/
+                }
+
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+            super.onPreExecute();
+
+            mProgress.setMessage("Receiving.....");
+            mProgress.show();
+            mProgress.setCancelable(false);
+        }
 
     }
 

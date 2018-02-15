@@ -1,5 +1,6 @@
 package com.prod.sudesi.lotusherbalsnew;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -21,6 +22,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.os.SystemClock;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -110,9 +113,10 @@ public class LoginActivity extends Activity {
     String deviceId = "";
     String loginstaus = "";
     String LogoutStatus = "";
+    private static final int LOCATION_PERMISSION_ID = 1001;
 
     //Production
-    /*public static final String  downloadURL = "http://lotussmartforce.com/apk/Lotus_Pro.apk"; //production
+   /* public static final String  downloadURL = "http://lotussmartforce.com/apk/Lotus_Pro.apk"; //production
     public static final String downloadConfigFile = "http://lotussmartforce.com/apk/config.txt";//production*/
 
     //UAT
@@ -135,6 +139,7 @@ public class LoginActivity extends Activity {
 
         //////////Crash Report
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
+
 
         btn_login = (Button) findViewById(R.id.btn_login);
         edt_username = (EditText) findViewById(R.id.edt_username);
@@ -174,7 +179,7 @@ public class LoginActivity extends Activity {
         deviceId = telephonyManager.getDeviceId();
 
         exportDB();
-
+        AutologoutBroadcast();
         refreshDisplay();
         btn_login.setOnClickListener(new OnClickListener() {
 
@@ -265,10 +270,10 @@ public class LoginActivity extends Activity {
             Calendar calendar = Calendar.getInstance();
             Calendar setcalendar = Calendar.getInstance();
             setcalendar.setTimeInMillis(System.currentTimeMillis());
-            setcalendar.set(Calendar.HOUR_OF_DAY, 7);
+            setcalendar.set(Calendar.HOUR_OF_DAY, 6);
             setcalendar.set(Calendar.MINUTE, 0);
             setcalendar.set(Calendar.SECOND, 0);
-            setcalendar.set(Calendar.DAY_OF_MONTH, 15);
+            setcalendar.set(Calendar.DAY_OF_MONTH, 16);
 
             SimpleDateFormat dateFormat = new SimpleDateFormat(
                     "MM/dd/yyyy HH:mm:ss");
@@ -281,16 +286,16 @@ public class LoginActivity extends Activity {
                 syncDate = "";
             }
 
-            Calendar now = Calendar.getInstance();
+            /*Calendar now = Calendar.getInstance();
             int currentMonth = now.get(calendar.MONTH);
             int currentYear = now.get(Calendar.YEAR);
 
-            String boc26date = String.valueOf(currentMonth)+"-26-"+String.valueOf(currentYear);
-            SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+            String boc26date = String.valueOf(currentMonth)+"/15/"+String.valueOf(currentYear);
+            SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
             Date bocdate = format.parse(boc26date);
-            Date current = format.parse(currentDate);
+            Date current = format.parse(currentDate);*/
 
-            if (calendar.get(Calendar.DAY_OF_MONTH) == 26 || current.after(bocdate) && (sp.getBoolean("BOC26", false) || !currentDate.equals(syncDate))) {
+            if (calendar.get(Calendar.DAY_OF_MONTH) == 16 && (sp.getBoolean("BOC26", false) || !currentDate.equals(syncDate))) {
                 boolean boc26 = true;
 
                 spe.putBoolean("BOC26", boc26);
@@ -2240,6 +2245,34 @@ public class LoginActivity extends Activity {
             }
         }
     }
+
+    public void AutologoutBroadcast() {
+        try {
+
+            AlarmManager mAlarmManger = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+            //Create pending intent & register it to your alarm notifier class
+            Intent broadCastIntent = new Intent(this, MyScheduledReceiver.class);
+            broadCastIntent.putExtra("uur", "1e"); // if you want
+            boolean alarmRunning = (PendingIntent.getBroadcast(this, 0, broadCastIntent, PendingIntent.FLAG_NO_CREATE) != null);
+            if (!alarmRunning) {
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, broadCastIntent, 0);
+                //set timer you want alarm to work (here I have set it to 7.00)
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.HOUR_OF_DAY, 5);  //24
+                calendar.set(Calendar.MINUTE, 0);   //0
+                calendar.set(Calendar.SECOND, 0);
+
+                //set that timer as a RTC Wakeup to alarm manager object
+                mAlarmManger.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
 
 }
