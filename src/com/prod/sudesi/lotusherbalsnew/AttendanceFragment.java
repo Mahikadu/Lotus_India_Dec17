@@ -1474,8 +1474,9 @@ public class AttendanceFragment extends Activity implements OnClickListener {
         protected void onPostExecute(SoapObject result) {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
-
-            mProgress.dismiss();
+            if ((mProgress != null) && mProgress.isShowing()) {
+                mProgress.dismiss();
+            }
             if (Flag.equalsIgnoreCase("3")) {
 
                 Toast.makeText(getApplicationContext(), "Connectivity Error Please check internet ", Toast.LENGTH_SHORT).show();

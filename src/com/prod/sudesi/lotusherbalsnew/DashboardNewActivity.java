@@ -306,9 +306,14 @@ public class DashboardNewActivity extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
+                if (cd.isCurrentDateMatchDeviceDate()) {
 
-                startActivity(new Intent(getApplicationContext(),
-                        StockNewActivity.class));
+                    startActivity(new Intent(getApplicationContext(),
+                            StockNewActivity.class));
+                }else{
+                    Toast.makeText(DashboardNewActivity.this, "Your Handset Date Not Match Current Date", Toast.LENGTH_LONG).show();
+
+                }
 
             }
         });
@@ -355,8 +360,15 @@ public class DashboardNewActivity extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                startActivity(new Intent(getApplicationContext(),
-                        SyncMaster.class));
+                if (cd.isCurrentDateMatchDeviceDate()) {
+
+                    startActivity(new Intent(getApplicationContext(),
+                            SyncMaster.class));
+                }else{
+                    Toast.makeText(DashboardNewActivity.this, "Your Handset Date Not Match Current Date", Toast.LENGTH_LONG).show();
+
+                }
+
 
             }
         });
@@ -404,8 +416,14 @@ public class DashboardNewActivity extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                startActivity(new Intent(getApplicationContext(),
-                        SaleNewActivity.class));
+                if (cd.isCurrentDateMatchDeviceDate()) {
+
+                    startActivity(new Intent(getApplicationContext(),
+                            SaleNewActivity.class));
+                }else{
+                    Toast.makeText(DashboardNewActivity.this, "Your Handset Date Not Match Current Date", Toast.LENGTH_LONG).show();
+
+                }
 
             }
         });
@@ -3844,6 +3862,20 @@ public class DashboardNewActivity extends Activity {
             } else if (Flag.equalsIgnoreCase("4")) {
 
                 DisplayDialogMessage("Data Download Incomplete!!,Please try again after some time");
+
+                db.open();
+                String a = db.getdatepresentorabsent(sp.getString("todaydate", ""), username = sp.getString("username", ""));
+                db.close();
+
+                if(!a.equalsIgnoreCase("")){
+                    Intent i = new Intent(DashboardNewActivity.this, DashboardNewActivity.class);
+                    startActivity(i);
+                }else{
+                    Intent i = new Intent(DashboardNewActivity.this, AttendanceFragment.class);
+                    i.putExtra("FromLoginpage", "L");
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                }
 
             } else {
 

@@ -207,7 +207,12 @@ public class SyncMaster extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                new InsertFirstTimeMaster().execute();
+                if(cd.isCurrentDateMatchDeviceDate()) {
+                    new InsertFirstTimeMaster().execute();
+                }else{
+                    Toast.makeText(SyncMaster.this, "Your Handset Date Not Match Current Date", Toast.LENGTH_LONG).show();
+
+                }
             }
         });
 
@@ -247,7 +252,12 @@ public class SyncMaster extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                uploaddata();
+                if(cd.isCurrentDateMatchDeviceDate()) {
+                    uploaddata();
+                }else{
+                    Toast.makeText(SyncMaster.this, "Your Handset Date Not Match Current Date", Toast.LENGTH_LONG).show();
+
+                }
                 //new syncAllData(flag).execute();
 
             }
@@ -259,7 +269,12 @@ public class SyncMaster extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                new InsertProductMaster().execute();
+                if(cd.isCurrentDateMatchDeviceDate()) {
+                    new InsertProductMaster().execute();
+                }else{
+                    Toast.makeText(SyncMaster.this, "Your Handset Date Not Match Current Date", Toast.LENGTH_LONG).show();
+
+                }
             }
         });
 

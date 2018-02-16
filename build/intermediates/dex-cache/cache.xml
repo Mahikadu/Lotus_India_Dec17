@@ -3,12 +3,12 @@
 
     <item
         is-multidex="false"
-        jar="C:\Users\Mahesh\.android\build-cache\e94f21662dffa3161354ce2c6d4d96908e8d4dc6\output\jars\classes.jar"
+        jar="D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\libs\littlefluffylocationlibrary_r15.jar"
         jumboMode="false"
         optimize="true"
         revision="27.0.1"
-        sha1="9bdfc3e83c6bc1f8bc5807cdaf7e94ac884a2a0d">
-        <dex dex="D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\build\intermediates\pre-dexed\debug\classes_ef162343bb5061f5a31cbc7e9bd967b6498698c8.jar" />
+        sha1="b0c58bb48f671992c2e186cebc8587187d108699">
+        <dex dex="D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\build\intermediates\pre-dexed\debug\littlefluffylocationlibrary_r15_8529227c974ef013b56805e68e03bf3e4316280f.jar" />
     </item>
     <item
         is-multidex="false"
@@ -39,12 +39,12 @@
     </item>
     <item
         is-multidex="false"
-        jar="D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\libs\littlefluffylocationlibrary_r15.jar"
+        jar="C:\Users\Mahesh\.android\build-cache\e94f21662dffa3161354ce2c6d4d96908e8d4dc6\output\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="27.0.1"
-        sha1="b0c58bb48f671992c2e186cebc8587187d108699">
-        <dex dex="D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\build\intermediates\pre-dexed\debug\littlefluffylocationlibrary_r15_8529227c974ef013b56805e68e03bf3e4316280f.jar" />
+        sha1="9bdfc3e83c6bc1f8bc5807cdaf7e94ac884a2a0d">
+        <dex dex="D:\Mahi\My Project\LotusProject Details\Lotus_India_Dec17\Lotus_India_Dec17\build\intermediates\pre-dexed\debug\classes_ef162343bb5061f5a31cbc7e9bd967b6498698c8.jar" />
     </item>
 
 </items>

@@ -18,6 +18,7 @@ import android.database.Cursor;
 import android.net.ParseException;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
@@ -188,39 +189,41 @@ public class LoginActivity extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 //LoginUser();
-                try {
-                    if (cd.isConnectingToInternet()) {
+                //if(isPermissionGranted()) {
+                    try {
+                        if (cd.isConnectingToInternet()) {
 
-                        username = edt_username.getText().toString()
-                                .toUpperCase();
-                        pass = edt_password.getText().toString();
+                            username = edt_username.getText().toString()
+                                    .toUpperCase();
+                            pass = edt_password.getText().toString();
 
-                        PackageInfo info = null;
-                        PackageManager manager = getPackageManager();
-                        info = manager.getPackageInfo(getPackageName(), 0);
+                            PackageInfo info = null;
+                            PackageManager manager = getPackageManager();
+                            info = manager.getPackageInfo(getPackageName(), 0);
 
-                        String packageName = info.packageName;
-                        int versionCode = info.versionCode;
-                        VERSION_NAME = info.versionName;
-                        OS_VERSION = String.valueOf(android.os.Build.VERSION.SDK_INT);
+                            String packageName = info.packageName;
+                            int versionCode = info.versionCode;
+                            VERSION_NAME = info.versionName;
+                            OS_VERSION = String.valueOf(android.os.Build.VERSION.SDK_INT);
 
-                        if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(pass) && !TextUtils.isEmpty(VERSION_NAME)) {
-                            // TODO check apk version
-                            new SyncApkCheck().execute();
+                            if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(pass) && !TextUtils.isEmpty(VERSION_NAME)) {
+                                // TODO check apk version
+                                new SyncApkCheck().execute();
+
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Fields Cannot be Empty", Toast.LENGTH_SHORT).show();
+
+                            }
+
 
                         } else {
-                            Toast.makeText(getApplicationContext(), "Fields Cannot be Empty", Toast.LENGTH_SHORT).show();
-
+                            Toast.makeText(getApplicationContext(), "Please Check Internet Connection.", Toast.LENGTH_SHORT).show();
                         }
 
-
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Please Check Internet Connection.", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+              //  }
 
             }
 
@@ -347,6 +350,16 @@ public class LoginActivity extends Activity {
         private SoapPrimitive soap_result2 = null;
 
         String Flag = "";
+
+        @Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+
+            pd.setMessage("Please Wait....");
+            pd.show();
+            pd.setCancelable(false);
+
+        }
 
         @Override
         protected SoapObject doInBackground(Void... params) {
@@ -653,7 +666,10 @@ public class LoginActivity extends Activity {
         protected void onPostExecute(SoapObject result) {
             // TODO Auto-generated method stub
 
-            pd.dismiss();
+            if ((pd != null) && pd.isShowing()) {
+                pd.dismiss();
+            }
+
             try {
                 if (soap_result != null) {
                     if (!Flag.equalsIgnoreCase("0")) {
@@ -851,15 +867,6 @@ public class LoginActivity extends Activity {
 
         }
 
-        @Override
-        protected void onPreExecute() {
-            // TODO Auto-generated method stub
-
-            pd.setMessage("Please Wait....");
-            pd.show();
-            pd.setCancelable(false);
-
-        }
 
     }
 
@@ -966,7 +973,9 @@ public class LoginActivity extends Activity {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
 
-            pd.dismiss();
+            if ((pd != null) && pd.isShowing()) {
+                pd.dismiss();
+            }
             if (Flag.equalsIgnoreCase("0")) {
 
                 Toast.makeText(LoginActivity.this,
@@ -1921,7 +1930,10 @@ public class LoginActivity extends Activity {
         protected void onPostExecute(Boolean result) {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
-            mprogress.dismiss();
+            if ((mprogress != null) && mprogress.isShowing()) {
+                mprogress.dismiss();
+            }
+
             if (result != null) {
                 if (result) {
                     Toast.makeText(LoginActivity.this, "New Apk Version has been Installed..!", Toast.LENGTH_SHORT).show();
@@ -2192,11 +2204,17 @@ public class LoginActivity extends Activity {
         protected void onPostExecute(SoapPrimitive result) {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
-            mProgress.dismiss();
+            if ((mProgress != null) && mProgress.isShowing()) {
+                mProgress.dismiss();
+            }
+
             try {
                 if (result != null) {
 
                     serverdate = server_date_result.toString();
+
+                    spe.putString("SERVER_DATE", serverdate);
+                    spe.commit();
 
                     final Calendar calendar1 = Calendar
                             .getInstance();
@@ -2208,6 +2226,7 @@ public class LoginActivity extends Activity {
 //                            String date = "8/29/2011 11:16:12 AM";
                     String[] parts = serverdate.split(" ");
                     String serverdd = parts[0];
+
 
                     if (systemdate != null && serverdd != null
                             && systemdate.equalsIgnoreCase(serverdd)) {
@@ -2269,9 +2288,27 @@ public class LoginActivity extends Activity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
+    /*public  boolean isPermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Log.v("TAG","Permission is granted");
+                return true;
+            } else {
 
+                Log.v("TAG","Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, 2);
+                return false;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            Log.v("TAG","Permission is granted");
+            return true;
+        }
+    }*/
 
 
 
